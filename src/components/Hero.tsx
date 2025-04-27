@@ -8,15 +8,16 @@ export const Hero = () => {
       <div className="absolute inset-0 grid-pattern"></div>
       <Container>
         <div className="max-w-4xl mx-auto text-center">
-          {/* Updated subtitle styling: Adjusted gradient for less transparency */}
-          <p className="text-lg md:text-xl mb-4 animate-fade-in font-semibold 
-                      bg-gradient-to-l from-brand-blue via-brand-blue to-blue-300 
-                      bg-clip-text text-transparent">
-            Become the #1 Authority in Your Space
+          {/* Updated subtitle rotation */}
+          <p className="inline-block text-lg md:text-xl mb-4 animate-fade-in font-normal 
+                      bg-[#313130] text-white 
+                      px-4 py-1 rounded-full 
+                      transform rotate-3">
+            ✨ Become the #1 Authority in Your Space ✨
           </p>
           
           {/* Updated H1 with new line breaks */}
-          <h1 className="text-[80px] font-bold text-black leading-none mb-5 animate-fade-in">
+          <h1 className="text-[80px] font-bold text-black leading-none mb-10 animate-fade-in">
             Transform your <br /> SaaS into a{' '} <br />
             {/* Updated span styling */}
             <span style={{
@@ -27,7 +28,7 @@ export const Hero = () => {
               display: 'inline-block', /* Needed for transform */
               transform: 'rotate(-2deg)' /* Added rotation */
             }}>
-              revenue machine
+              revenue machine.
             </span>
           </h1>
           

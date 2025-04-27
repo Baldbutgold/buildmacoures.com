@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font face for Polysans Bulky */
+@font-face {
+  font-family: 'Polysans Bulky';
+  src: url('/fonts/Polysans-Bulky.woff2') format('woff2'), 
+       url('/fonts/Polysans-Bulky.woff') format('woff'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Add Font face for Polysans Slim */
+@font-face {
+  font-family: 'Polysans Slim';
+  /* Update this path if your font files are located elsewhere */
+  src: url('/fonts/Polysans-Slim.woff2') format('woff2'), 
+       url('/fonts/Polysans-Slim.woff') format('woff'); 
+  font-weight: 400; /* Corresponds to font-normal */
+  font-style: normal;
+}
+
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-900;
+    /* Default body font */
+    font-family: 'Polysans Bulky', Arial, sans-serif; 
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(53, 183, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(53, 183, 255, 0.1) 1px, transparent 1px);
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

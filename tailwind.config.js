@@ -3,10 +3,11 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      // Restore custom colors (or add if they were fully removed)
       colors: {
         brand: {
           black: '#000000',
-          blue: '#35B7FF',
+          blue: '#35B7FF', // Original blue
           white: '#FFFFFF'
         }
       },

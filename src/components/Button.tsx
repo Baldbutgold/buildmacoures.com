@@ -8,14 +8,17 @@ export const Button = ({
   className = '',
   onClick,
 }: ButtonProps) => {
+  // Revert to original base classes
   const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
+  // Revert to original variant classes (using the desired blue for primary/secondary)
   const variantClasses = {
-    primary: 'bg-orange-500 text-white hover:bg-orange-600 focus:ring-orange-500',
-    secondary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600',
-    outline: 'border-2 border-orange-500 text-orange-500 hover:bg-orange-50 focus:ring-orange-500'
+    primary: 'bg-[rgb(68,177,255)] text-white hover:bg-blue-600 focus:ring-blue-500', // Use specific blue
+    secondary: 'bg-[rgb(68,177,255)] text-white hover:bg-blue-600 focus:ring-blue-500', // Use specific blue
+    outline: 'border-2 border-[rgb(68,177,255)] text-[rgb(68,177,255)] hover:bg-blue-50 focus:ring-blue-500' // Use specific blue
   };
   
+  // Revert to original size classes
   const sizeClasses = {
     sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2 text-base',

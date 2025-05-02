@@ -10,6 +10,7 @@ import { StruggleSection } from './components/StruggleSection';
 import { ResultsSection } from './components/ResultsSection';
 import { CTASection } from './components/CTASection';
 import { Footer } from './components/Footer';
+import { ReviewsCarousel } from './components/ReviewsCarousel';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <ReviewsCarousel />
         <CheckmarkSection />
         <ProblemSection />
         <SolutionSection />

@@ -3,16 +3,17 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      // Restore custom colors (or add if they were fully removed)
+      // Define the strict color palette
       colors: {
         brand: {
-          black: '#000000',
-          blue: '#35B7FF', // Original blue
-          white: '#FFFFFF'
+          blue: 'rgb(68, 177, 255)', // The specific blue
+          black: '#000000',         // Black
+          white: '#FFFFFF',         // White
         }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        bricolage: ['"Bricolage Grotesque"', 'sans-serif'],
       },
       boxShadow: {
         'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',

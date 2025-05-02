@@ -8,14 +8,16 @@ export const Button = ({
   className = '',
   onClick,
 }: ButtonProps) => {
-  // Revert to original base classes
-  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseClasses = 'inline-flex items-center justify-center rounded-full font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
-  // Revert to original variant classes (using the desired blue for primary/secondary)
+  // Use brand colors from config
   const variantClasses = {
-    primary: 'bg-[rgb(68,177,255)] text-white hover:bg-blue-600 focus:ring-blue-500', // Use specific blue
-    secondary: 'bg-[rgb(68,177,255)] text-white hover:bg-blue-600 focus:ring-blue-500', // Use specific blue
-    outline: 'border-2 border-[rgb(68,177,255)] text-[rgb(68,177,255)] hover:bg-blue-50 focus:ring-blue-500' // Use specific blue
+    // Use brand-blue, hover slightly darker (using opacity for simplicity), focus ring blue
+    primary: 'bg-brand-blue text-brand-white hover:bg-opacity-90 focus:ring-brand-blue',
+    // Secondary also uses brand-blue
+    secondary: 'bg-brand-blue text-brand-white hover:bg-opacity-90 focus:ring-brand-blue',
+    // Outline uses brand-blue for border/text, hover white background
+    outline: 'border-2 border-brand-blue text-brand-blue hover:bg-brand-white focus:ring-brand-blue'
   };
   
   // Revert to original size classes

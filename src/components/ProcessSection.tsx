@@ -22,7 +22,7 @@ export const ProcessSection = () => {
   ];
 
   return (
-    <Section className="bg-blue-900 text-white">
+    <Section className="bg-brand-blue text-brand-white">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
           Our 3-Step Authority Framework
@@ -30,14 +30,13 @@ export const ProcessSection = () => {
         
         <div className="relative">
           {/* Connection Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-blue-500 hidden md:block" style={{ marginLeft: '-0.5px' }}></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-brand-white hidden md:block" style={{ marginLeft: '-0.5px' }}></div>
           
           <div className="space-y-16 md:space-y-24 relative">
             {steps.map((step, index) => (
               <StepCard 
                 key={index}
                 step={step}
-                isLast={index === steps.length - 1}
               />
             ))}
           </div>
@@ -49,21 +48,20 @@ export const ProcessSection = () => {
 
 type StepCardProps = {
   step: ProcessStep;
-  isLast: boolean;
 };
 
-const StepCard = ({ step, isLast }: StepCardProps) => {
+const StepCard = ({ step }: StepCardProps) => {
   return (
     <div className="flex flex-col md:flex-row items-center md:items-start">
-      <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-full bg-blue-500 text-white text-xl font-bold z-10 mb-4 md:mb-0">
+      <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-full bg-brand-white text-brand-blue text-xl font-bold z-10 mb-4 md:mb-0">
         {step.number}
       </div>
       
-      <div className="md:ml-8 bg-blue-800 rounded-xl p-6 w-full md:w-auto flex-grow transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-        <h3 className="text-xl font-bold mb-3 text-blue-200">
+      <div className="md:ml-8 bg-brand-black rounded-xl p-6 w-full md:w-auto flex-grow transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+        <h3 className="text-xl font-bold mb-3 text-brand-blue">
           Step {step.number}: {step.title}
         </h3>
-        <p className="text-blue-100">
+        <p className="text-brand-white">
           {step.description}
         </p>
       </div>

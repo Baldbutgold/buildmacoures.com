@@ -2,35 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font face for Polysans Bulky */
-@font-face {
-  font-family: 'Polysans Bulky';
-  src: url('/fonts/Polysans-Bulky.woff2') format('woff2'), 
-       url('/fonts/Polysans-Bulky.woff') format('woff'); 
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Add Font face for Polysans Slim */
-@font-face {
-  font-family: 'Polysans Slim';
-  /* Update this path if your font files are located elsewhere */
-  src: url('/fonts/Polysans-Slim.woff2') format('woff2'), 
-       url('/fonts/Polysans-Slim.woff') format('woff'); 
-  font-weight: 400; /* Corresponds to font-normal */
-  font-style: normal;
-}
-
-
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply text-gray-900;
-    /* Default body font */
-    font-family: 'Polysans Bulky', Arial, sans-serif; 
+    /* Default text color - can be adjusted if needed */
+    @apply text-brand-black;
+    /* Default font is font-sans (Inter) from tailwind.config.js */
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -54,6 +34,23 @@
       linear-gradient(to bottom, rgba(53, 183, 255, 0.1) 1px, transparent 1px);
   }
   
+  .section-title-4.is-right-tilt {
+    font-family: 'Polysans Slim', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 0.625rem; /* 10px */
+    /* Add any other styles you want for this title */
+  }
+
+  .padding-global {
+    color: var(--black);
+    padding-top: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-family: 'Polysans Slim', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 0.625rem; /* 10px */
+  }
+
   @keyframes float {
     0% {
       transform: translateY(0px);

@@ -97,26 +97,6 @@ export const ProcessSection = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
             Here's how we solve your struggles
           </h2>
-          <p className="text-lg sm:text-xl text-brand-gray max-w-3xl mx-auto">
-            A proven process that transforms your expertise into a professional, sellable course
-          </p>
-        </div>
-
-        {/* Trust indicators moved here */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm sm:text-base">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-brand-white">20+ Courses Created</span>
-            </div>
-            <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-brand-white">98% Client Satisfaction</span>
-            </div>
-            <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-brand-white">Since 2019</span>
-            </div>
-          </div>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
@@ -163,6 +143,33 @@ export const ProcessSection = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Trust indicators moved here - below the entire section */}
+        <div className="text-center mt-16 sm:mt-20">
+          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20">
+            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-brand-gray text-sm sm:text-base">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
+                <span className="font-semibold text-brand-white">20+ Courses Created</span>
+              </div>
+              <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
+                <span className="font-semibold text-brand-white">98% Client Satisfaction</span>
+              </div>
+              <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
+                <span className="font-semibold text-brand-white">Since 2019</span>
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-brand-purple/20">
+              <p className="text-brand-gray text-sm sm:text-base">
+                <strong className="text-brand-white">Trusted by 80+ clients</strong> across SaaS, coaching, and product businesses
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Section>

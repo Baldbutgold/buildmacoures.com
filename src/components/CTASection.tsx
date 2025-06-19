@@ -41,8 +41,8 @@ export const CTASection = () => {
             </p>
           </div>
 
-          {/* Large Calendly Widget */}
-          <div className="flex justify-center">
+          {/* Large Calendly Widget with scroll fix */}
+          <div className="flex justify-center calendly-container">
             <div 
               className="calendly-inline-widget w-full max-w-4xl" 
               data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1&redirect_url=https://buildmacourse.com/call-booked" 
@@ -51,7 +51,9 @@ export const CTASection = () => {
                 height: '700px', 
                 borderRadius: '16px', 
                 overflow: 'hidden',
-                width: '100%'
+                width: '100%',
+                pointerEvents: 'auto',
+                touchAction: 'pan-y'
               }}
             ></div>
           </div>

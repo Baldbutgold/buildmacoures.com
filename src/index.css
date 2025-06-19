@@ -67,6 +67,22 @@
       height: 700px !important;
     }
   }
+
+  /* Fix Calendly scroll wheel issues */
+  .calendly-inline-widget {
+    pointer-events: auto;
+    touch-action: pan-y;
+  }
+
+  /* Prevent scroll wheel capture on Calendly container */
+  .calendly-container {
+    overflow: visible;
+  }
+
+  /* Ensure proper scroll behavior */
+  .calendly-inline-widget iframe {
+    pointer-events: auto;
+  }
 }
 
 @layer utilities {

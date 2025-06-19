@@ -44,7 +44,7 @@ export const ReviewsCarousel = () => {
   const allReviews = [...reviews, ...reviews];
 
   const StarRating = ({ rating }: { rating: number }) => (
-    <div className="flex items-center gap-1 mb-3">
+    <div className="flex items-center gap-1 mb-4">
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
@@ -84,7 +84,7 @@ export const ReviewsCarousel = () => {
             return (
               <div
                 key={idx}
-                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 w-[380px] min-w-[380px] border border-gray-100 hover:border-brand-blue/20 transform hover:-translate-y-2"
+                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 w-[380px] min-w-[380px] border border-gray-100 hover:border-brand-blue/20 transform hover:-translate-y-2 flex flex-col"
               >
                 {/* Quote icon */}
                 <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -94,8 +94,8 @@ export const ReviewsCarousel = () => {
                 {/* Star rating */}
                 <StarRating rating={review.rating} />
 
-                {/* Review content */}
-                <div className="mb-6">
+                {/* Review content - takes up available space */}
+                <div className="flex-grow mb-6">
                   <p className="text-gray-700 leading-relaxed text-base font-medium">
                     "{displayComment}"
                   </p>
@@ -109,8 +109,8 @@ export const ReviewsCarousel = () => {
                   )}
                 </div>
 
-                {/* Client info */}
-                <div className="flex items-center gap-4">
+                {/* Client info - always at bottom */}
+                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-blue to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     {review.name.charAt(0).toUpperCase()}
                   </div>

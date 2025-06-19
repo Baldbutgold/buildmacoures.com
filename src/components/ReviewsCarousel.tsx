@@ -2,16 +2,66 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
 
 const reviews = [
-  { name: "TrackerBot", profession: "SaaS Company", comment: "Abdou truly delivered an outstanding video course production that exceeded my expectations! His keen attention to detail and professionalism made the process smooth, enjoyable, and quick. Working with him was a pleasure.", rating: 5 },
-  { name: "Ethan", profession: "Udemy Instructor", comment: "I needed a web development Udemy course created, and Abdou delivered an excellent course for my Udemy. He addressed all my requirements and provided a comprehensive course outline before starting. The course had fantastic quality graphics and editing. He has excellent communication and always responds.", rating: 5 },
-  { name: "Cadrin", profession: "Entrepreneur", comment: "The best experience l've had on fiver. Very professional, explained the whole process and even got the job done 2 weeks ahead of schedule, will definitely be working with him on more projects soon definitely gives it his all. If you're looking for professional, excellent costumer service and stellar work this is definitely your guy! Thank you sir", rating: 5 },
-  { name: "Willie", profession: "Business Owner", comment: "The most awesome experience, i believe communication is key 🔑, and they went above expectations on all of the above. I would definitely recommend and will be using again in the near future 😊", rating: 5 },
-  { name: "Mark", profession: "Startup Founder", comment: "Very responsive and proactive. Also keeping it flexible.", rating: 5 },
-  { name: "hackutopia", profession: "Product Creator", comment: "I am very impressed with Mohammeds resolution and desire to ensure the customer is happy before finishing the completed order. He went above and beyond to resolve my concerns for improvements and create several additional iterations. Thank you", rating: 5 },
-  { name: "ahmed", profession: "Agency Owner", comment: "Amazing guy to work with, very easy and patient. Delivered an excellent job.", rating: 5 },
-  { name: "Zaid", profession: "Entrepreneur", comment: "This guy Mohammed is very good in his work and very cooperative....he listen your queries and implement it very nicely...Will work again with this brother. Thankyou very much brother for your time and effort.", rating: 5 },
-  { name: "demahamo", profession: "Business Owner", comment: "highly recommended... good job.. revising many times.. sharing more information... thank you so much 👍👍", rating: 5 },
-  { name: "alex", profession: "Startup Founder", comment: "It was pleasure to work with Mohammed. He is very smart, hard working and creative and I hope our paths will cross again soon!", rating: 5 }
+  {
+    name: "TrackerBot",
+    profession: "SaaS Company",
+    comment: "Truly outstanding video course production that exceeded my expectations. The attention to detail and professionalism made the process smooth and enjoyable.",
+    rating: 5
+  },
+  {
+    name: "Ethan",
+    profession: "Udemy Instructor",
+    comment: "I needed a full web development course created, and he delivered an excellent one. Clear structure, high-quality editing, and fantastic communication.",
+    rating: 5
+  },
+  {
+    name: "Cadrin",
+    profession: "Entrepreneur",
+    comment: "The best experience I've had working with anyone on a creative project. Very professional, explained the whole process, and gave it his all. I'll definitely be working with him again.",
+    rating: 5
+  },
+  {
+    name: "Willie",
+    profession: "Business Owner",
+    comment: "The most awesome experience. Communication was top-tier, and the work exceeded expectations. Highly recommend and will be coming back soon.",
+    rating: 5
+  },
+  {
+    name: "Mark",
+    profession: "Startup Founder",
+    comment: "Very responsive and proactive. Also kept it flexible throughout the process.",
+    rating: 5
+  },
+  {
+    name: "Hackutopia",
+    profession: "Product Creator",
+    comment: "Went above and beyond to address my concerns and made multiple iterations until I was fully happy. Exceptional service.",
+    rating: 5
+  },
+  {
+    name: "Ahmed",
+    profession: "Agency Owner",
+    comment: "Amazing to work with. Patient, easy to communicate with, and delivered excellent quality.",
+    rating: 5
+  },
+  {
+    name: "Zaid",
+    profession: "Entrepreneur",
+    comment: "Very good at what he does and very cooperative. Listens to your feedback and implements it well. Will definitely work together again.",
+    rating: 5
+  },
+  {
+    name: "Demahamo",
+    profession: "Business Owner",
+    comment: "Highly recommended. Did a great job, provided multiple revisions, and shared useful information throughout the process.",
+    rating: 5
+  },
+  {
+    name: "Alex",
+    profession: "Startup Founder",
+    comment: "It was a pleasure to work together. Smart, hardworking, and creative. I hope our paths cross again soon.",
+    rating: 5
+  }
 ];
 
 export const ReviewsCarousel = () => {
@@ -136,7 +186,7 @@ export const ReviewsCarousel = () => {
             </div>
             <div className="w-px h-6 bg-gray-300 hidden sm:block" />
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-gray-700">100+ Projects Completed</span>
+              <span className="font-semibold text-gray-700">80+ Projects Completed</span>
             </div>
             <div className="w-px h-6 bg-gray-300 hidden sm:block" />
             <div className="flex items-center gap-2">

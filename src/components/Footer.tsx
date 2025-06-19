@@ -31,7 +31,7 @@ export const Footer = () => {
                   <span className="font-semibold">4.9/5 Rating</span>
                 </div>
                 <div className="text-sm text-gray-400">
-                  100+ Happy Clients
+                  80+ Happy Clients
                 </div>
               </div>
             </div>

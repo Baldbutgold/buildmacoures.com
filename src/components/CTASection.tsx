@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Section } from './Section';
-import { Calendar, CheckCircle, ArrowRight } from 'lucide-react';
+import { Calendar, CheckCircle } from 'lucide-react';
 
 export const CTASection = () => {
   const benefits = [
@@ -9,6 +9,18 @@ export const CTASection = () => {
     "No obligation, no pressure",
     "Clear next steps to get started"
   ];
+
+  useEffect(() => {
+    // Ensure Calendly script is loaded
+    if (window.Calendly) {
+      window.Calendly.initInlineWidget({
+        url: 'https://calendly.com/baldbutgold',
+        parentElement: document.querySelector('.calendly-inline-widget'),
+        prefill: {},
+        utm: {}
+      });
+    }
+  }, []);
 
   return (
     <Section className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 text-white" id="schedule-call">
@@ -27,7 +39,7 @@ export const CTASection = () => {
         </div>
         
         <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-brand-purple/20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
             {/* Left side - Benefits */}
             <div>
               <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 text-brand-purple">
@@ -56,7 +68,11 @@ export const CTASection = () => {
                 </p>
                 
                 {/* Calendly Widget */}
-                <div className="calendly-inline-widget" data-url="https://calendly.com/baldbutgold" style={{minWidth: '320px', height: '700px'}}></div>
+                <div 
+                  className="calendly-inline-widget" 
+                  data-url="https://calendly.com/baldbutgold" 
+                  style={{minWidth: '320px', height: '600px', borderRadius: '12px', overflow: 'hidden'}}
+                ></div>
                 
                 <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-brand-gray mt-4">
                   <div className="flex items-center gap-2">
@@ -75,9 +91,6 @@ export const CTASection = () => {
           </div>
         </div>
       </div>
-      
-      {/* Calendly Script */}
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </Section>
   );
 };

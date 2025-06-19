@@ -65,9 +65,6 @@ export const PainPointsSection = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
             If you're a business that struggles with
           </h2>
-          <p className="text-lg sm:text-xl text-brand-gray max-w-3xl mx-auto">
-            These are the most common challenges that prevent experts from monetizing their knowledge effectively
-          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">

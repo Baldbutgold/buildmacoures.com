@@ -1,6 +1,7 @@
 export type NavItem = {
   label: string;
   href: string;
+  isRoute?: boolean;
 };
 
 export type ButtonProps = {
@@ -31,4 +32,17 @@ export type ProcessStep = {
 
 export type BenefitItem = {
   text: string;
+};
+
+export type BlogPost = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  publishedAt: string;
+  readTime: string;
+  tags: string[];
+  featured?: boolean;
 };

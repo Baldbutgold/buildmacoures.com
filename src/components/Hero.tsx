@@ -12,7 +12,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative pt-28 pb-16 md:pt-32 md:pb-20 lg:pt-36 lg:pb-24 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-[80vh] flex flex-col justify-center">
+    <div className="relative pt-20 pb-12 md:pt-24 md:pb-16 lg:pt-32 lg:pb-20 xl:pt-40 xl:pb-24 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-screen flex flex-col justify-center">
       {/* Enhanced background pattern */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute inset-0" style={{ 
@@ -26,7 +26,7 @@ export const Hero = () => {
       </div>
       
       <Container>
-        <div className="max-w-5xl mx-auto text-center px-2 sm:px-4 relative z-10">
+        <div className="max-w-6xl mx-auto text-center px-2 sm:px-4 relative z-10">
           {/* Enhanced badge */}
           <div className="inline-flex items-center gap-2 text-sm sm:text-base mb-6 animate-fade-in">
             <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-4 py-2 rounded-full font-medium shadow-purple">
@@ -38,16 +38,18 @@ export const Hero = () => {
           </div>
 
           {/* Enhanced heading */}
-          <h1 className="font-bold text-brand-white leading-[0.9] mb-8 sm:mb-10 animate-fade-in text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bricolage">
-            Turn Your Expertise into a{' '}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-3 py-1 rounded-2xl transform -rotate-2 inline-block shadow-purple-lg">
+          <h1 className="font-bold text-brand-white leading-[0.85] mb-8 sm:mb-10 animate-fade-in font-bricolage">
+            <span className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+              Turn Your Expertise into a{' '}
+            </span>
+            <span className="relative inline-block text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+              <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-xl sm:rounded-2xl transform -rotate-2 inline-block shadow-purple-lg">
                 Sellable Video Course
               </span>
             </span>
             <br />
-            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-gray mt-4 block">
-              Without Lifting a Finger
+            <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-brand-gray mt-2 sm:mt-4 block font-normal">
+              (Without Lifting a Finger)
             </span>
           </h1>
 
@@ -55,25 +57,25 @@ export const Hero = () => {
           <div className="flex justify-center mb-8">
             <button
               onClick={() => window.open('https://www.fiverr.com/mohamed_mrini', '_blank', 'noopener,noreferrer')}
-              className="group flex items-center space-x-4 p-4 rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1"
+              className="group flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1"
             >
               <div className="flex items-center space-x-2">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <span className="font-bold text-lg text-brand-white">4.9</span>
-                <span className="text-brand-gray">(84 reviews)</span>
+                <span className="font-bold text-base sm:text-lg text-brand-white">4.9</span>
+                <span className="text-brand-gray text-sm sm:text-base">(84 reviews)</span>
               </div>
-              <ArrowRight className="w-4 h-4 text-brand-purple group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-brand-purple group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Enhanced description */}
-          <p className="text-lg sm:text-xl leading-relaxed text-brand-gray mb-10 max-w-4xl mx-auto">
-            I help <strong className="text-brand-white">founders, creators, and coaches</strong> build polished, profitable courses from scratch — 
-            <strong className="text-brand-purple"> structure, editing, delivery included.</strong>
+          <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-brand-gray mb-8 sm:mb-10 max-w-4xl mx-auto">
+            I help <strong className="text-brand-white">founders, creators, and coaches</strong> build polished, profitable courses from scratch{' '}
+            <strong className="text-brand-purple">structure, editing, delivery included.</strong>
           </p>
 
           {/* Enhanced CTA */}
@@ -84,28 +86,28 @@ export const Hero = () => {
               className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group"
               onClick={() => scrollToSection('#schedule-call')}
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 text-sm sm:text-base">
                 🚀 Book a Free Strategy Call
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
             <button 
               onClick={() => scrollToSection('#process')}
-              className="text-brand-purple hover:text-brand-purple-dark font-medium underline underline-offset-4 transition-colors"
+              className="text-brand-purple hover:text-brand-purple-dark font-medium underline underline-offset-4 transition-colors text-sm sm:text-base"
             >
               See How It Works
             </button>
           </div>
 
           {/* Trust indicators */}
-          <div className="text-center mt-8">
-            <p className="text-brand-gray text-lg mb-4">
+          <div className="text-center mt-6 sm:mt-8">
+            <p className="text-brand-gray text-base sm:text-lg mb-4">
               <strong className="text-brand-white">Trusted by 80+ clients</strong> across SaaS, coaching, and product businesses
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-brand-gray">
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs sm:text-sm text-brand-gray">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-                <span>80+ Courses Created</span>
+                <span>20+ Courses Created</span>
               </div>
               <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
               <div className="flex items-center gap-2">
@@ -115,7 +117,7 @@ export const Hero = () => {
               <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-                <span>Fast 2-Week Delivery</span>
+                <span>Since 2019</span>
               </div>
             </div>
           </div>

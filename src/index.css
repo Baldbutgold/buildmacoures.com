@@ -25,6 +25,24 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Responsive text sizing */
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 1024px) {
+    html {
+      font-size: 15px;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    html {
+      font-size: 16px;
+  }
 }
 
 @layer utilities {
@@ -77,6 +95,25 @@
     outline: 2px solid rgb(168, 85, 247);
     outline-offset: 2px;
   }
+
+  /* Mobile-first responsive utilities */
+  @media (max-width: 640px) {
+    .text-responsive-xs {
+      font-size: 0.75rem;
+    }
+    .text-responsive-sm {
+      font-size: 0.875rem;
+    }
+    .text-responsive-base {
+      font-size: 1rem;
+    }
+    .text-responsive-lg {
+      font-size: 1.125rem;
+    }
+    .text-responsive-xl {
+      font-size: 1.25rem;
+    }
+  }
 }
 
 /* Enhanced shadow utilities */
@@ -84,4 +121,46 @@
   .shadow-3xl {
     box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
   }
+}
+
+/* Blog prose styles */
+.prose {
+  max-width: none;
+}
+
+.prose h2 {
+  color: #ffffff;
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.prose h3 {
+  color: #a855f7;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  margin-bottom: 1.5rem;
+  color: #d1d5db;
+  line-height: 1.7;
+}
+
+.prose ul {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  color: #d1d5db;
+}
+
+.prose li::marker {
+  color: #a855f7;
 }

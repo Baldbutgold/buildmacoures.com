@@ -42,7 +42,7 @@ const reviews = [
     profession: "Startup Founder",
     comment: "Very responsive and proactive. Also kept it flexible throughout the process.",
     rating: 5,
-    image: "/mark.jpg"
+    image: null
   },
   {
     name: "Ahmed",
@@ -180,11 +180,15 @@ export const ReviewsCarousel = () => {
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
-                          target.nextElementSibling!.textContent = review.name.charAt(0).toUpperCase();
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = review.name.charAt(0).toUpperCase();
+                          }
                         }}
                       />
-                    ) : null}
-                    <span className="hidden">{review.name.charAt(0).toUpperCase()}</span>
+                    ) : (
+                      review.name.charAt(0).toUpperCase()
+                    )}
                   </div>
                   <div>
                     <div className="font-bold text-brand-white text-base sm:text-lg">{review.name}</div>
@@ -257,11 +261,15 @@ export const ReviewsCarousel = () => {
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
-                      target.nextElementSibling!.textContent = modalReview.name.charAt(0).toUpperCase();
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = modalReview.name.charAt(0).toUpperCase();
+                      }
                     }}
                   />
-                ) : null}
-                <span className="hidden">{modalReview.name.charAt(0).toUpperCase()}</span>
+                ) : (
+                  modalReview.name.charAt(0).toUpperCase()
+                )}
               </div>
               <div>
                 <div className="font-bold text-brand-white text-lg sm:text-xl">{modalReview.name}</div>

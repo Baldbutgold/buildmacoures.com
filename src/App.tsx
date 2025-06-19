@@ -22,11 +22,11 @@ function HomePage() {
       <CheckmarkSection />
       <ReviewsCarousel />
       <ProcessSection />
-      <ProblemSection />
       <SolutionSection />
       <BenefitsSection />
       <StruggleSection />
       <ResultsSection />
+      <ProblemSection />
       <CTASection />
     </>
   );

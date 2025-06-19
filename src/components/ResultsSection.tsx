@@ -9,7 +9,7 @@ export const ResultsSection = () => {
       title: "Higher Revenue",
       description: "Professional courses command premium prices and generate consistent passive income streams.",
       color: "green",
-      stat: "3x Higher Pricing"
+      stat: "Premium Pricing"
     },
     {
       icon: Clock,

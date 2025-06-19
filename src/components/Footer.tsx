@@ -113,9 +113,14 @@ export const Footer = () => {
           {/* Bottom Section */}
           <div className="border-t border-brand-purple/20 pt-6 sm:pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-center md:text-left text-sm sm:text-base">
-                &copy; {currentYear} Expert2Course. All rights reserved.
-              </p>
+              <div className="text-center md:text-left text-sm sm:text-base">
+                <p className="mb-1">
+                  &copy; {currentYear} MonetizeUrContent LLC. All rights reserved.
+                </p>
+                <p className="text-xs text-brand-gray">
+                  Expert2Course operates under MonetizeUrContent LLC
+                </p>
+              </div>
               <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
                 <a href="#" className="hover:text-brand-white transition-colors">Privacy Policy</a>
                 <a href="#" className="hover:text-brand-white transition-colors">Terms of Service</a>

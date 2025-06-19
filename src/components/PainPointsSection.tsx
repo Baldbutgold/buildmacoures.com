@@ -30,7 +30,7 @@ export const PainPointsSection = () => {
             Common Struggles
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-            If you're an expert or business struggling with
+            If you're an expert that struggles with
           </h2>
         </div>
         

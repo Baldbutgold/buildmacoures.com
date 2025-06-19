@@ -126,7 +126,7 @@ export const ReviewsCarousel = () => {
             Trusted by Creators Worldwide
           </h2>
           <p className="text-lg sm:text-xl text-brand-gray max-w-2xl mx-auto">
-            Join hundreds of satisfied clients who've transformed their expertise into profitable courses
+            Join the list of satisfied clients who've transformed their expertise into courses
           </p>
         </div>
 

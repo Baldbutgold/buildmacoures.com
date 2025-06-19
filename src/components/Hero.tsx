@@ -12,7 +12,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative pt-20 pb-12 md:pt-24 md:pb-16 lg:pt-32 lg:pb-20 xl:pt-40 xl:pb-24 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-screen flex flex-col justify-center">
+    <div className="relative pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-[100vh] md:min-h-screen flex flex-col justify-center">
       {/* Enhanced background pattern */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute inset-0" style={{ 
@@ -29,16 +29,16 @@ export const Hero = () => {
         <div className="max-w-6xl mx-auto text-center px-2 sm:px-4 relative z-10">
           {/* Enhanced heading */}
           <h1 className="font-bold text-brand-white leading-[0.85] mb-8 sm:mb-10 animate-fade-in font-bricolage">
-            <span className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               Turn Your Expertise into a{' '}
             </span>
-            <span className="relative inline-block text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            <span className="relative inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-xl sm:rounded-2xl transform -rotate-2 inline-block shadow-purple-lg">
                 Sellable Video Course
               </span>
             </span>
             <br />
-            <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-brand-gray mt-2 sm:mt-4 block font-normal">
+            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-brand-gray mt-4 sm:mt-6 block font-normal">
               (Without Lifting a Finger)
             </span>
           </h1>
@@ -64,8 +64,8 @@ export const Hero = () => {
 
           {/* Enhanced description */}
           <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-brand-gray mb-8 sm:mb-10 max-w-4xl mx-auto">
-            I help <strong className="text-brand-white">founders, creators, and coaches</strong> build polished, profitable courses from scratch{' '}
-            <strong className="text-brand-purple">structure, editing, delivery included.</strong>
+            We help <strong className="text-brand-white">experts, founders, and creators</strong> build full online courses including{' '}
+            <strong className="text-brand-purple">strategy, scripting, video, editing, and setup (all done for you.)</strong>
           </p>
 
           {/* Enhanced CTA */}
@@ -77,7 +77,7 @@ export const Hero = () => {
               onClick={() => scrollToSection('#schedule-call')}
             >
               <span className="flex items-center gap-2 text-sm sm:text-base">
-                🚀 Book a Free Strategy Call
+                🚀 Build Ma Course!
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
@@ -88,22 +88,6 @@ export const Hero = () => {
             <p className="text-brand-gray text-base sm:text-lg mb-4">
               <strong className="text-brand-white">Trusted by 80+ clients</strong> across SaaS, coaching, and product businesses
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs sm:text-sm text-brand-gray">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-                <span>20+ Courses Created</span>
-              </div>
-              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-                <span>98% Client Satisfaction</span>
-              </div>
-              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-                <span>Since 2019</span>
-              </div>
-            </div>
           </div>
         </div>
       </Container>

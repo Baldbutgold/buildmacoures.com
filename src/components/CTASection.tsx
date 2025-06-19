@@ -59,11 +59,11 @@ export const CTASection = () => {
 
             {/* Right side - Calendly */}
             <div className="text-center lg:text-left">
-              <div className="bg-brand-black/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/30">
+              <div className="bg-brand-black/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-brand-purple/30">
                 <h4 className="text-lg sm:text-xl font-bold mb-4 text-white">
                   Book Your Free Strategy Call
                 </h4>
-                <p className="text-brand-gray mb-6 sm:mb-8 text-sm sm:text-base">
+                <p className="text-brand-gray mb-4 sm:mb-6 text-sm sm:text-base">
                   In this 30-minute call, we'll discuss your expertise and show you exactly how to turn it into a profitable course.
                 </p>
                 
@@ -71,7 +71,13 @@ export const CTASection = () => {
                 <div 
                   className="calendly-inline-widget" 
                   data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1" 
-                  style={{minWidth: '320px', height: '600px', borderRadius: '12px', overflow: 'hidden'}}
+                  style={{
+                    minWidth: '280px', 
+                    height: '500px', 
+                    borderRadius: '12px', 
+                    overflow: 'hidden',
+                    width: '100%'
+                  }}
                 ></div>
                 
                 <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-brand-gray mt-4">

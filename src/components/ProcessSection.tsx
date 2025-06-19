@@ -101,6 +101,23 @@ export const ProcessSection = () => {
             A proven process that transforms your expertise into a professional, sellable course
           </p>
         </div>
+
+        {/* Trust indicators moved here */}
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm sm:text-base">
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-brand-white">20+ Courses Created</span>
+            </div>
+            <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-brand-white">98% Client Satisfaction</span>
+            </div>
+            <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-brand-white">Since 2019</span>
+            </div>
+          </div>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
           {solutions.map((solution, index) => {

@@ -44,6 +44,23 @@
       font-size: 16px;
     }
   }
+
+  /* Mobile hero improvements */
+  @media (max-width: 640px) {
+    .hero-mobile {
+      min-height: 100vh;
+      padding-top: 6rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  /* Calendly mobile improvements */
+  @media (max-width: 768px) {
+    .calendly-inline-widget {
+      height: 450px !important;
+      min-width: 280px !important;
+    }
+  }
 }
 
 @layer utilities {

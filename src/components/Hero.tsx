@@ -82,13 +82,6 @@ export const Hero = () => {
               </span>
             </Button>
           </div>
-
-          {/* Trust indicators */}
-          <div className="text-center mt-6 sm:mt-8">
-            <p className="text-brand-gray text-base sm:text-lg mb-4">
-              <strong className="text-brand-white">Trusted by 80+ clients</strong> across SaaS, coaching, and product businesses
-            </p>
-          </div>
         </div>
       </Container>
     </div>

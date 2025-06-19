@@ -57,8 +57,14 @@
   /* Calendly mobile improvements */
   @media (max-width: 768px) {
     .calendly-inline-widget {
-      height: 450px !important;
+      height: 500px !important;
       min-width: 280px !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .calendly-inline-widget {
+      height: 700px !important;
     }
   }
 }

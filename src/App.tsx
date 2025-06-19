@@ -15,6 +15,7 @@ import { CTASection } from './components/CTASection';
 import { Footer } from './components/Footer';
 import { BlogPage } from './pages/BlogPage';
 import { BlogPost } from './pages/BlogPost';
+import { CallBooked } from './pages/CallBooked';
 
 function HomePage() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/call-booked" element={<CallBooked />} />
           </Routes>
         </main>
         <Footer />

@@ -14,7 +14,7 @@ export const CTASection = () => {
     // Ensure Calendly script is loaded
     if (window.Calendly) {
       window.Calendly.initInlineWidget({
-        url: 'https://calendly.com/baldbutgold',
+        url: 'https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1',
         parentElement: document.querySelector('.calendly-inline-widget'),
         prefill: {},
         utm: {}
@@ -70,7 +70,7 @@ export const CTASection = () => {
                 {/* Calendly Widget */}
                 <div 
                   className="calendly-inline-widget" 
-                  data-url="https://calendly.com/baldbutgold" 
+                  data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1" 
                   style={{minWidth: '320px', height: '600px', borderRadius: '12px', overflow: 'hidden'}}
                 ></div>
                 

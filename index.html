@@ -51,26 +51,116 @@
     }
     </script>
 
+    <!-- Critical CSS inlined -->
+    <style>
+      /* Critical above-the-fold styles */
+      body { 
+        margin: 0; 
+        background: #0a0a0a; 
+        color: #ffffff; 
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      .hero-skeleton {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1f2937 50%, #0a0a0a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(168, 85, 247, 0.3);
+        border-top: 3px solid #a855f7;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Tagesschrift&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://assets.calendly.com">
     
-    <!-- Calendly Script with proper configuration -->
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <!-- Preload critical fonts with font-display: swap -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap"></noscript>
+    
+    <!-- Resource hints for better performance -->
+    <link rel="dns-prefetch" href="https://www.fiverr.com">
+    <link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script">
+  </head>
+  <body>
+    <!-- Loading skeleton -->
+    <div id="loading-skeleton" class="hero-skeleton">
+      <div class="loading-spinner"></div>
+    </div>
+    
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Optimized Calendly loading -->
     <script>
-      // Global Calendly event listener
-      window.addEventListener('message', function(e) {
-        if (e.data.event && e.data.event === 'calendly.event_scheduled') {
-          // Redirect to call booked page
-          setTimeout(function() {
-            window.location.href = '/call-booked';
-          }, 1500);
+      // Remove loading skeleton once React app loads
+      window.addEventListener('DOMContentLoaded', function() {
+        const skeleton = document.getElementById('loading-skeleton');
+        const root = document.getElementById('root');
+        
+        // Check if React has rendered
+        const checkReactLoaded = setInterval(() => {
+          if (root && root.children.length > 0) {
+            if (skeleton) skeleton.style.display = 'none';
+            clearInterval(checkReactLoaded);
+          }
+        }, 100);
+      });
+
+      // Lazy load Calendly only when needed
+      let calendlyLoaded = false;
+      function loadCalendly() {
+        if (calendlyLoaded) return;
+        calendlyLoaded = true;
+        
+        const script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        script.async = true;
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          // Global Calendly event listener
+          window.addEventListener('message', function(e) {
+            if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+              setTimeout(function() {
+                window.location.href = '/call-booked';
+              }, 1500);
+            }
+          });
+        };
+      }
+
+      // Load Calendly when user scrolls to CTA section or clicks CTA
+      window.addEventListener('scroll', function() {
+        const ctaSection = document.querySelector('#schedule-call');
+        if (ctaSection) {
+          const rect = ctaSection.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            loadCalendly();
+          }
+        }
+      }, { passive: true });
+
+      // Also load when CTA buttons are clicked
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('[data-calendly]') || 
+            e.target.textContent?.includes('Build Ma Course') ||
+            e.target.textContent?.includes('Strategy Call')) {
+          loadCalendly();
         }
       });
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

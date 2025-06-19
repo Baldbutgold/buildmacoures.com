@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { Star, Quote } from 'lucide-react';
+import { LazyImage } from './LazyImage';
 
 const reviews = [
   {
@@ -74,16 +75,42 @@ const reviews = [
   }
 ];
 
-export const ReviewsCarousel = () => {
+export const ReviewsCarousel = React.memo(() => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const velocity = useRef(0.3);
   const targetVelocity = useRef(0.3);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalReview, setModalReview] = useState(null as null | typeof reviews[0]);
+  const [isVisible, setIsVisible] = useState(false);
 
+  // Memoize doubled reviews array
+  const allReviews = useMemo(() => [...reviews, ...reviews], []);
+
+  // Intersection Observer for lazy loading
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+
+    const section = document.querySelector('#testimonials');
+    if (section) observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Optimized animation with RAF
+  useEffect(() => {
+    if (!isVisible) return;
+    
     const carousel = carouselRef.current;
     if (!carousel) return;
+    
     let animationFrame: number;
     let scrollAmount = 0;
 
@@ -97,13 +124,12 @@ export const ReviewsCarousel = () => {
       carousel.scrollLeft = scrollAmount;
       animationFrame = requestAnimationFrame(animate);
     }
+    
     animate();
     return () => cancelAnimationFrame(animationFrame);
-  }, []);
+  }, [isVisible]);
 
-  const allReviews = [...reviews, ...reviews];
-
-  const StarRating = ({ rating }: { rating: number }) => (
+  const StarRating = React.memo(({ rating }: { rating: number }) => (
     <div className="flex items-center gap-1 mb-4">
       {[...Array(5)].map((_, i) => (
         <Star
@@ -112,10 +138,24 @@ export const ReviewsCarousel = () => {
         />
       ))}
     </div>
-  );
+  ));
+
+  if (!isVisible) {
+    return (
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden" id="testimonials">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="h-8 bg-brand-purple/20 rounded-full w-48 mx-auto mb-4 animate-pulse"></div>
+            <div className="h-12 bg-gray-700 rounded w-96 mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 bg-gray-700 rounded w-64 mx-auto animate-pulse"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden" id="testimonials">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden contain-layout" id="testimonials">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -132,7 +172,7 @@ export const ReviewsCarousel = () => {
 
         <div
           ref={carouselRef}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide"
+          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide gpu-accelerated"
           style={{ scrollBehavior: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onMouseEnter={() => { targetVelocity.current = 0.1; }}
           onMouseLeave={() => { targetVelocity.current = 0.3; }}
@@ -144,7 +184,7 @@ export const ReviewsCarousel = () => {
             return (
               <div
                 key={idx}
-                className="group relative bg-brand-black/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-purple-lg transition-all duration-500 p-6 sm:p-8 w-[320px] sm:w-[380px] min-w-[320px] sm:min-w-[380px] border border-brand-purple/20 hover:border-brand-purple/40 transform hover:-translate-y-2 flex flex-col"
+                className="group relative bg-brand-black/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-purple-lg transition-all duration-500 p-6 sm:p-8 w-[320px] sm:w-[380px] min-w-[320px] sm:min-w-[380px] border border-brand-purple/20 hover:border-brand-purple/40 transform hover:-translate-y-2 flex flex-col contain-layout"
               >
                 {/* Quote icon */}
                 <div className="absolute top-4 sm:top-6 right-4 sm:right-6 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -173,18 +213,11 @@ export const ReviewsCarousel = () => {
                 <div className="flex items-center gap-3 sm:gap-4 mt-auto pt-4 border-t border-brand-purple/20">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-gradient-to-br from-brand-purple to-brand-purple-dark flex items-center justify-center text-white font-bold text-base sm:text-lg flex-shrink-0">
                     {review.image ? (
-                      <img 
+                      <LazyImage 
                         src={review.image} 
                         alt={review.name}
                         className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.innerHTML = review.name.charAt(0).toUpperCase();
-                          }
-                        }}
+                        fallback={review.name.charAt(0).toUpperCase()}
                       />
                     ) : (
                       review.name.charAt(0).toUpperCase()
@@ -211,7 +244,7 @@ export const ReviewsCarousel = () => {
           onClick={() => setModalOpen(false)}
         >
           <div 
-            className="bg-brand-black border border-brand-purple/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
+            className="bg-brand-black border border-brand-purple/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto contain-layout"
             onClick={e => e.stopPropagation()}
           >
             <button 
@@ -236,18 +269,11 @@ export const ReviewsCarousel = () => {
             <div className="flex items-center gap-3 sm:gap-4 pt-6 border-t border-brand-purple/20">
               <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-gradient-to-br from-brand-purple to-brand-purple-dark flex items-center justify-center text-white font-bold text-lg sm:text-xl flex-shrink-0">
                 {modalReview.image ? (
-                  <img 
+                  <LazyImage 
                     src={modalReview.image} 
                     alt={modalReview.name}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = modalReview.name.charAt(0).toUpperCase();
-                      }
-                    }}
+                    fallback={modalReview.name.charAt(0).toUpperCase()}
                   />
                 ) : (
                   modalReview.name.charAt(0).toUpperCase()
@@ -263,4 +289,6 @@ export const ReviewsCarousel = () => {
       )}
     </section>
   );
-};
+});
+
+ReviewsCarousel.displayName = 'ReviewsCarousel';

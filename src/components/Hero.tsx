@@ -3,7 +3,7 @@ import { Button } from './Button';
 import { Container } from './Container';
 import { Star, ArrowRight } from 'lucide-react';
 
-export const Hero = () => {
+export const Hero = React.memo(() => {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -12,9 +12,9 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-[100vh] md:min-h-screen flex flex-col justify-center">
-      {/* Enhanced background pattern */}
-      <div className="absolute inset-0 opacity-40">
+    <div className="relative pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-[100vh] md:min-h-screen flex flex-col justify-center contain-layout">
+      {/* Optimized background pattern */}
+      <div className="absolute inset-0 opacity-40 will-change-transform">
         <div className="absolute inset-0" style={{ 
           backgroundImage: `radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
                            radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)` 
@@ -27,13 +27,13 @@ export const Hero = () => {
       
       <Container>
         <div className="max-w-6xl mx-auto text-center px-2 sm:px-4 relative z-10">
-          {/* Enhanced heading */}
+          {/* Enhanced heading with optimized rendering */}
           <h1 className="font-bold text-brand-white leading-[0.85] mb-8 sm:mb-10 animate-fade-in font-bricolage">
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               Turn Your Expertise into a{' '}
             </span>
             <span className="relative inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-              <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-xl sm:rounded-2xl transform -rotate-2 inline-block shadow-purple-lg">
+              <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-xl sm:rounded-2xl transform -rotate-2 inline-block shadow-purple-lg gpu-accelerated">
                 Sellable Video Course
               </span>
             </span>
@@ -43,14 +43,15 @@ export const Hero = () => {
             </span>
           </h1>
 
-          {/* Enhanced social proof */}
+          {/* Optimized social proof */}
           <div className="flex justify-center mb-8">
             <button
               onClick={() => window.open('https://www.fiverr.com/mohamed_mrini', '_blank', 'noopener,noreferrer')}
-              className="group flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1"
+              className="group flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1 gpu-accelerated"
+              aria-label="View our 4.9 star rating on Fiverr"
             >
               <div className="flex items-center space-x-2">
-                <div className="flex">
+                <div className="flex" role="img" aria-label="5 star rating">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
                   ))}
@@ -68,12 +69,12 @@ export const Hero = () => {
             <strong className="text-brand-purple">strategy, scripting and video editing (all done for you).</strong>
           </p>
 
-          {/* Enhanced CTA - moved lower */}
+          {/* Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button 
               variant="primary" 
               size="lg" 
-              className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group"
+              className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group gpu-accelerated"
               onClick={() => scrollToSection('#schedule-call')}
             >
               <span className="flex items-center gap-2 text-sm sm:text-base">
@@ -86,4 +87,6 @@ export const Hero = () => {
       </Container>
     </div>
   );
-};
+});
+
+Hero.displayName = 'Hero';

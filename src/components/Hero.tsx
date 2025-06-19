@@ -63,12 +63,12 @@ export const Hero = () => {
           </div>
 
           {/* Enhanced description */}
-          <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-brand-gray mb-8 sm:mb-10 max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-brand-gray mb-10 sm:mb-12 max-w-4xl mx-auto">
             We help <strong className="text-brand-white">experts, founders, and creators</strong> build full online courses that includes{' '}
             <strong className="text-brand-purple">strategy, scripting and video editing (all done for you).</strong>
           </p>
 
-          {/* Enhanced CTA */}
+          {/* Enhanced CTA - moved lower */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button 
               variant="primary" 

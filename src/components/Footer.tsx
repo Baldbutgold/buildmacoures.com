@@ -27,10 +27,10 @@ export const Footer = () => {
             {/* Company Info */}
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-4 font-bricolage">
-                Expert2Course
+                BuildMaCourse
               </h3>
               <p className="mb-4 sm:mb-6 text-base sm:text-lg leading-relaxed">
-                I help founders, creators, and coaches turn their expertise into professional, profitable video courses. From structure to final delivery everything handled for you.
+                We help experts, founders, and creators turn their expertise into professional, profitable video courses. From strategy to final delivery everything handled for you.
               </p>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-3 py-2 rounded-full text-sm">
@@ -99,11 +99,11 @@ export const Footer = () => {
                 </li>
                 <li>
                   <a 
-                    href="mailto:info@expert2course.com" 
+                    href="mailto:info@buildmacourse.com" 
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group text-sm sm:text-base"
                   >
                     <Mail className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
-                    info@expert2course.com
+                    info@buildmacourse.com
                   </a>
                 </li>
               </ul>
@@ -118,7 +118,7 @@ export const Footer = () => {
                   &copy; {currentYear} MonetizeUrContent LLC. All rights reserved.
                 </p>
                 <p className="text-xs text-brand-gray">
-                  Expert2Course operates under MonetizeUrContent LLC
+                  BuildMaCourse operates under MonetizeUrContent LLC
                 </p>
               </div>
               <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">

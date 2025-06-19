@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { OverwhelmingSection } from './components/OverwhelmingSection';
 import { PainPointsSection } from './components/PainPointsSection';
 import { ProcessSection } from './components/ProcessSection';
 import { CheckmarkSection } from './components/CheckmarkSection';
@@ -19,6 +20,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <OverwhelmingSection />
       <PainPointsSection />
       <ProcessSection />
       <CheckmarkSection />

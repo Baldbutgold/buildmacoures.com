@@ -10,7 +10,7 @@ export const BlogPost = () => {
   // For now, we'll show a placeholder
   const post = {
     title: 'How to Structure Your Online Course for Maximum Engagement',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2024-01-15',
     readTime: '8 min read',
     tags: ['Course Creation', 'Student Engagement', 'Course Structure'],
@@ -177,7 +177,7 @@ export const BlogPost = () => {
                 }}
                 className="inline-flex items-center gap-3 bg-white text-brand-purple px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
               >
-                Book Your Free Strategy Call
+                Build Ma Course!
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>

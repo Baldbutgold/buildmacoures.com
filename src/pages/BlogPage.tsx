@@ -11,7 +11,7 @@ const blogPosts: BlogPost[] = [
     slug: 'how-to-structure-online-course-maximum-engagement',
     excerpt: 'Learn the proven framework for organizing your course content that keeps students engaged from start to finish.',
     content: '',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2024-01-15',
     readTime: '8 min read',
     tags: ['Course Creation', 'Student Engagement', 'Course Structure'],
@@ -23,7 +23,7 @@ const blogPosts: BlogPost[] = [
     slug: '5-video-production-mistakes-kill-course-sales',
     excerpt: 'Avoid these common video production pitfalls that can make your course look unprofessional and hurt your sales.',
     content: '',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2024-01-10',
     readTime: '6 min read',
     tags: ['Video Production', 'Course Sales', 'Professional Quality']
@@ -34,7 +34,7 @@ const blogPosts: BlogPost[] = [
     slug: 'complete-guide-pricing-online-course',
     excerpt: 'Discover the psychology and strategy behind pricing your course to maximize revenue while providing value.',
     content: '',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2024-01-05',
     readTime: '12 min read',
     tags: ['Pricing Strategy', 'Course Revenue', 'Value Proposition']
@@ -45,7 +45,7 @@ const blogPosts: BlogPost[] = [
     slug: 'from-expert-to-educator-making-transition',
     excerpt: 'How to transform your professional expertise into teachable content that resonates with your audience.',
     content: '',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2024-01-01',
     readTime: '10 min read',
     tags: ['Teaching Skills', 'Content Creation', 'Expertise']
@@ -56,7 +56,7 @@ const blogPosts: BlogPost[] = [
     slug: 'course-launch-checklist-20-steps-success',
     excerpt: 'A comprehensive checklist to ensure your course launch goes smoothly and generates maximum impact.',
     content: '',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2023-12-28',
     readTime: '15 min read',
     tags: ['Course Launch', 'Marketing', 'Checklist']
@@ -67,7 +67,7 @@ const blogPosts: BlogPost[] = [
     slug: 'building-authority-educational-content',
     excerpt: 'How creating educational content positions you as an industry leader and attracts premium opportunities.',
     content: '',
-    author: 'Expert2Course',
+    author: 'BuildMaCourse',
     publishedAt: '2023-12-20',
     readTime: '7 min read',
     tags: ['Authority Building', 'Content Marketing', 'Thought Leadership']
@@ -94,7 +94,7 @@ export const BlogPage = () => {
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
               <BookOpen className="w-4 h-4" />
-              Expert2Course Blog
+              BuildMaCourse Blog
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
               Course Creation Insights & Tips
@@ -208,7 +208,7 @@ export const BlogPage = () => {
                 }}
                 className="inline-flex items-center gap-3 bg-white text-brand-purple px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
               >
-                Book Your Free Strategy Call
+                Build Ma Course!
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>

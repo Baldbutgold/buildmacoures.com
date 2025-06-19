@@ -59,7 +59,7 @@ export const Header = () => {
                 isScrolled ? 'text-brand-white hover:text-brand-purple' : 'text-brand-white hover:text-brand-purple'
               }`}
             >
-              Expert2Course
+              BuildMaCourse
             </Link>
           </div>
           
@@ -92,7 +92,7 @@ export const Header = () => {
               onClick={() => scrollToSection('#schedule-call')}
               className="shadow-purple hover:shadow-purple-lg text-sm lg:text-base"
             >
-              Book Free Strategy Call
+              Build Ma Course!
             </Button>
           </nav>
           
@@ -135,7 +135,7 @@ export const Header = () => {
               className="w-full mt-4"
               onClick={() => scrollToSection('#schedule-call')}
             >
-              Book Free Strategy Call
+              Build Ma Course!
             </Button>
           </div>
         </div>

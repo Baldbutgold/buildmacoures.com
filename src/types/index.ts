@@ -14,6 +14,7 @@ export type ButtonProps = {
 export type SectionProps = {
   className?: string;
   children: React.ReactNode;
+  id?: string;
 };
 
 export type CheckItem = {
@@ -25,6 +26,7 @@ export type ProcessStep = {
   title: string;
   description: string;
   number: number;
+  icon?: React.ComponentType<any>;
 };
 
 export type BenefitItem = {

@@ -1,74 +1,65 @@
 import React from 'react';
 import { Section } from './Section';
+import { AlertTriangle, X } from 'lucide-react';
 
 export const ProblemSection = () => {
+  const problems = [
+    "You waste months fiddling with scripts and videos that don't convert.",
+    "Prospects bounce because your product still seems \"too complicated.\"",
+    "Your support team gets slammed with the same questions every day.",
+    "You leave money and market share on the table."
+  ];
+
   return (
-    <Section className="bg-gray-50">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-900 mb-12">
-          Why Most Founders Struggle <span className="text-orange-500">(And How You Can Skip It)</span>
-        </h2>
+    <Section className="bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <AlertTriangle className="w-4 h-4" />
+            The Challenge
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-brand-black mb-6 font-bricolage">
+            Why Most Founders Struggle 
+            <span className="block text-orange-500 mt-2">(And How You Can Skip It)</span>
+          </h2>
+        </div>
         
-        <div className="bg-white rounded-xl shadow-md p-8 mb-8">
-          <p className="text-xl text-center font-medium text-gray-800 mb-6">
-            Creating great educational content is hard.
-            If you try to do it yourself…
-          </p>
+        <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 border border-gray-100">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+              Creating great educational content is hard.
+            </h3>
+            <p className="text-xl text-gray-600 font-medium">
+              If you try to do it yourself…
+            </p>
+          </div>
           
-          <div className="space-y-4 mt-6">
-            <div className="flex items-start">
-              <div className="flex-shrink-0 mt-1">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white font-bold">✕</span>
-              </div>
-              <div className="ml-3">
-                <p className="text-lg text-gray-700">
-                  You waste months fiddling with scripts and videos that don't convert.
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {problems.map((problem, index) => (
+              <div key={index} className="group flex items-start p-6 rounded-xl bg-red-50 border border-red-100 hover:bg-red-100 transition-all duration-300">
+                <div className="flex-shrink-0 mr-4 mt-1">
+                  <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <X className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <p className="text-lg text-gray-700 font-medium leading-relaxed">
+                  {problem}
                 </p>
               </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="flex-shrink-0 mt-1">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white font-bold">✕</span>
-              </div>
-              <div className="ml-3">
-                <p className="text-lg text-gray-700">
-                  Prospects bounce because your product still seems "too complicated."
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="flex-shrink-0 mt-1">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white font-bold">✕</span>
-              </div>
-              <div className="ml-3">
-                <p className="text-lg text-gray-700">
-                  Your support team gets slammed with the same questions every day.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="flex-shrink-0 mt-1">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white font-bold">✕</span>
-              </div>
-              <div className="ml-3">
-                <p className="text-lg text-gray-700">
-                  You leave money and market share on the table.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         
-        <p className="text-xl text-center font-medium text-gray-800 mb-10">
-          It doesn't have to be that way.
-        </p>
-        
-        <p className="text-lg text-center text-gray-700">
-          When you work with MonetizeUrContent, you get a full system — built, launched, and working — without adding more to your plate.
-        </p>
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-brand-blue to-blue-600 text-white p-8 md:p-12 rounded-3xl shadow-xl">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              It doesn't have to be that way.
+            </h3>
+            <p className="text-xl leading-relaxed max-w-3xl mx-auto">
+              When you work with MonetizeUrContent, you get a full system — built, launched, and working — without adding more to your plate.
+            </p>
+          </div>
+        </div>
       </div>
     </Section>
   );

@@ -98,7 +98,7 @@ export const Hero = () => {
           <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600 mt-8">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>100+ Projects Completed</span>
+              <span>80+ Projects Completed</span>
             </div>
             <div className="w-px h-4 bg-gray-300 hidden sm:block"></div>
             <div className="flex items-center gap-2">

@@ -1,29 +1,29 @@
 import React from 'react';
 import { Section } from './Section';
-import { TrendingUp, HeadphonesIcon, Award, ArrowRight } from 'lucide-react';
+import { TrendingUp, Clock, Award, ArrowRight } from 'lucide-react';
 
 export const ResultsSection = () => {
   const results = [
     {
       icon: TrendingUp,
-      title: "More Revenue",
-      description: "Create a new passive income stream with high-quality educational content that sells 24/7.",
+      title: "Higher Revenue",
+      description: "Professional courses command premium prices and generate consistent passive income streams.",
       color: "green",
-      stat: "300% ROI Average"
+      stat: "3x Higher Pricing"
     },
     {
-      icon: HeadphonesIcon,
-      title: "Less Support",
-      description: "Reduce your support tickets by up to 50% with clear, professional video tutorials that answer common questions.",
+      icon: Clock,
+      title: "Faster Launch",
+      description: "Skip months of learning curve and launch your course in just 2-3 weeks with expert production.",
       color: "purple",
-      stat: "50% Fewer Tickets"
+      stat: "2-Week Delivery"
     },
     {
       icon: Award,
-      title: "More Authority",
-      description: "Position yourself as the clear industry expert, attracting better clients and partnerships.",
+      title: "Professional Quality",
+      description: "Stand out from amateur courses with polished editing, clear structure, and engaging content.",
       color: "orange",
-      stat: "10x Brand Recognition"
+      stat: "Studio-Quality Results"
     }
   ];
 
@@ -57,13 +57,13 @@ export const ResultsSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
             <TrendingUp className="w-4 h-4" />
-            Proven Results
+            The Results
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-            The Results You Can Expect
+            What You Can Expect
           </h2>
           <p className="text-xl text-brand-gray max-w-3xl mx-auto">
-            Join hundreds of SaaS founders who've transformed their business with our content solutions
+            Join successful creators who've transformed their expertise into profitable, professional courses
           </p>
         </div>
         
@@ -102,10 +102,10 @@ export const ResultsSection = () => {
         <div className="text-center">
           <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-8 md:p-12 rounded-3xl shadow-purple-lg">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 font-bricolage">
-              Ready to see these results for your SaaS?
+              Ready to see these results for yourself?
             </h3>
             <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-              Join the growing number of SaaS founders who've unlocked new revenue streams with our proven content framework.
+              Join the growing number of creators who've transformed their expertise into profitable, professional courses.
             </p>
             <button 
               onClick={() => {
@@ -114,7 +114,7 @@ export const ResultsSection = () => {
               }}
               className="inline-flex items-center gap-3 bg-white text-brand-purple px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
             >
-              Get Your Free Strategy Call
+              Book Your Free Strategy Call
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>

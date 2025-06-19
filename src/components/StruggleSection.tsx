@@ -10,13 +10,13 @@ export const StruggleSection = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Target className="w-4 h-4" />
-              Ready to Transform?
+              Ready to Get Started?
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-brand-white mb-6 font-bricolage">
-              Ready to unlock a new growth channel, own your space, and scale without the guesswork?
+              Ready to turn your expertise into a sellable course?
             </h2>
             <p className="text-xl text-brand-gray mb-8 max-w-3xl mx-auto">
-              MonetizeUrContent builds video tutorials and mini-courses that bring in warm leads, cut your support costs, and position you as the obvious expert in your niche.
+              Expert2Course handles everything from structure to final delivery, so you can focus on what you do best — sharing your knowledge and growing your business.
             </p>
           </div>
           
@@ -28,7 +28,7 @@ export const StruggleSection = () => {
               }}
               className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold text-lg rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
             >
-              👉 Schedule Your Free Strategy Call
+              🚀 Book Your Free Strategy Call
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>

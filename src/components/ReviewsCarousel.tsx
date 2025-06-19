@@ -5,19 +5,25 @@ const reviews = [
   {
     name: "TrackerBot",
     profession: "SaaS Company",
-    comment: "Truly outstanding video course production that exceeded my expectations. The attention to detail and professionalism made the process smooth and enjoyable.",
+    comment: "Outstanding course production — exceeded expectations in every way. The attention to detail and professionalism made the process smooth and enjoyable.",
+    rating: 5
+  },
+  {
+    name: "Cadrin",
+    profession: "Entrepreneur",
+    comment: "Best experience I've had working with anyone on a creative project. Very professional, explained the whole process, and gave it his all. I'll definitely be working with him again.",
+    rating: 5
+  },
+  {
+    name: "Hackutopia",
+    profession: "Product Creator",
+    comment: "Went above and beyond to resolve my concerns and nailed it. Made multiple iterations until I was fully happy. Exceptional service.",
     rating: 5
   },
   {
     name: "Ethan",
     profession: "Udemy Instructor",
     comment: "I needed a full web development course created, and he delivered an excellent one. Clear structure, high-quality editing, and fantastic communication.",
-    rating: 5
-  },
-  {
-    name: "Cadrin",
-    profession: "Entrepreneur",
-    comment: "The best experience I've had working with anyone on a creative project. Very professional, explained the whole process, and gave it his all. I'll definitely be working with him again.",
     rating: 5
   },
   {
@@ -30,12 +36,6 @@ const reviews = [
     name: "Mark",
     profession: "Startup Founder",
     comment: "Very responsive and proactive. Also kept it flexible throughout the process.",
-    rating: 5
-  },
-  {
-    name: "Hackutopia",
-    profession: "Product Creator",
-    comment: "Went above and beyond to address my concerns and made multiple iterations until I was fully happy. Exceptional service.",
     rating: 5
   },
   {
@@ -105,18 +105,18 @@ export const ReviewsCarousel = () => {
   );
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden" id="testimonials">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Star className="w-4 h-4 fill-current" />
-            Client Success Stories
+            What Clients Are Saying
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-4">
-            Why top founders love working with us
+          <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-4 font-bricolage">
+            Trusted by Creators Worldwide
           </h2>
           <p className="text-xl text-brand-gray max-w-2xl mx-auto">
-            Join hundreds of satisfied clients who've transformed their SaaS with our content solutions
+            Join hundreds of satisfied clients who've transformed their expertise into profitable courses
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export const ReviewsCarousel = () => {
             </div>
             <div className="w-px h-6 bg-brand-gray/30 hidden sm:block" />
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-brand-white">80+ Projects Completed</span>
+              <span className="font-semibold text-brand-white">80+ Courses Created</span>
             </div>
             <div className="w-px h-6 bg-brand-gray/30 hidden sm:block" />
             <div className="flex items-center gap-2">

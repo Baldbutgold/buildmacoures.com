@@ -6,7 +6,7 @@ import { Calendar, CheckCircle, ArrowRight } from 'lucide-react';
 export const CTASection = () => {
   const benefits = [
     "Free 30-minute strategy session",
-    "Custom content roadmap for your SaaS",
+    "Custom course roadmap for your expertise",
     "No obligation, no pressure",
     "Clear next steps to get started"
   ];
@@ -20,10 +20,10 @@ export const CTASection = () => {
             Ready to Get Started?
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 font-bricolage">
-            Turn Your SaaS Into a Revenue Machine
+            Ready to turn your expertise into a sellable course?
           </h2>
           <p className="text-xl text-brand-gray mb-8 max-w-3xl mx-auto">
-            Ready to unlock a new growth channel, own your space, and scale without the guesswork?
+            Let's discuss your vision and create a professional course that generates revenue and establishes your authority.
           </p>
         </div>
         
@@ -50,10 +50,10 @@ export const CTASection = () => {
             <div className="text-center lg:text-left">
               <div className="bg-brand-black/50 backdrop-blur-sm rounded-2xl p-8 border border-brand-purple/30">
                 <h4 className="text-xl font-bold mb-4 text-white">
-                  Schedule Your Free Strategy Call
+                  Book Your Free Strategy Call
                 </h4>
                 <p className="text-brand-gray mb-8">
-                  In this 30-minute call, we'll discuss your goals and show you exactly how our system can help you grow your SaaS business.
+                  In this 30-minute call, we'll discuss your expertise and show you exactly how to turn it into a profitable course.
                 </p>
                 
                 <Button 
@@ -63,7 +63,7 @@ export const CTASection = () => {
                 >
                   <span className="flex items-center justify-center gap-3">
                     <Calendar className="w-5 h-5" />
-                    Schedule Your Free Call Now
+                    🚀 Book Your Free Call Now
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Button>
@@ -80,7 +80,7 @@ export const CTASection = () => {
           
           <div className="text-center mt-12 pt-8 border-t border-brand-purple/20">
             <p className="text-brand-gray">
-              <strong className="text-white">100% Free.</strong> No obligation. No pressure. Just a clear roadmap for growing your SaaS with educational content.
+              <strong className="text-white">100% Free.</strong> No obligation. No pressure. Just a clear roadmap for turning your expertise into a profitable course.
             </p>
           </div>
         </div>

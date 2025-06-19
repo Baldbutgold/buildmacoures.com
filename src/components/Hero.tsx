@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
 import { Container } from './Container';
-import { Star, ArrowRight } from 'lucide-react';
+import { Star, ArrowRight, Rocket } from 'lucide-react';
 
 export const Hero = () => {
   const scrollToSection = (href: string) => {
@@ -31,20 +31,23 @@ export const Hero = () => {
           <div className="inline-flex items-center gap-2 text-sm sm:text-base mb-6 animate-fade-in">
             <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-4 py-2 rounded-full font-medium shadow-purple">
               <span className="flex items-center gap-2">
-                <Star className="w-4 h-4 fill-current" />
-                ✨ Become the #1 Authority in Your Space ✨
+                <Rocket className="w-4 h-4" />
+                🚀 Turn Your Expertise Into Profit
               </span>
             </div>
           </div>
 
           {/* Enhanced heading */}
           <h1 className="font-bold text-brand-white leading-[0.9] mb-8 sm:mb-10 animate-fade-in text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bricolage">
-            Transform your <br /> 
-            SaaS into a{' '}
+            Turn Your Expertise into a{' '}
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-3 py-1 rounded-2xl transform -rotate-2 inline-block shadow-purple-lg">
-                revenue machine
+                Sellable Video Course
               </span>
+            </span>
+            <br />
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-gray mt-4 block">
+              Without Lifting a Finger
             </span>
           </h1>
 
@@ -69,8 +72,8 @@ export const Hero = () => {
 
           {/* Enhanced description */}
           <p className="text-lg sm:text-xl leading-relaxed text-brand-gray mb-10 max-w-4xl mx-auto">
-            <strong className="text-brand-white">On-demand training, video content, and done-for-you course creation</strong> for SaaS founders and tech brands.
-            MonetizeUrContent makes it easy to plan, produce, and launch educational content that drives revenue, cuts support costs, and positions your product as the authority in your space.
+            I help <strong className="text-brand-white">founders, creators, and coaches</strong> build polished, profitable courses from scratch — 
+            <strong className="text-brand-purple"> structure, editing, delivery included.</strong>
           </p>
 
           {/* Enhanced CTA */}
@@ -82,7 +85,7 @@ export const Hero = () => {
               onClick={() => scrollToSection('#schedule-call')}
             >
               <span className="flex items-center gap-2">
-                Schedule Your Free Strategy Call
+                🚀 Book a Free Strategy Call
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
@@ -95,20 +98,25 @@ export const Hero = () => {
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-brand-gray mt-8">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-              <span>80+ Projects Completed</span>
-            </div>
-            <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-              <span>98% Client Satisfaction</span>
-            </div>
-            <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
-              <span>Fast 2-Week Delivery</span>
+          <div className="text-center mt-8">
+            <p className="text-brand-gray text-lg mb-4">
+              <strong className="text-brand-white">Trusted by 80+ clients</strong> across SaaS, coaching, and product businesses
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-brand-gray">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
+                <span>80+ Courses Created</span>
+              </div>
+              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
+                <span>98% Client Satisfaction</span>
+              </div>
+              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block"></div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-brand-purple rounded-full"></div>
+                <span>Fast 2-Week Delivery</span>
+              </div>
             </div>
           </div>
         </div>

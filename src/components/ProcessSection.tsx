@@ -1,26 +1,26 @@
 import React from 'react';
 import { Section } from './Section';
 import { ProcessStep } from '../types';
-import { Search, Video, Rocket } from 'lucide-react';
+import { MessageCircle, Video, Rocket } from 'lucide-react';
 
 export const ProcessSection = () => {
   const steps: ProcessStep[] = [
     {
       number: 1,
-      title: "Strategy Deep Dive",
-      description: "We map your customer journey, set clear goals, and design your full content plan.",
-      icon: Search
+      title: "Strategy Call",
+      description: "We map out your course vision, audience, and structure in a detailed planning session.",
+      icon: MessageCircle
     },
     {
       number: 2,
-      title: "Done-For-You Production",
-      description: "Scripting, recording, editing, voiceovers — we handle it all, start to finish.",
+      title: "Content Production",
+      description: "You record. I handle all the editing, polishing, and formatting to professional standards.",
       icon: Video
     },
     {
       number: 3,
-      title: "Launch & Amplify",
-      description: "We set up your LMS, build landing pages, and launch campaigns to drive leads and sales.",
+      title: "Launch-Ready Delivery",
+      description: "Final files uploaded, branded, and delivered — ready to sell and start generating revenue.",
       icon: Rocket
     }
   ];
@@ -31,13 +31,13 @@ export const ProcessSection = () => {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Rocket className="w-4 h-4" />
-            Our Process
+            How It Works
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 font-bricolage">
-            Our 3-Step Authority Framework
+            3 Simple Steps to Your Course
           </h2>
           <p className="text-xl text-purple-100 max-w-3xl mx-auto">
-            A proven system that transforms your expertise into a revenue-generating content machine
+            A proven process that transforms your expertise into a professional, sellable course
           </p>
         </div>
         

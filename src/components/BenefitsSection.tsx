@@ -5,16 +5,16 @@ import { BenefitItem } from '../types';
 export const BenefitsSection = () => {
   const benefits: BenefitItem[] = [
     {
-      text: "Industry Authority — Be the go-to expert in your space."
+      text: "Professional Course Structure — Proven frameworks that keep students engaged."
     },
     {
-      text: "A New Revenue Stream — Content that sells while you sleep."
+      text: "High-Quality Production — Crisp editing, clear audio, and polished visuals."
     },
     {
-      text: 'Content That Converts — Built to drive sales, not just "educate."'
+      text: 'Fast Turnaround — Get your course ready to launch in just 2-3 weeks.'
     },
     {
-      text: "Fast Execution — Launch in weeks without adding to your team."
+      text: "Complete Delivery — Uploaded and ready to sell on your chosen platform."
     }
   ];
 
@@ -22,7 +22,7 @@ export const BenefitsSection = () => {
     <Section className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-brand-white mb-12">
-          What You'll Get
+          What Makes My Courses Different
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

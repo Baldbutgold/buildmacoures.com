@@ -20,10 +20,10 @@ export const Footer = () => {
             {/* Company Info */}
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-2xl font-bold text-brand-white mb-4 font-bricolage">
-                MonetizeUrContent
+                Expert2Course
               </h3>
               <p className="mb-6 text-lg leading-relaxed">
-                We help B2B SaaS companies turn educational content into a revenue machine. Transform your expertise into scalable growth.
+                I help founders, creators, and coaches turn their expertise into professional, profitable video courses. From structure to final delivery — everything handled for you.
               </p>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-3 py-2 rounded-full text-sm">
@@ -45,15 +45,15 @@ export const Footer = () => {
                     onClick={() => scrollToSection('#process')}
                     className="hover:text-brand-white transition-colors duration-200 text-left"
                   >
-                    Our Process
+                    How It Works
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('#results')}
+                    onClick={() => scrollToSection('#testimonials')}
                     className="hover:text-brand-white transition-colors duration-200 text-left"
                   >
-                    Results
+                    Testimonials
                   </button>
                 </li>
                 <li>
@@ -79,16 +79,16 @@ export const Footer = () => {
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group"
                   >
                     <Calendar className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
-                    Schedule a Call
+                    Book a Strategy Call
                   </button>
                 </li>
                 <li>
                   <a 
-                    href="mailto:info@monetizeurcontent.com" 
+                    href="mailto:info@expert2course.com" 
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group"
                   >
                     <Mail className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
-                    info@monetizeurcontent.com
+                    info@expert2course.com
                   </a>
                 </li>
               </ul>
@@ -99,7 +99,7 @@ export const Footer = () => {
           <div className="border-t border-brand-purple/20 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-center md:text-left">
-                &copy; {currentYear} MonetizeUrContent. All rights reserved.
+                &copy; {currentYear} Expert2Course. All rights reserved.
               </p>
               <div className="flex items-center gap-6 text-sm">
                 <a href="#" className="hover:text-brand-white transition-colors">Privacy Policy</a>

@@ -9,8 +9,8 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems: NavItem[] = [
-    { label: 'Case Studies', href: '#case-studies' },
-    { label: 'Process', href: '#process' },
+    { label: 'How It Works', href: '#process' },
+    { label: 'Testimonials', href: '#testimonials' },
     { label: 'Results', href: '#results' },
   ];
 
@@ -46,7 +46,7 @@ export const Header = () => {
                 isScrolled ? 'text-brand-white hover:text-brand-purple' : 'text-brand-white hover:text-brand-purple'
               }`}
             >
-              MonetizeUrContent
+              Expert2Course
             </a>
           </div>
           
@@ -67,7 +67,7 @@ export const Header = () => {
               onClick={() => scrollToSection('#schedule-call')}
               className="shadow-purple hover:shadow-purple-lg"
             >
-              Schedule a Free Call
+              Book Free Strategy Call
             </Button>
           </nav>
           
@@ -99,7 +99,7 @@ export const Header = () => {
               className="w-full mt-4"
               onClick={() => scrollToSection('#schedule-call')}
             >
-              Schedule a Free Call
+              Book Free Strategy Call
             </Button>
           </div>
         </div>

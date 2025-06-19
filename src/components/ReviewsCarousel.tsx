@@ -1,16 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 const reviews = [
-  { "name": "vallewdub", "location": "Bulgaria", "comment": "Abdou truly delivered an outstanding video course production that exceeded my expectations! His keen attention to detail and professionalism made the process smooth, enjoyable, and quick. Working with him was a pleasure." },
-  { "name": "ethan_nguyen3", "location": "United States", "comment": "I needed a web development Udemy course created, and Abdou delivered an excellent course for my Udemy. He addressed all my requirements and provided a comprehensive course outline before starting. The course had fantastic quality graphics and editing. He has excellent communication and always responds." },
-  { "name": "cadrin951", "location": "United States", "comment": "The best experience l've had on fiver. Very professional, explained the whole process and even got the job done 2 weeks ahead of schedule, will definitely be working with him on more projects soon definitely gives it his all. If you’re looking for professional, excellent costumer service and stellar work this is definitely your guy! Thank you sir" },
-  { "name": "williemook", "location": "United States", "comment": "The most awesome experience, i believe communication is key 🔑, and they went above expectations on all of the above. I would definitely recommend and will be using again in the near future 😊" },
-  { "name": "markdencker", "location": "Denmark", "comment": "Very responsive and proactive. Also keeping it flexible." },
-  { "name": "hackutopia", "location": "United States", "comment": "I am very impressed with Mohammeds resolution and desire to ensure the customer is happy before finishing the completed order. He went above and beyond to resolve my concerns for improvements and create several additional iterations. Thank you" },
-  { "name": "ahmedamin3", "location": "United Kingdom", "comment": "Amazing guy to work with, very easy and patient. Delivered an excellent job." },
-  { "name": "zaidshaikh954", "location": "India", "comment": "This guy Mohammed is very good in his work and very cooperative....he listen your queries and implement it very nicely...Will work again with this brother. Thankyou very much brother for your time and effort." },
-  { "name": "demahamo", "location": "Italy", "comment": "highly recommended... good job.. revising many times.. sharing more information... thank you so much 👍👍" },
-  { "name": "alex", "location": "Serbia", "comment": "It was pleasure to work with Mohammed. He is very smart, hard working and creative and I hope our paths will cross again soon!" }
+  { name: "TrackerBot", profession: "SaaS Company", comment: "Abdou truly delivered an outstanding video course production that exceeded my expectations! His keen attention to detail and professionalism made the process smooth, enjoyable, and quick. Working with him was a pleasure." },
+  { name: "Ethan", profession: "Udemy Instructor", comment: "I needed a web development Udemy course created, and Abdou delivered an excellent course for my Udemy. He addressed all my requirements and provided a comprehensive course outline before starting. The course had fantastic quality graphics and editing. He has excellent communication and always responds." },
+  { name: "Cadrin", profession: "Entrepreneur", comment: "The best experience l've had on fiver. Very professional, explained the whole process and even got the job done 2 weeks ahead of schedule, will definitely be working with him on more projects soon definitely gives it his all. If you’re looking for professional, excellent costumer service and stellar work this is definitely your guy! Thank you sir" },
+  { name: "Willie", profession: "Business Owner", comment: "The most awesome experience, i believe communication is key 🔑, and they went above expectations on all of the above. I would definitely recommend and will be using again in the near future 😊" },
+  { name: "Mark", profession: "Startup Founder", comment: "Very responsive and proactive. Also keeping it flexible." },
+  { name: "hackutopia", profession: "Product Creator", comment: "I am very impressed with Mohammeds resolution and desire to ensure the customer is happy before finishing the completed order. He went above and beyond to resolve my concerns for improvements and create several additional iterations. Thank you" },
+  { name: "ahmed", profession: "Agency Owner", comment: "Amazing guy to work with, very easy and patient. Delivered an excellent job." },
+  { name: "Zaid", profession: "Entrepreneur", comment: "This guy Mohammed is very good in his work and very cooperative....he listen your queries and implement it very nicely...Will work again with this brother. Thankyou very much brother for your time and effort." },
+  { name: "demahamo", profession: "Business Owner", comment: "highly recommended... good job.. revising many times.. sharing more information... thank you so much 👍👍" },
+  { name: "alex", profession: "Startup Founder", comment: "It was pleasure to work with Mohammed. He is very smart, hard working and creative and I hope our paths will cross again soon!" }
 ];
 
 export const ReviewsCarousel = () => {
@@ -80,7 +80,7 @@ export const ReviewsCarousel = () => {
                   )}
                   <div className="avis_client u-mt-4 flex flex-col items-center">
                     <div className="avis_name font-semibold text-brand-black text-sm sm:text-base">{review.name}</div>
-                    <div className="avis_subtitle text-xs sm:text-sm text-brand-blue opacity-80">{review.location}</div>
+                    <div className="avis_profession text-xs sm:text-sm text-brand-blue opacity-80">{review.profession}</div>
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export const ReviewsCarousel = () => {
             <div className="text-lg text-brand-black mb-4 text-center">{modalReview.comment}</div>
             <div className="flex flex-col items-center">
               <div className="font-semibold text-brand-black text-base">{modalReview.name}</div>
-              <div className="text-sm text-brand-blue opacity-80">{modalReview.location}</div>
+              <div className="text-sm text-brand-blue opacity-80">{modalReview.profession}</div>
             </div>
           </div>
         </div>

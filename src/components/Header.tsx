@@ -34,7 +34,7 @@ export const Header = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
+        isScrolled ? 'bg-brand-black/95 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
       }`}
     >
       <Container>
@@ -42,7 +42,9 @@ export const Header = () => {
           <div className="flex items-center">
             <a 
               href="/"
-              className="text-brand-black font-bricolage font-bold text-[clamp(1.5rem,1rem+1.5vw,2rem)] leading-none tracking-[-1px] hover:text-brand-blue transition-colors duration-200"
+              className={`font-bricolage font-bold text-[clamp(1.5rem,1rem+1.5vw,2rem)] leading-none tracking-[-1px] transition-colors duration-200 ${
+                isScrolled ? 'text-brand-white hover:text-brand-purple' : 'text-brand-white hover:text-brand-purple'
+              }`}
             >
               MonetizeUrContent
             </a>
@@ -54,16 +56,16 @@ export const Header = () => {
               <button 
                 key={item.label} 
                 onClick={() => scrollToSection(item.href)}
-                className="text-brand-black hover:text-brand-blue font-medium transition-colors duration-200 font-sans relative group"
+                className="text-brand-white hover:text-brand-purple font-medium transition-colors duration-200 font-sans relative group"
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-purple transition-all duration-200 group-hover:w-full"></span>
               </button>
             ))}
             <Button 
               variant="primary"
               onClick={() => scrollToSection('#schedule-call')}
-              className="shadow-md hover:shadow-lg"
+              className="shadow-purple hover:shadow-purple-lg"
             >
               Schedule a Free Call
             </Button>
@@ -71,7 +73,7 @@ export const Header = () => {
           
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-brand-black p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="md:hidden text-brand-white p-2 rounded-lg hover:bg-brand-purple/20 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
@@ -81,13 +83,13 @@ export const Header = () => {
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg border-t border-gray-100">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-brand-black/95 backdrop-blur-md shadow-lg border-t border-brand-purple/20">
           <div className="py-4 px-4 space-y-4">
             {navItems.map((item) => (
               <button 
                 key={item.label} 
                 onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left text-brand-black hover:text-brand-blue font-medium py-2 transition-colors"
+                className="block w-full text-left text-brand-white hover:text-brand-purple font-medium py-2 transition-colors"
               >
                 {item.label}
               </button>

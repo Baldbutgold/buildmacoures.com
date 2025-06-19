@@ -4,18 +4,18 @@ import { ArrowRight, Target } from 'lucide-react';
 
 export const StruggleSection = () => {
   return (
-    <Section className="bg-white">
+    <Section className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900">
       <div className="max-w-5xl mx-auto">
-        <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
+        <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl border border-brand-purple/20">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-brand-blue/10 text-brand-blue px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Target className="w-4 h-4" />
               Ready to Transform?
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-6 font-bricolage">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-white mb-6 font-bricolage">
               Ready to unlock a new growth channel, own your space, and scale without the guesswork?
             </h2>
-            <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-gray mb-8 max-w-3xl mx-auto">
               MonetizeUrContent builds video tutorials and mini-courses that bring in warm leads, cut your support costs, and position you as the obvious expert in your niche.
             </p>
           </div>

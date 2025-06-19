@@ -26,7 +26,7 @@ export const ProcessSection = () => {
   ];
 
   return (
-    <Section className="bg-gradient-to-br from-brand-blue via-blue-600 to-brand-blue text-brand-white" id="process">
+    <Section className="bg-gradient-to-br from-brand-purple via-brand-purple-dark to-brand-purple-deep text-brand-white" id="process">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -36,7 +36,7 @@ export const ProcessSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 font-bricolage">
             Our 3-Step Authority Framework
           </h2>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+          <p className="text-xl text-purple-100 max-w-3xl mx-auto">
             A proven system that transforms your expertise into a revenue-generating content machine
           </p>
         </div>
@@ -72,7 +72,7 @@ const StepCard = ({ step, isEven = false }: StepCardProps) => {
     <div className={`flex flex-col lg:flex-row items-center ${isEven ? 'lg:flex-row-reverse' : ''} gap-8 lg:gap-16`}>
       {/* Step number and icon */}
       <div className="flex-shrink-0 relative z-10">
-        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white text-brand-blue flex items-center justify-center shadow-2xl">
+        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white text-brand-purple flex items-center justify-center shadow-2xl">
           <div className="text-center">
             <Icon className="w-8 h-8 lg:w-10 lg:h-10 mx-auto mb-1" />
             <span className="text-sm font-bold">{step.number}</span>
@@ -83,14 +83,14 @@ const StepCard = ({ step, isEven = false }: StepCardProps) => {
       {/* Content card */}
       <div className={`flex-1 bg-white/10 backdrop-blur-sm rounded-2xl p-8 lg:p-10 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl ${isEven ? 'lg:text-right' : ''}`}>
         <div className="mb-4">
-          <span className="text-sm font-medium text-blue-200 uppercase tracking-wider">
+          <span className="text-sm font-medium text-purple-200 uppercase tracking-wider">
             Step {step.number}
           </span>
         </div>
         <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white">
           {step.title}
         </h3>
-        <p className="text-lg text-blue-100 leading-relaxed">
+        <p className="text-lg text-purple-100 leading-relaxed">
           {step.description}
         </p>
       </div>

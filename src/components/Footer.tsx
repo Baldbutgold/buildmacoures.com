@@ -13,7 +13,7 @@ export const Footer = () => {
   };
   
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 text-brand-white/70 py-16">
+    <footer className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 text-brand-gray py-16">
       <Container>
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -26,11 +26,11 @@ export const Footer = () => {
                 We help B2B SaaS companies turn educational content into a revenue machine. Transform your expertise into scalable growth.
               </p>
               <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-brand-blue/10 text-brand-blue px-3 py-2 rounded-full text-sm">
+                <div className="flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-3 py-2 rounded-full text-sm">
                   <Star className="w-4 h-4 fill-current" />
                   <span className="font-semibold">4.9/5 Rating</span>
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-brand-gray">
                   80+ Happy Clients
                 </div>
               </div>
@@ -78,7 +78,7 @@ export const Footer = () => {
                     onClick={() => scrollToSection('#schedule-call')}
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group"
                   >
-                    <Calendar className="w-4 h-4 group-hover:text-brand-blue transition-colors" />
+                    <Calendar className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
                     Schedule a Call
                   </button>
                 </li>
@@ -87,7 +87,7 @@ export const Footer = () => {
                     href="mailto:info@monetizeurcontent.com" 
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group"
                   >
-                    <Mail className="w-4 h-4 group-hover:text-brand-blue transition-colors" />
+                    <Mail className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
                     info@monetizeurcontent.com
                   </a>
                 </li>
@@ -96,7 +96,7 @@ export const Footer = () => {
           </div>
           
           {/* Bottom Section */}
-          <div className="border-t border-brand-white/20 pt-8">
+          <div className="border-t border-brand-purple/20 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-center md:text-left">
                 &copy; {currentYear} MonetizeUrContent. All rights reserved.

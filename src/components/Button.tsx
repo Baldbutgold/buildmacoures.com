@@ -11,9 +11,9 @@ export const Button = ({
   const baseClasses = 'inline-flex items-center justify-center rounded-full font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:-translate-y-0.5 active:translate-y-0';
   
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-brand-blue to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 focus:ring-brand-blue shadow-lg hover:shadow-xl',
-    secondary: 'bg-white text-brand-blue border-2 border-brand-blue hover:bg-brand-blue hover:text-white focus:ring-brand-blue shadow-md hover:shadow-lg',
-    outline: 'border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white focus:ring-brand-blue shadow-md hover:shadow-lg'
+    primary: 'bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white hover:from-brand-purple-dark hover:to-brand-purple-deep focus:ring-brand-purple shadow-purple hover:shadow-purple-lg',
+    secondary: 'bg-brand-black text-brand-purple border-2 border-brand-purple hover:bg-brand-purple hover:text-white focus:ring-brand-purple shadow-md hover:shadow-purple',
+    outline: 'border-2 border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white focus:ring-brand-purple shadow-md hover:shadow-purple'
   };
   
   const sizeClasses = {

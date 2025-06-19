@@ -105,17 +105,17 @@ export const ReviewsCarousel = () => {
   );
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-brand-blue/10 text-brand-blue px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Star className="w-4 h-4 fill-current" />
             Client Success Stories
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-brand-black mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-4">
             Why top founders love working with us
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-brand-gray max-w-2xl mx-auto">
             Join hundreds of satisfied clients who've transformed their SaaS with our content solutions
           </p>
         </div>
@@ -134,11 +134,11 @@ export const ReviewsCarousel = () => {
             return (
               <div
                 key={idx}
-                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 w-[380px] min-w-[380px] border border-gray-100 hover:border-brand-blue/20 transform hover:-translate-y-2 flex flex-col"
+                className="group relative bg-brand-black/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-purple-lg transition-all duration-500 p-8 w-[380px] min-w-[380px] border border-brand-purple/20 hover:border-brand-purple/40 transform hover:-translate-y-2 flex flex-col"
               >
                 {/* Quote icon */}
                 <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Quote className="w-8 h-8 text-brand-blue" />
+                  <Quote className="w-8 h-8 text-brand-purple" />
                 </div>
 
                 {/* Star rating */}
@@ -146,12 +146,12 @@ export const ReviewsCarousel = () => {
 
                 {/* Review content - takes up available space */}
                 <div className="flex-grow mb-6">
-                  <p className="text-gray-700 leading-relaxed text-base font-medium">
+                  <p className="text-brand-gray leading-relaxed text-base font-medium">
                     "{displayComment}"
                   </p>
                   {isLong && (
                     <button
-                      className="text-brand-blue hover:text-brand-blue/80 text-sm mt-2 font-medium transition-colors duration-200 underline underline-offset-2"
+                      className="text-brand-purple hover:text-brand-purple-dark text-sm mt-2 font-medium transition-colors duration-200 underline underline-offset-2"
                       onClick={() => { setModalReview(review); setModalOpen(true); }}
                     >
                       Read full review
@@ -160,18 +160,18 @@ export const ReviewsCarousel = () => {
                 </div>
 
                 {/* Client info - always at bottom */}
-                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
-                  <div className="w-12 h-12 bg-gradient-to-br from-brand-blue to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-brand-purple/20">
+                  <div className="w-12 h-12 bg-gradient-to-br from-brand-purple to-brand-purple-dark rounded-full flex items-center justify-center text-white font-bold text-lg">
                     {review.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <div className="font-bold text-brand-black text-lg">{review.name}</div>
-                    <div className="text-gray-500 text-sm font-medium">{review.profession}</div>
+                    <div className="font-bold text-brand-white text-lg">{review.name}</div>
+                    <div className="text-brand-gray text-sm font-medium">{review.profession}</div>
                   </div>
                 </div>
 
                 {/* Hover effect gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
               </div>
             );
           })}
@@ -179,18 +179,18 @@ export const ReviewsCarousel = () => {
 
         {/* Trust indicators */}
         <div className="mt-16 text-center">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-500">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-brand-gray">
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              <span className="font-semibold text-gray-700">4.9/5 Average Rating</span>
+              <span className="font-semibold text-brand-white">4.9/5 Average Rating</span>
             </div>
-            <div className="w-px h-6 bg-gray-300 hidden sm:block" />
+            <div className="w-px h-6 bg-brand-gray/30 hidden sm:block" />
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-gray-700">80+ Projects Completed</span>
+              <span className="font-semibold text-brand-white">80+ Projects Completed</span>
             </div>
-            <div className="w-px h-6 bg-gray-300 hidden sm:block" />
+            <div className="w-px h-6 bg-brand-gray/30 hidden sm:block" />
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-gray-700">98% Client Satisfaction</span>
+              <span className="font-semibold text-brand-white">98% Client Satisfaction</span>
             </div>
           </div>
         </div>
@@ -199,15 +199,15 @@ export const ReviewsCarousel = () => {
       {/* Enhanced Modal */}
       {modalOpen && modalReview && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setModalOpen(false)}
         >
           <div 
-            className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-100"
+            className="bg-brand-black border border-brand-purple/30 rounded-3xl shadow-2xl p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-100"
             onClick={e => e.stopPropagation()}
           >
             <button 
-              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-brand-purple/20 hover:bg-brand-purple/30 text-brand-gray hover:text-brand-white transition-colors"
               onClick={() => setModalOpen(false)}
               aria-label="Close"
             >
@@ -219,19 +219,19 @@ export const ReviewsCarousel = () => {
             </div>
 
             <div className="mb-8">
-              <Quote className="w-8 h-8 text-brand-blue/20 mb-4" />
-              <p className="text-lg text-gray-700 leading-relaxed font-medium">
+              <Quote className="w-8 h-8 text-brand-purple/30 mb-4" />
+              <p className="text-lg text-brand-gray leading-relaxed font-medium">
                 "{modalReview.comment}"
               </p>
             </div>
 
-            <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
-              <div className="w-16 h-16 bg-gradient-to-br from-brand-blue to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+            <div className="flex items-center gap-4 pt-6 border-t border-brand-purple/20">
+              <div className="w-16 h-16 bg-gradient-to-br from-brand-purple to-brand-purple-dark rounded-full flex items-center justify-center text-white font-bold text-xl">
                 {modalReview.name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <div className="font-bold text-brand-black text-xl">{modalReview.name}</div>
-                <div className="text-gray-500 font-medium">{modalReview.profession}</div>
+                <div className="font-bold text-brand-white text-xl">{modalReview.name}</div>
+                <div className="text-brand-gray font-medium">{modalReview.profession}</div>
               </div>
             </div>
           </div>

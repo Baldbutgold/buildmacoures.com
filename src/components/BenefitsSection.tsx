@@ -19,9 +19,9 @@ export const BenefitsSection = () => {
   ];
 
   return (
-    <Section className="bg-gradient-to-r from-blue-50 to-gray-50">
+    <Section className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-900 mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-brand-white mb-12">
           What You'll Get
         </h2>
         
@@ -47,7 +47,7 @@ type BenefitCardProps = {
 const BenefitCard = ({ benefit, index }: BenefitCardProps) => {
   return (
     <div 
-      className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+      className="bg-brand-black/50 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-purple-lg transition-all duration-300 transform hover:-translate-y-1 border border-brand-purple/20 hover:border-brand-purple/40"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="flex items-start">
@@ -55,7 +55,7 @@ const BenefitCard = ({ benefit, index }: BenefitCardProps) => {
           <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white text-lg font-bold">✓</span>
         </div>
         <div className="ml-4">
-          <p className="text-lg font-medium text-gray-800">
+          <p className="text-lg font-medium text-brand-white">
             {benefit.text}
           </p>
         </div>

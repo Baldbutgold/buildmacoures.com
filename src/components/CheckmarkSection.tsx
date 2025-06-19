@@ -26,7 +26,7 @@ export const CheckmarkSection = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-white mb-4 font-bricolage">
               Creating an online course is overwhelming.
             </h2>
-            <p className="text-xl text-gray-300 font-normal max-w-3xl mx-auto">
+            <p className="text-xl text-brand-gray font-normal max-w-3xl mx-auto">
               Without expert guidance, here's what often happens...
             </p>
           </div>
@@ -52,10 +52,10 @@ export const CheckmarkSection = () => {
               It doesn't have to be this way.
             </h2>
             <div className="max-w-4xl mx-auto">
-              <p className="text-xl text-gray-300 mb-4">
-                Instead of guessing your way through course creation, <strong className="text-brand-blue">let MonetizeUrContent help you fast-track your success</strong>. With our proven strategies and expert support, you'll have everything you need to plan, build, and begin to promote a course that works.
+              <p className="text-xl text-brand-gray mb-4">
+                Instead of guessing your way through course creation, <strong className="text-brand-purple">let MonetizeUrContent help you fast-track your success</strong>. With our proven strategies and expert support, you'll have everything you need to plan, build, and begin to promote a course that works.
               </p>
-              <p className="text-lg text-brand-blue italic font-medium">
+              <p className="text-lg text-brand-purple italic font-medium">
                 Imagine results like being able to...
               </p>
             </div>

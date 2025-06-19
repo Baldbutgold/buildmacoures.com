@@ -55,8 +55,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Tagesschrift&display=swap" rel="stylesheet">
     
-    <!-- Calendly Script -->
+    <!-- Calendly Script with proper configuration -->
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script>
+      // Global Calendly event listener
+      window.addEventListener('message', function(e) {
+        if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+          // Redirect to call booked page
+          setTimeout(function() {
+            window.location.href = '/call-booked';
+          }, 1500);
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

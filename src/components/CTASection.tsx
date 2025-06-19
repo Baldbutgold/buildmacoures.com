@@ -4,15 +4,36 @@ import { Calendar } from 'lucide-react';
 
 export const CTASection = () => {
   useEffect(() => {
-    // Ensure Calendly script is loaded
+    // Ensure Calendly script is loaded and configure redirect
     if (window.Calendly) {
       window.Calendly.initInlineWidget({
         url: 'https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1',
         parentElement: document.querySelector('.calendly-inline-widget'),
         prefill: {},
-        utm: {}
+        utm: {},
+        // Add redirect configuration
+        onEventScheduled: function(e) {
+          // Redirect to call booked page when event is scheduled
+          window.location.href = '/call-booked';
+        }
       });
     }
+
+    // Also listen for Calendly events
+    const handleCalendlyEvent = (e) => {
+      if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+        // Redirect when event is scheduled
+        setTimeout(() => {
+          window.location.href = '/call-booked';
+        }, 1000); // Small delay to ensure the booking is processed
+      }
+    };
+
+    window.addEventListener('message', handleCalendlyEvent);
+
+    return () => {
+      window.removeEventListener('message', handleCalendlyEvent);
+    };
   }, []);
 
   return (
@@ -41,11 +62,11 @@ export const CTASection = () => {
             </p>
           </div>
 
-          {/* Large Calendly Widget with scroll fix */}
+          {/* Large Calendly Widget with proper redirect configuration */}
           <div className="flex justify-center calendly-container">
             <div 
               className="calendly-inline-widget w-full max-w-4xl" 
-              data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1&redirect_url=https://buildmacourse.com/call-booked" 
+              data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1" 
               style={{
                 minWidth: '280px', 
                 height: '700px', 

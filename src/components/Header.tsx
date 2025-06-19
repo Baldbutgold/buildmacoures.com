@@ -11,9 +11,6 @@ export const Header = () => {
   const location = useLocation();
 
   const navItems: NavItem[] = [
-    { label: 'How It Works', href: '#process' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Results', href: '#results' },
     { label: 'Blog', href: '/blog', isRoute: true },
   ];
 

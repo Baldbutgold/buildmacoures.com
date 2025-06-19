@@ -51,28 +51,6 @@ export const CheckmarkSection = () => {
               );
             })}
           </div>
-
-          {/* Bottom CTA */}
-          <div className="text-center mt-12 sm:mt-16">
-            <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-purple-lg">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-4">
-                Ready to transform your expertise into a profitable course?
-              </h3>
-              <p className="text-lg sm:text-xl text-purple-100 mb-6 max-w-2xl mx-auto">
-                Let's discuss your vision and create something amazing together.
-              </p>
-              <button 
-                onClick={() => {
-                  const element = document.querySelector('#schedule-call');
-                  if (element) element.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center gap-3 bg-white text-brand-purple px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
-              >
-                Book Your Free Strategy Call
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-12 transition-transform" />
-              </button>
-            </div>
-          </div>
         </div>
       </Container>
     </div>

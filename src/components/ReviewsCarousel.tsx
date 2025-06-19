@@ -202,24 +202,6 @@ export const ReviewsCarousel = () => {
             );
           })}
         </div>
-
-        {/* Trust indicators */}
-        <div className="mt-12 sm:mt-16 text-center">
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm sm:text-base">
-            <div className="flex items-center gap-2">
-              <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-400 text-yellow-400" />
-              <span className="font-semibold text-brand-white">4.9/5 Average Rating</span>
-            </div>
-            <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-brand-white">20+ Courses Created</span>
-            </div>
-            <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-brand-white">98% Client Satisfaction</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Enhanced Modal */}

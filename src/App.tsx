@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { PainPointsSection } from './components/PainPointsSection';
+import { ProcessSection } from './components/ProcessSection';
 import { CheckmarkSection } from './components/CheckmarkSection';
 import { ReviewsCarousel } from './components/ReviewsCarousel';
-import { ProcessSection } from './components/ProcessSection';
-import { ProblemSection } from './components/ProblemSection';
 import { SolutionSection } from './components/SolutionSection';
 import { BenefitsSection } from './components/BenefitsSection';
 import { StruggleSection } from './components/StruggleSection';
@@ -19,14 +19,14 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <PainPointsSection />
+      <ProcessSection />
       <CheckmarkSection />
       <ReviewsCarousel />
-      <ProcessSection />
       <SolutionSection />
       <BenefitsSection />
       <StruggleSection />
       <ResultsSection />
-      <ProblemSection />
       <CTASection />
     </>
   );

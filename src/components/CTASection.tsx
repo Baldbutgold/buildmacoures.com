@@ -1,6 +1,5 @@
 import React from 'react';
 import { Section } from './Section';
-import { Button } from './Button';
 import { Calendar, CheckCircle, ArrowRight } from 'lucide-react';
 
 export const CTASection = () => {
@@ -46,7 +45,7 @@ export const CTASection = () => {
               </div>
             </div>
 
-            {/* Right side - CTA */}
+            {/* Right side - Calendly */}
             <div className="text-center lg:text-left">
               <div className="bg-brand-black/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/30">
                 <h4 className="text-lg sm:text-xl font-bold mb-4 text-white">
@@ -56,19 +55,10 @@ export const CTASection = () => {
                   In this 30-minute call, we'll discuss your expertise and show you exactly how to turn it into a profitable course.
                 </p>
                 
-                <Button 
-                  variant="primary" 
-                  size="lg" 
-                  className="w-full shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 group mb-4 sm:mb-6"
-                >
-                  <span className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
-                    <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                    🚀 Book Your Free Call Now
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </Button>
+                {/* Calendly Widget */}
+                <div className="calendly-inline-widget" data-url="https://calendly.com/baldbutgold" style={{minWidth: '320px', height: '700px'}}></div>
                 
-                <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-brand-gray">
+                <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-brand-gray mt-4">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                     <span>Usually responds within 1 hour</span>
@@ -85,6 +75,9 @@ export const CTASection = () => {
           </div>
         </div>
       </div>
+      
+      {/* Calendly Script */}
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </Section>
   );
 };

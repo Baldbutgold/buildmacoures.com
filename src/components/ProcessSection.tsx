@@ -1,7 +1,7 @@
 import React from 'react';
 import { Section } from './Section';
 import { ProcessStep } from '../types';
-import { MessageCircle, Video, Rocket, Users, DollarSign, TrendingUp } from 'lucide-react';
+import { Users, Video, DollarSign, Rocket } from 'lucide-react';
 
 export const ProcessSection = () => {
   const solutions = [
@@ -11,7 +11,19 @@ export const ProcessSection = () => {
       subtitle: "What We Do:",
       description: "Because the ONLY Choice is Your Niche. We don't make videos — we build expertise empires. We don't create courses — we craft authority.",
       result: "Clear Content Clarity. You become the undisputed authority.",
-      color: "purple"
+      color: "purple",
+      svgIcon: (
+        <svg className="w-12 h-12 sm:w-16 sm:h-16 text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="25" r="12" stroke="currentColor" strokeWidth="3" fill="none"/>
+          <path d="M35 45 Q50 35 65 45" stroke="currentColor" strokeWidth="3" fill="none"/>
+          <circle cx="25" cy="60" r="8" stroke="currentColor" strokeWidth="2" fill="none"/>
+          <circle cx="75" cy="60" r="8" stroke="currentColor" strokeWidth="2" fill="none"/>
+          <path d="M15 75 Q25 65 35 75" stroke="currentColor" strokeWidth="2" fill="none"/>
+          <path d="M65 75 Q75 65 85 75" stroke="currentColor" strokeWidth="2" fill="none"/>
+          <path d="M40 50 L25 60 M60 50 L75 60" stroke="currentColor" strokeWidth="2"/>
+          <polygon points="45,15 50,5 55,15" fill="currentColor"/>
+        </svg>
+      )
     },
     {
       icon: Video,
@@ -19,7 +31,19 @@ export const ProcessSection = () => {
       subtitle: "What We Do:",
       description: "Because organic content is the lifeblood of performance. Start a 90-day content calendar that positions, nurtures, converting warm leads into customers.",
       result: "Real Outreach without expensive ads. Customers come to YOU.",
-      color: "blue"
+      color: "blue",
+      svgIcon: (
+        <svg className="w-12 h-12 sm:w-16 sm:h-16 text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="80" height="50" rx="8" stroke="currentColor" strokeWidth="3" fill="none"/>
+          <polygon points="35,35 35,55 55,45" fill="currentColor"/>
+          <rect x="15" y="25" width="70" height="5" rx="2" fill="currentColor" opacity="0.6"/>
+          <circle cx="20" cy="80" r="3" fill="currentColor"/>
+          <circle cx="30" cy="80" r="3" fill="currentColor"/>
+          <circle cx="40" cy="80" r="3" fill="currentColor"/>
+          <path d="M50 80 L90 80" stroke="currentColor" strokeWidth="2"/>
+          <rect x="70" y="75" width="15" height="10" rx="2" fill="currentColor"/>
+        </svg>
+      )
     },
     {
       icon: DollarSign,
@@ -27,7 +51,20 @@ export const ProcessSection = () => {
       subtitle: "What We Do:",
       description: "Audit every step of your funnel. Build clarity, trust, and urgency. Re-channel key values with reason to your unique Expertise-based value differentiation.",
       result: "Turn COLD audience into EAGER spending a clear multiple. Expertise-based value differentiation.",
-      color: "green"
+      color: "green",
+      svgIcon: (
+        <svg className="w-12 h-12 sm:w-16 sm:h-16 text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="3" fill="none"/>
+          <path d="M40 35 Q50 25 60 35" stroke="currentColor" strokeWidth="3" fill="none"/>
+          <path d="M40 65 Q50 75 60 65" stroke="currentColor" strokeWidth="3" fill="none"/>
+          <path d="M50 30 L50 70" stroke="currentColor" strokeWidth="3"/>
+          <rect x="15" y="15" width="8" height="8" fill="currentColor" opacity="0.6"/>
+          <rect x="77" y="15" width="8" height="8" fill="currentColor" opacity="0.6"/>
+          <rect x="15" y="77" width="8" height="8" fill="currentColor" opacity="0.6"/>
+          <rect x="77" y="77" width="8" height="8" fill="currentColor" opacity="0.6"/>
+          <path d="M23 19 L27 23 M81 19 L77 23 M23 81 L27 77 M81 81 L77 77" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+      )
     }
   ];
 
@@ -55,7 +92,7 @@ export const ProcessSection = () => {
         <div className="text-center mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Rocket className="w-4 h-4" />
-            How We Solve Your Struggles
+            Our Solutions
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
             Here's how we solve your struggles
@@ -67,7 +104,6 @@ export const ProcessSection = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
           {solutions.map((solution, index) => {
-            const Icon = solution.icon;
             const colors = colorClasses[solution.color as keyof typeof colorClasses];
             
             return (
@@ -80,8 +116,8 @@ export const ProcessSection = () => {
                 
                 <div className="relative z-10">
                   {/* Icon */}
-                  <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                  <div className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white/20 backdrop-blur-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                    {solution.svgIcon}
                   </div>
                   
                   {/* Content */}

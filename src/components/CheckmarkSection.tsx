@@ -35,10 +35,10 @@ export const CheckmarkSection = () => {
               The Process
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-4 font-bricolage">
-              Our Course Creation Process
+              Our Online Course Creation Process
             </h2>
             <p className="text-lg sm:text-xl text-brand-gray font-normal max-w-3xl mx-auto">
-              We handle the entire creative process from start to finish! Here's a simple 3-step process explaining how we build your course!
+              We handle the entire video course production process from start to finish! Here's our simple 3-step course creation services process!
             </p>
           </div>
 
@@ -72,7 +72,7 @@ export const CheckmarkSection = () => {
                       {step.description}
                     </p>
                     
-                    {/* Deliverable Box - removed "Deliverable:" label */}
+                    {/* Deliverable Box */}
                     <div className="bg-brand-purple/10 border border-brand-purple/20 rounded-xl p-4 sm:p-6">
                       <p className="text-brand-white font-medium text-sm sm:text-base leading-relaxed">
                         {step.deliverable}

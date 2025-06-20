@@ -30,11 +30,11 @@ export const Hero = React.memo(() => {
           {/* Enhanced heading with mobile optimization */}
           <h1 className="font-bold text-brand-white leading-[0.85] mb-6 sm:mb-8 md:mb-10 animate-fade-in font-bricolage">
             <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-              Turn Your Expertise into a{' '}
+              Professional Online Course Creation{' '}
             </span>
             <span className="relative inline-block text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 sm:mt-4">
               <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-lg sm:rounded-xl md:rounded-2xl transform -rotate-1 sm:-rotate-2 inline-block shadow-purple-lg gpu-accelerated">
-                Sellable Video Course
+                & Video Course Production
               </span>
             </span>
             <br />
@@ -65,7 +65,7 @@ export const Hero = React.memo(() => {
 
           {/* Enhanced description with mobile optimization */}
           <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-brand-gray mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto px-2">
-            We help <strong className="text-brand-white">experts, founders, and creators</strong> build full online courses that includes{' '}
+            Our course creation services help <strong className="text-brand-white">experts, founders, and creators</strong> build full online courses that includes{' '}
             <strong className="text-brand-purple">strategy, scripting and video editing (all done for you).</strong>
           </p>
 

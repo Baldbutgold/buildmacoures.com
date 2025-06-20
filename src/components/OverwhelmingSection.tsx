@@ -49,11 +49,11 @@ export const OverwhelmingSection = () => {
             Without Expert Guidance
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-            Creating an online course is{' '}
+            Online course creation is{' '}
             <span className="italic text-brand-purple">overwhelming...</span>
           </h2>
           <p className="text-lg sm:text-xl text-brand-gray mb-8 max-w-3xl mx-auto">
-            You will struggle with
+            You will struggle with video course production and course creation services without proper guidance
           </p>
         </div>
 
@@ -83,7 +83,8 @@ export const OverwhelmingSection = () => {
           </h3>
           <p className="text-lg sm:text-xl text-brand-gray mb-8 max-w-4xl mx-auto leading-relaxed">
             Instead of guessing your way through course creation, let{' '}
-            <strong className="text-brand-purple">BuildMaCourse</strong> help you{' '}
+            <strong className="text-brand-purple">BuildMaCourse</strong> provide professional{' '}
+            <strong className="text-brand-white">course creation services</strong> to{' '}
             <strong className="text-brand-white">fast-track your success.</strong> With our proven strategies and expert support, you'll have everything you need to plan, build, and begin to promote a course that works.
           </p>
           <p className="text-lg sm:text-xl text-brand-purple font-semibold mb-8">

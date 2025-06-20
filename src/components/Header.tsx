@@ -92,7 +92,7 @@ export const Header = () => {
               onClick={() => scrollToSection('#schedule-call')}
               className="shadow-purple hover:shadow-purple-lg text-sm lg:text-base"
             >
-              Build Ma Course!
+              Book a Free Strategy Call
             </Button>
           </nav>
           
@@ -135,7 +135,7 @@ export const Header = () => {
               className="w-full mt-4"
               onClick={() => scrollToSection('#schedule-call')}
             >
-              Build Ma Course!
+              Book a Free Strategy Call
             </Button>
           </div>
         </div>

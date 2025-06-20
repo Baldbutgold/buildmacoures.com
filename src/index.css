@@ -28,10 +28,34 @@
     display: none;
   }
 
-  /* Responsive text sizing */
+  /* Mobile-first responsive text sizing */
   @media (max-width: 640px) {
     html {
       font-size: 14px;
+    }
+    
+    /* Mobile hero improvements */
+    .hero-mobile {
+      min-height: 100vh;
+      padding-top: 4rem;
+      padding-bottom: 3rem;
+    }
+    
+    /* Better mobile spacing */
+    .mobile-spacing {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    /* Mobile text adjustments */
+    .mobile-text-sm {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    
+    .mobile-text-base {
+      font-size: 1rem;
+      line-height: 1.5;
     }
   }
   
@@ -47,20 +71,18 @@
     }
   }
 
-  /* Mobile hero improvements */
-  @media (max-width: 640px) {
-    .hero-mobile {
-      min-height: 100vh;
-      padding-top: 6rem;
-      padding-bottom: 4rem;
+  /* Optimized Calendly styles for mobile */
+  @media (max-width: 480px) {
+    .calendly-inline-widget {
+      height: 450px !important;
+      min-width: 280px !important;
     }
   }
-
-  /* Optimized Calendly styles */
-  @media (max-width: 768px) {
+  
+  @media (min-width: 481px) and (max-width: 768px) {
     .calendly-inline-widget {
-      height: 500px !important;
-      min-width: 280px !important;
+      height: 550px !important;
+      min-width: 320px !important;
     }
   }
   
@@ -167,6 +189,42 @@
     .text-responsive-xl {
       font-size: 1.25rem;
     }
+    
+    /* Mobile button improvements */
+    .mobile-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      min-height: 44px; /* iOS touch target */
+    }
+    
+    /* Mobile card spacing */
+    .mobile-card {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Mobile section spacing */
+    .mobile-section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+  
+  /* Touch-friendly interactions */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+      transform: none;
+    }
+    
+    .hover\:-translate-y-1:hover {
+      transform: none;
+    }
+    
+    /* Larger touch targets for mobile */
+    button, .button, a[role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
   }
 }
 
@@ -220,4 +278,23 @@
 
 .prose li::marker {
   color: #a855f7;
+}
+
+/* Mobile prose adjustments */
+@media (max-width: 640px) {
+  .prose h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .prose h3 {
+    font-size: 1.25rem;
+    margin-top: 1.25rem;
+  }
+  
+  .prose p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
 }

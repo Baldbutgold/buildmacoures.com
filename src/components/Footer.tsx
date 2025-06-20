@@ -23,7 +23,7 @@ export const Footer = () => {
     <footer className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 text-brand-gray py-12 sm:py-16">
       <Container>
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
             {/* Company Info */}
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-4 font-bricolage">
@@ -41,47 +41,6 @@ export const Footer = () => {
                   80+ Happy Clients
                 </div>
               </div>
-            </div>
-            
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-base sm:text-lg font-bold text-brand-white mb-4 sm:mb-6">Quick Links</h4>
-              <ul className="space-y-3">
-                <li>
-                  <button 
-                    onClick={() => scrollToSection('#process')}
-                    className="hover:text-brand-white transition-colors duration-200 text-left text-sm sm:text-base"
-                  >
-                    How It Works
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    onClick={() => scrollToSection('#testimonials')}
-                    className="hover:text-brand-white transition-colors duration-200 text-left text-sm sm:text-base"
-                  >
-                    Testimonials
-                  </button>
-                </li>
-                <li>
-                  <Link 
-                    to="/blog"
-                    className="hover:text-brand-white transition-colors duration-200 text-sm sm:text-base"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <a 
-                    href="https://www.fiverr.com/mohamed_mrini" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-brand-white transition-colors duration-200 text-sm sm:text-base"
-                  >
-                    Portfolio
-                  </a>
-                </li>
-              </ul>
             </div>
             
             {/* Contact */}
@@ -106,6 +65,14 @@ export const Footer = () => {
                     info@buildmacourse.com
                   </a>
                 </li>
+                <li>
+                  <Link 
+                    to="/blog"
+                    className="hover:text-brand-white transition-colors duration-200 text-sm sm:text-base"
+                  >
+                    Blog
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -122,8 +89,8 @@ export const Footer = () => {
                 </p>
               </div>
               <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-                <a href="#" className="hover:text-brand-white transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-brand-white transition-colors">Terms of Service</a>
+                <Link to="/privacy-policy" className="hover:text-brand-white transition-colors">Privacy Policy</Link>
+                <Link to="/terms-of-service" className="hover:text-brand-white transition-colors">Terms of Service</Link>
               </div>
             </div>
           </div>

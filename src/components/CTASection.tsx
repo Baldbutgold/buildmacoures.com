@@ -80,12 +80,6 @@ export const CTASection = () => {
           </div>
           
           <div className="text-center mt-8 pt-6 border-t border-brand-purple/20">
-            <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-brand-gray mb-4">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span>Usually responds within 1 hour</span>
-              </div>
-            </div>
             <p className="text-brand-gray text-sm sm:text-base">
               <strong className="text-white">100% Free.</strong> No obligation. No pressure. Just a clear roadmap for turning your expertise into a profitable course.
             </p>

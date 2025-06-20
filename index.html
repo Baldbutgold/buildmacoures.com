@@ -2,12 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BuildMaCourse | Turn Your Expertise Into a Sellable Video Course</title>
     <meta name="description" content="Professional course creation service. We help experts, founders, and creators build polished, profitable courses from scratch - structure, editing, delivery included." />
     <meta name="keywords" content="online course creation, video course production, course editing, professional course development, course structure, educational content" />
     <meta name="author" content="BuildMaCourse" />
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17230784555"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17230784555');
+    </script>
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -79,12 +94,25 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
+      
+      /* Mobile optimizations */
+      @media (max-width: 640px) {
+        .hero-skeleton {
+          padding: 1rem;
+        }
+        .loading-spinner {
+          width: 32px;
+          height: 32px;
+          border-width: 2px;
+        }
+      }
     </style>
 
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://assets.calendly.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     
     <!-- Preload critical fonts with font-display: swap -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">

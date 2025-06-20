@@ -49,11 +49,11 @@ export const OverwhelmingSection = () => {
             Without Expert Guidance
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-            Online course creation is{' '}
+            Course creation is{' '}
             <span className="italic text-brand-purple">overwhelming...</span>
           </h2>
           <p className="text-lg sm:text-xl text-brand-gray mb-8 max-w-3xl mx-auto">
-            You will struggle with video course production and course creation services without proper guidance
+            You will struggle with video production and course creation without proper guidance
           </p>
         </div>
 

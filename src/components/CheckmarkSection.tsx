@@ -35,7 +35,7 @@ export const CheckmarkSection = () => {
               The Process
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-4 font-bricolage">
-              Our Online Course Creation Process
+              Our Course Creation Process
             </h2>
             <p className="text-lg sm:text-xl text-brand-gray font-normal max-w-3xl mx-auto">
               We handle the entire video course production process from start to finish! Here's our simple 3-step course creation services process!

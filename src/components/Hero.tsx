@@ -48,17 +48,7 @@ export const Hero = React.memo(() => {
             <div className="max-w-4xl mx-auto">
               <div className="relative bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 border border-brand-purple/20 shadow-2xl">
                 <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
-                  <wistia-player 
-                    media-id="4mw8h1u2ey" 
-                    aspect="1.7777777777777777"
-                    className="w-full"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                      borderRadius: '12px',
-                      overflow: 'hidden'
-                    }}
-                  ></wistia-player>
+                  <wistia-player media-id="4mw8h1u2ey" aspect="1.7777777777777777"></wistia-player>
                 </div>
               </div>
             </div>

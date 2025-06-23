@@ -106,63 +106,54 @@ Deno.serve(async (req: Request) => {
 
     // Craft the comprehensive prompt for Gemini using the new format
     const prompt = `# ROLE:
-You are an expert curriculum and instructional designer with deep knowledge of pedagogy, learning theory, and user-centered design. Your specialty is building logical, engaging, and goal-driven course plans tailored to a learner's background, time commitment, and specific objectives.
+You are an expert curriculum and instructional designer with a strong background in creating effective, learner-centered course structures. Your job is to design an engaging and goal-driven curriculum tailored to a learner's starting level and outcome.
 
 # CONTEXT:
-Your task is to create a detailed, week-by-week course curriculum based on user-provided inputs. You should intelligently infer logical learning progressions, propose relevant topics, and design practical activities that lead the learner to their goal.
+Your task is to generate a modular course curriculum based on the user's input. The curriculum should consist of a **logical sequence of modules**, each building on the last, to help the learner reach their stated goal. Use **no more than 8 modules**, but fewer if the goal can be achieved in fewer steps.
 
 # USER INPUT:
 
 * **Course Topic:** ${courseTopic}
 * **Learner's Starting Level:** ${skillLevel} (${skillDescription})
 * **Primary Learner Goal:** ${primaryGoal}
-* **Total Course Duration (in weeks):** 8
-* **Weekly Time Commitment (hours/week):** 3-5
 
 # TASK INSTRUCTIONS:
 
 1. ## Course Title & Description
-   - Generate a compelling Course Title that reflects both the topic and the end goal.
-   - Write a concise 2-3 sentence Course Description that includes the learner's starting point and what they'll achieve.
+   - Create a clear and engaging Course Title based on the topic and learner's goal.
+   - Write a concise 2–3 sentence Course Description explaining what the course covers, who it's for, and what the learner will achieve.
 
 2. ## Learning Objectives
-   - Analyze the learner's goal and derive 3–5 specific, measurable learning objectives.
-   - Use action verbs (e.g., "Implement", "Build", "Evaluate", "Design") to ensure clarity and assessment readiness.
+   - Develop **3–5 specific, measurable learning objectives** that directly support the learner's goal.
+   - Use strong action verbs (e.g., Build, Analyze, Design, Implement) to express each outcome clearly.
 
-3. ## Week-by-Week Curriculum
-   - Split the course into 8 weeks.
-   - For each week:
-     - Provide a Module Title that represents a clear learning milestone.
-     - List 3–4 Key Topics for that module.
-     - Recommend 1–2 hands-on or reflective Weekly Activities or Assignments aligned with the objectives.
+3. ## Modular Breakdown
+   - Create a step-by-step Modular Breakdown of the course, using **up to 8 modules** based on what's necessary to reach the goal.
+   - For each module:
+     - Provide a **Module Title** that reflects the key concept or milestone.
+     - List **3–4 core topics or skills** covered in that module.
 
-4. ## Capstone Project
-   - Propose a Final Project that synthesizes the key skills learned and demonstrates achievement of the primary goal.
-   - Include a short paragraph explaining the expectations and deliverables.
-
-5. ## Assumptions & Constraints
-   - **Resources:** Use only free, reputable online resources (e.g., MDN, freeCodeCamp, Khan Academy, official docs, credible YouTube channels).
-   - **Learning Style:** Assume a blended approach: reading, watching, and doing.
-   - **Scaffolding:** Ensure that later modules build on earlier ones; reinforce knowledge through repetition and application.
+4. ## Assumptions
+   - **Resources:** Use only **free, high-quality resources** (e.g., MDN, freeCodeCamp, official docs, YouTube channels).
+   - **Learning Modalities:** Assume a blended approach: reading, watching, and building.
+   - **Progression:** Ensure modules build logically upon one another toward the final goal.
 
 # OUTPUT FORMAT (MARKDOWN):
 
-Structure your response using the following Markdown sections:
+Use the following structure:
 
 ## Course Title  
 ## Course Description  
 ## Learning Objectives  
-## Week-by-Week Breakdown  
-### Week 1  
+
+## Modular Breakdown  
+### Module 1  
 **Module Title:** ...  
 - Key Topics:  
   - ...  
-- Activities:  
   - ...  
-(repeat for each week)
 
-## Capstone Project  
-(Description and expectations)
+(repeat for Module 2 through Module N — no more than 8 total)
 
 Please ensure the curriculum is practical, achievable, and directly aligned with helping the learner reach their stated goal.`;
 
@@ -200,10 +191,10 @@ Please ensure the curriculum is practical, achievable, and directly aligned with
     console.log('Curriculum generated successfully');
 
     // Extract module titles for preview (improved regex approach)
-    const moduleMatches = fullCurriculum.match(/### Week \d+[\s\S]*?\*\*Module Title:\*\*\s*([^\n\r]+)/gi) || [];
+    const moduleMatches = fullCurriculum.match(/### Module \d+[\s\S]*?\*\*Module Title:\*\*\s*([^\n\r]+)/gi) || [];
     const modules = moduleMatches.slice(0, 8).map((match, index) => {
       const titleMatch = match.match(/\*\*Module Title:\*\*\s*([^\n\r]+)/i);
-      const title = titleMatch ? titleMatch[1].trim() : `Week ${index + 1} Module`;
+      const title = titleMatch ? titleMatch[1].trim() : `Module ${index + 1}`;
       return {
         id: index + 1,
         title: title
@@ -212,22 +203,22 @@ Please ensure the curriculum is practical, achievable, and directly aligned with
 
     // If no modules found with the primary regex, try alternative patterns
     if (modules.length === 0) {
-      const weekMatches = fullCurriculum.match(/Week \d+[:\-\s]*([^\n\r]+)/gi) || [];
-      weekMatches.slice(0, 8).forEach((match, index) => {
-        const title = match.replace(/Week \d+[:\-\s]*/i, '').trim();
+      const moduleMatches2 = fullCurriculum.match(/Module \d+[:\-\s]*([^\n\r]+)/gi) || [];
+      moduleMatches2.slice(0, 8).forEach((match, index) => {
+        const title = match.replace(/Module \d+[:\-\s]*/i, '').trim();
         modules.push({
           id: index + 1,
-          title: title || `Week ${index + 1} Content`
+          title: title || `Module ${index + 1} Content`
         });
       });
     }
 
     // Fallback if still no modules found
     if (modules.length === 0) {
-      for (let i = 1; i <= 8; i++) {
+      for (let i = 1; i <= 6; i++) {
         modules.push({
           id: i,
-          title: `Week ${i}: ${courseTopic} Fundamentals`
+          title: `Module ${i}: ${courseTopic} Fundamentals`
         });
       }
     }

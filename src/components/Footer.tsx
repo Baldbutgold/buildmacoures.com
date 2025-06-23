@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from './Container';
-import { Mail, Calendar, Star } from 'lucide-react';
+import { Mail, Calendar, Star, Sparkles } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export const Footer = () => {
@@ -48,6 +48,15 @@ export const Footer = () => {
               <h4 className="text-base sm:text-lg font-bold text-brand-white mb-4 sm:mb-6">Get Started</h4>
               <ul className="space-y-3">
                 <li>
+                  <Link 
+                    to="/generate-curriculum"
+                    className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group text-sm sm:text-base"
+                  >
+                    <Sparkles className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
+                    Free Curriculum Generator
+                  </Link>
+                </li>
+                <li>
                   <button 
                     onClick={() => scrollToSection('#schedule-call')}
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group text-sm sm:text-base"
@@ -58,11 +67,11 @@ export const Footer = () => {
                 </li>
                 <li>
                   <a 
-                    href="mailto:info@buildmacourse.com" 
+                    href="mailto:contact@buildmacourse.com" 
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group text-sm sm:text-base"
                   >
                     <Mail className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
-                    info@buildmacourse.com
+                    contact@buildmacourse.com
                   </a>
                 </li>
                 <li>

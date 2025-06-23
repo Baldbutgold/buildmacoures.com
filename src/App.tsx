@@ -17,6 +17,8 @@ const BlogPost = lazy(() => import('./pages/BlogPost').then(module => ({ default
 const CallBooked = lazy(() => import('./pages/CallBooked').then(module => ({ default: module.CallBooked })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(module => ({ default: module.TermsOfService })));
+const CurriculumGeneratorPage = lazy(() => import('./pages/CurriculumGeneratorPage').then(module => ({ default: module.CurriculumGeneratorPage })));
+const ViewCurriculumPage = lazy(() => import('./pages/ViewCurriculumPage').then(module => ({ default: module.ViewCurriculumPage })));
 
 // Loading fallback component
 const SectionFallback = () => (
@@ -81,6 +83,8 @@ function App() {
               <Route path="/call-booked" element={<CallBooked />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/generate-curriculum" element={<CurriculumGeneratorPage />} />
+              <Route path="/curriculum/:token" element={<ViewCurriculumPage />} />
             </Routes>
           </Suspense>
         </main>

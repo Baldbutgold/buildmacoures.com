@@ -11,6 +11,7 @@ export const Header = () => {
   const location = useLocation();
 
   const navItems: NavItem[] = [
+    { label: 'Free Curriculum Generator', href: '/generate-curriculum', isRoute: true },
     { label: 'Blog', href: '/blog', isRoute: true },
   ];
 

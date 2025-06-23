@@ -17,17 +17,15 @@ export const WhoIAmSection = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Image Section */}
-            <div className="flex justify-center lg:justify-end">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Image Section - Bigger and more centered */}
+            <div className="flex justify-center">
               <div className="relative">
-                <div className="w-80 h-80 sm:w-96 sm:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-brand-purple/20 to-brand-purple-dark/20 border border-brand-purple/20 shadow-2xl">
-                  <img 
-                    src="/1337_headshot_ael-hadj-removebg-preview.png" 
-                    alt="Mohamed - Course Creation Expert"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
+                <img 
+                  src="/image.png" 
+                  alt="Mohamed - Course Creation Expert"
+                  className="w-96 h-96 sm:w-[28rem] sm:h-[28rem] lg:w-[32rem] lg:h-[32rem] object-contain"
+                />
                 {/* Floating badge */}
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-4 py-2 rounded-full shadow-lg border border-brand-purple/20">
                   <div className="flex items-center gap-2">

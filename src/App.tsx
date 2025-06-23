@@ -29,6 +29,52 @@ const SectionFallback = () => (
   </div>
 );
 
+// Wistia Video Component
+const WistiaVideo = () => {
+  React.useEffect(() => {
+    // Load Wistia scripts
+    const playerScript = document.createElement('script');
+    playerScript.src = 'https://fast.wistia.com/player.js';
+    playerScript.async = true;
+    document.head.appendChild(playerScript);
+
+    const embedScript = document.createElement('script');
+    embedScript.src = 'https://fast.wistia.com/embed/4mw8h1u2ey.js';
+    embedScript.async = true;
+    embedScript.type = 'module';
+    document.head.appendChild(embedScript);
+
+    // Add Wistia styles
+    const style = document.createElement('style');
+    style.textContent = `
+      wistia-player[media-id='4mw8h1u2ey']:not(:defined) { 
+        background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/4mw8h1u2ey/swatch'); 
+        display: block; 
+        filter: blur(5px); 
+        padding-top: 56.25%; 
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      // Cleanup scripts and styles on unmount
+      document.head.removeChild(playerScript);
+      document.head.removeChild(embedScript);
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  return (
+    <div className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <wistia-player media-id="4mw8h1u2ey" aspect="1.7777777777777777"></wistia-player>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function HomePage() {
   return (
     <>
@@ -43,6 +89,7 @@ function HomePage() {
           <CheckmarkSection />
         </Suspense>
       </LazySection>
+      <WistiaVideo />
       <LazySection>
         <Suspense fallback={<SectionFallback />}>
           <ReviewsCarousel />

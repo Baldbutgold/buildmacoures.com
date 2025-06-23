@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { BookOpen, ArrowLeft, Calendar, Download, Loader2, Sparkles, CheckCircle } from 'lucide-react';
+import { BookOpen, ArrowLeft, Calendar, Download, Loader2, Sparkles, CheckCircle, FileText } from 'lucide-react';
+import jsPDF from 'jspdf';
 
 interface CurriculumData {
   id: string;
@@ -13,75 +14,144 @@ interface CurriculumData {
   created_at: string;
 }
 
-// Component to render markdown-like content cleanly
-const MarkdownRenderer = ({ content }: { content: string }) => {
-  const processContent = (text: string) => {
-    // Split content into sections
-    const sections = text.split(/(?=##\s)/);
+interface ParsedSection {
+  type: 'title' | 'subtitle' | 'heading' | 'paragraph' | 'list' | 'bold';
+  content: string;
+  level?: number;
+}
+
+// Enhanced component to parse and render curriculum content cleanly
+const CurriculumRenderer = ({ content }: { content: string }) => {
+  const parseContent = (text: string): ParsedSection[] => {
+    const lines = text.split('\n').filter(line => line.trim());
+    const sections: ParsedSection[] = [];
     
-    return sections.map((section, index) => {
-      if (!section.trim()) return null;
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
       
-      const lines = section.trim().split('\n');
-      const elements: JSX.Element[] = [];
-      
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!line) continue;
-        
-        // Main headings (##)
-        if (line.startsWith('## ')) {
-          elements.push(
-            <h2 key={`h2-${index}-${i}`} className="text-2xl sm:text-3xl font-bold text-brand-white mb-6 mt-8 first:mt-0 font-bricolage">
-              {line.replace('## ', '')}
-            </h2>
-          );
-        }
-        // Sub headings (###)
-        else if (line.startsWith('### ')) {
-          elements.push(
-            <h3 key={`h3-${index}-${i}`} className="text-xl sm:text-2xl font-bold text-brand-purple mb-4 mt-6 font-bricolage">
-              {line.replace('### ', '')}
-            </h3>
-          );
-        }
-        // Bold text (**text**)
-        else if (line.startsWith('**') && line.endsWith('**')) {
-          elements.push(
-            <h4 key={`bold-${index}-${i}`} className="text-lg font-bold text-brand-white mb-3 mt-4">
-              {line.replace(/\*\*/g, '')}
-            </h4>
-          );
-        }
-        // List items (- or *)
-        else if (line.startsWith('- ') || line.startsWith('* ')) {
-          const listContent = line.replace(/^[-*]\s/, '');
-          elements.push(
-            <div key={`list-${index}-${i}`} className="flex items-start gap-3 mb-2 ml-4">
-              <div className="w-2 h-2 bg-brand-purple rounded-full mt-2 flex-shrink-0"></div>
-              <p className="text-brand-gray leading-relaxed">{listContent}</p>
-            </div>
-          );
-        }
-        // Regular paragraphs
-        else if (line.length > 0) {
-          elements.push(
-            <p key={`p-${index}-${i}`} className="text-brand-gray leading-relaxed mb-4">
-              {line}
-            </p>
-          );
-        }
+      // Course Title (usually the first ## heading)
+      if (trimmed.startsWith('## Course Title')) {
+        continue; // Skip this header, we'll handle the title separately
       }
       
-      return (
-        <div key={`section-${index}`} className="mb-6">
-          {elements}
-        </div>
-      );
-    });
+      // Main headings (##)
+      if (trimmed.startsWith('## ')) {
+        sections.push({
+          type: 'title',
+          content: trimmed.replace('## ', '').trim()
+        });
+      }
+      // Sub headings (###)
+      else if (trimmed.startsWith('### ')) {
+        sections.push({
+          type: 'subtitle',
+          content: trimmed.replace('### ', '').trim()
+        });
+      }
+      // Week headings (#### or **Week**)
+      else if (trimmed.startsWith('#### ') || trimmed.match(/^\*\*Week \d+/)) {
+        let weekContent = trimmed.replace('#### ', '').replace(/^\*\*/, '').replace(/\*\*$/, '').trim();
+        sections.push({
+          type: 'heading',
+          content: weekContent
+        });
+      }
+      // Module titles (**Module Title:** ...)
+      else if (trimmed.match(/^\*\*Module Title:\*\*/)) {
+        const moduleTitle = trimmed.replace(/^\*\*Module Title:\*\*\s*/, '').trim();
+        if (moduleTitle) {
+          sections.push({
+            type: 'bold',
+            content: `Module: ${moduleTitle}`
+          });
+        }
+      }
+      // Other bold text (**text**)
+      else if (trimmed.startsWith('**') && trimmed.endsWith('**') && trimmed.length > 4) {
+        sections.push({
+          type: 'bold',
+          content: trimmed.replace(/^\*\*/, '').replace(/\*\*$/, '').trim()
+        });
+      }
+      // List items (- or *)
+      else if (trimmed.match(/^[-*]\s+/)) {
+        sections.push({
+          type: 'list',
+          content: trimmed.replace(/^[-*]\s+/, '').trim()
+        });
+      }
+      // Regular paragraphs
+      else if (trimmed.length > 0) {
+        sections.push({
+          type: 'paragraph',
+          content: trimmed
+        });
+      }
+    }
+    
+    return sections;
   };
 
-  return <div className="space-y-4">{processContent(content)}</div>;
+  const renderSection = (section: ParsedSection, index: number) => {
+    const key = `section-${index}`;
+    
+    switch (section.type) {
+      case 'title':
+        return (
+          <h2 key={key} className="text-2xl sm:text-3xl font-bold text-brand-white mb-6 mt-8 first:mt-0 font-bricolage border-b border-brand-purple/20 pb-3">
+            {section.content}
+          </h2>
+        );
+      
+      case 'subtitle':
+        return (
+          <h3 key={key} className="text-xl sm:text-2xl font-bold text-brand-purple mb-4 mt-6 font-bricolage">
+            {section.content}
+          </h3>
+        );
+      
+      case 'heading':
+        return (
+          <h4 key={key} className="text-lg sm:text-xl font-bold text-brand-white mb-3 mt-5 bg-brand-purple/10 px-4 py-2 rounded-lg border-l-4 border-brand-purple">
+            {section.content}
+          </h4>
+        );
+      
+      case 'bold':
+        return (
+          <div key={key} className="text-base sm:text-lg font-semibold text-brand-white mb-3 mt-4 pl-4 border-l-2 border-brand-purple/50">
+            {section.content}
+          </div>
+        );
+      
+      case 'list':
+        return (
+          <div key={key} className="flex items-start gap-3 mb-2 ml-6">
+            <div className="w-2 h-2 bg-brand-purple rounded-full mt-2 flex-shrink-0"></div>
+            <p className="text-brand-gray leading-relaxed">{section.content}</p>
+          </div>
+        );
+      
+      case 'paragraph':
+        return (
+          <p key={key} className="text-brand-gray leading-relaxed mb-4">
+            {section.content}
+          </p>
+        );
+      
+      default:
+        return null;
+    }
+  };
+
+  const sections = parseContent(content);
+  
+  return (
+    <div className="space-y-2">
+      {sections.map((section, index) => renderSection(section, index))}
+    </div>
+  );
 };
 
 export const ViewCurriculumPage = () => {
@@ -89,6 +159,7 @@ export const ViewCurriculumPage = () => {
   const [curriculum, setCurriculum] = useState<CurriculumData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const fetchCurriculum = async () => {
@@ -137,30 +208,135 @@ export const ViewCurriculumPage = () => {
     });
   };
 
-  const downloadAsPDF = () => {
-    // Create a simple text file download for now
-    const content = `
+  const downloadAsPDF = async () => {
+    if (!curriculum) return;
+    
+    setIsDownloading(true);
+    
+    try {
+      const pdf = new jsPDF();
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 20;
+      const maxWidth = pageWidth - (margin * 2);
+      let yPosition = margin;
+      
+      // Helper function to add text with word wrapping
+      const addText = (text: string, fontSize: number, isBold: boolean = false, color: string = '#000000') => {
+        pdf.setFontSize(fontSize);
+        pdf.setFont('helvetica', isBold ? 'bold' : 'normal');
+        pdf.setTextColor(color);
+        
+        const lines = pdf.splitTextToSize(text, maxWidth);
+        
+        // Check if we need a new page
+        if (yPosition + (lines.length * fontSize * 0.5) > pageHeight - margin) {
+          pdf.addPage();
+          yPosition = margin;
+        }
+        
+        pdf.text(lines, margin, yPosition);
+        yPosition += lines.length * fontSize * 0.5 + 5;
+      };
+      
+      // Add header
+      addText('Course Curriculum', 20, true, '#7c3aed');
+      addText(`Generated on: ${formatDate(curriculum.created_at)}`, 10, false, '#666666');
+      yPosition += 10;
+      
+      // Add course idea
+      addText('Course Overview:', 14, true);
+      addText(curriculum.course_idea, 11);
+      yPosition += 10;
+      
+      // Add modules overview if available
+      if (curriculum.generated_modules && curriculum.generated_modules.length > 0) {
+        addText('Course Modules:', 14, true);
+        curriculum.generated_modules.forEach((module, index) => {
+          addText(`${module.id}. ${module.title}`, 11);
+        });
+        yPosition += 10;
+      }
+      
+      // Process and add curriculum content
+      const lines = curriculum.full_curriculum_content.split('\n').filter(line => line.trim());
+      
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        
+        // Main headings
+        if (trimmed.startsWith('## ')) {
+          yPosition += 5;
+          addText(trimmed.replace('## ', ''), 16, true, '#7c3aed');
+        }
+        // Sub headings
+        else if (trimmed.startsWith('### ')) {
+          addText(trimmed.replace('### ', ''), 14, true, '#9333ea');
+        }
+        // Week headings
+        else if (trimmed.startsWith('#### ') || trimmed.match(/^\*\*Week \d+/)) {
+          const weekContent = trimmed.replace('#### ', '').replace(/^\*\*/, '').replace(/\*\*$/, '');
+          addText(weekContent, 12, true);
+        }
+        // Module titles
+        else if (trimmed.match(/^\*\*Module Title:\*\*/)) {
+          const moduleTitle = trimmed.replace(/^\*\*Module Title:\*\*\s*/, '');
+          if (moduleTitle) {
+            addText(`Module: ${moduleTitle}`, 11, true);
+          }
+        }
+        // Bold text
+        else if (trimmed.startsWith('**') && trimmed.endsWith('**') && trimmed.length > 4) {
+          addText(trimmed.replace(/^\*\*/, '').replace(/\*\*$/, ''), 11, true);
+        }
+        // List items
+        else if (trimmed.match(/^[-*]\s+/)) {
+          addText(`• ${trimmed.replace(/^[-*]\s+/, '')}`, 10);
+        }
+        // Regular paragraphs
+        else {
+          addText(trimmed, 10);
+        }
+      }
+      
+      // Add footer
+      yPosition = pageHeight - margin;
+      pdf.setFontSize(8);
+      pdf.setTextColor('#666666');
+      pdf.text('Generated by BuildMaCourse - https://buildmacourse.com', margin, yPosition);
+      
+      // Save the PDF
+      pdf.save('my-course-curriculum.pdf');
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      // Fallback to text download
+      const content = `
 Course Curriculum
-Generated on: ${curriculum ? formatDate(curriculum.created_at) : ''}
+Generated on: ${formatDate(curriculum.created_at)}
 
-Course Idea: ${curriculum?.course_idea || ''}
+Course Overview: ${curriculum.course_idea}
 
-${curriculum?.full_curriculum_content || ''}
+${curriculum.full_curriculum_content}
 
 ---
 Generated by BuildMaCourse
 https://buildmacourse.com
-    `.trim();
+      `.trim();
 
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'my-course-curriculum.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-course-curriculum.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   if (loading) {
@@ -202,7 +378,7 @@ https://buildmacourse.com
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-black via-gray-900 to-brand-black pt-20 sm:pt-24 lg:pt-32">
       <Container>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <Link
@@ -215,10 +391,20 @@ https://buildmacourse.com
             
             <button
               onClick={downloadAsPDF}
-              className="inline-flex items-center gap-2 text-brand-gray hover:text-brand-white font-medium transition-colors"
+              disabled={isDownloading}
+              className="inline-flex items-center gap-2 bg-brand-purple hover:bg-brand-purple-dark text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Download className="w-4 h-4" />
-              Download
+              {isDownloading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Generating PDF...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-4 h-4" />
+                  Download PDF
+                </>
+              )}
             </button>
           </div>
 
@@ -230,60 +416,74 @@ https://buildmacourse.com
             </div>
           </div>
 
-          {/* Curriculum Content */}
-          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-2xl mb-8">
-            {/* Header Info */}
-            <div className="text-center mb-8 sm:mb-12">
+          {/* Course Overview Card */}
+          <div className="bg-gradient-to-br from-brand-purple/10 to-brand-purple-dark/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-lg mb-8">
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-3 py-1 rounded-full text-sm font-medium mb-4">
+                <BookOpen className="w-4 h-4" />
+                Course Overview
+              </div>
               <p className="text-sm text-brand-gray mb-4">
                 Generated on {formatDate(curriculum.created_at)}
               </p>
-              <div className="bg-brand-purple/10 border border-brand-purple/20 rounded-xl p-4 mb-6">
-                <p className="text-brand-white font-medium">
-                  <strong>Course Idea:</strong> {curriculum.course_idea}
+              <div className="bg-brand-black/30 border border-brand-purple/20 rounded-xl p-4">
+                <p className="text-brand-white font-medium text-lg">
+                  {curriculum.course_idea}
                 </p>
               </div>
             </div>
+          </div>
 
-            {/* Module Overview */}
-            {curriculum.generated_modules && curriculum.generated_modules.length > 0 && (
-              <div className="mb-8 sm:mb-12">
-                <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-6">
-                  Course Modules Overview
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {curriculum.generated_modules.map((module) => (
-                    <div key={module.id} className="flex items-center gap-3 p-4 bg-brand-black/30 rounded-xl">
-                      <div className="w-8 h-8 rounded-full bg-brand-purple/20 text-brand-purple flex items-center justify-center font-bold text-sm">
+          {/* Module Overview */}
+          {curriculum.generated_modules && curriculum.generated_modules.length > 0 && (
+            <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-lg mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-6 text-center">
+                📚 Course Modules Overview
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {curriculum.generated_modules.map((module) => (
+                  <div key={module.id} className="group bg-brand-black/30 hover:bg-brand-black/50 rounded-xl p-4 transition-all duration-200 border border-brand-purple/10 hover:border-brand-purple/30">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-purple to-brand-purple-dark text-white flex items-center justify-center font-bold text-sm group-hover:scale-110 transition-transform duration-200">
                         {module.id}
                       </div>
-                      <span className="text-brand-white font-medium">{module.title}</span>
+                      <span className="text-brand-white font-medium group-hover:text-brand-purple transition-colors duration-200">
+                        {module.title}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
+          )}
 
-            {/* Full Curriculum Content with Clean Markdown Rendering */}
-            <div className="prose prose-lg prose-invert max-w-none">
-              <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-6">
-                Complete Curriculum Details
+          {/* Full Curriculum Content */}
+          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-lg mb-8">
+            <div className="text-center mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-2">
+                📋 Complete Curriculum Details
               </h3>
-              <MarkdownRenderer content={curriculum.full_curriculum_content} />
+              <p className="text-brand-gray text-sm">
+                Your personalized learning roadmap with detailed week-by-week breakdown
+              </p>
+            </div>
+            
+            <div className="prose prose-lg prose-invert max-w-none">
+              <CurriculumRenderer content={curriculum.full_curriculum_content} />
             </div>
           </div>
 
           {/* What's Next Section */}
-          <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-purple-lg">
+          <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-2xl shadow-purple-lg">
             <div className="text-center">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4 font-bricolage">
-                What's Next?
+                🚀 Ready to Turn This Into Reality?
               </h2>
               <p className="text-lg sm:text-xl text-purple-100 mb-6 max-w-3xl mx-auto">
-                Now that you have a complete, professional curriculum, the next critical step is to validate it. 
-                How can you be 100% sure people will pay for this before you spend months building it?
+                You now have a complete, professional curriculum. The next step? Let's validate it and turn it into a profitable course that actually sells.
               </p>
               <p className="text-xl font-semibold text-white mb-8">
-                That's exactly what we help with at BuildMaCourse.
+                That's exactly what BuildMaCourse specializes in.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

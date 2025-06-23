@@ -309,23 +309,26 @@ export const ViewCurriculumPage = () => {
       addText(parsedCurriculum.description, 11, false, brandBlack);
       yPosition += 10;
       
-      // Course stats - clean icons using text
+      // Course stats - FIXED LAYOUT to prevent overlapping
       const statsY = yPosition;
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
       pdf.setTextColor(brandGray[0], brandGray[1], brandGray[2]);
       
+      // Calculate proper spacing for stats
+      const statSpacing = maxWidth / 3;
+      
       // Duration
       pdf.text('📚', margin, statsY);
-      pdf.text(parsedCurriculum.duration, margin + 10, statsY);
+      pdf.text(parsedCurriculum.duration, margin + 8, statsY);
       
       // Time commitment
-      pdf.text('⏱️', margin + 60, statsY);
-      pdf.text(parsedCurriculum.timeCommitment, margin + 70, statsY);
+      pdf.text('⏱️', margin + statSpacing, statsY);
+      pdf.text(parsedCurriculum.timeCommitment, margin + statSpacing + 8, statsY);
       
       // Level
-      pdf.text('👤', margin + 120, statsY);
-      pdf.text(parsedCurriculum.level, margin + 130, statsY);
+      pdf.text('👤', margin + (statSpacing * 2), statsY);
+      pdf.text(parsedCurriculum.level, margin + (statSpacing * 2) + 8, statsY);
       
       yPosition = statsY + 15;
       

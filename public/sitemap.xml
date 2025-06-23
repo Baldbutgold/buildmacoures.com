@@ -9,15 +9,23 @@
   <!-- Homepage -->
   <url>
     <loc>https://buildmacourse.com/</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- Free Curriculum Generator -->
+  <url>
+    <loc>https://buildmacourse.com/generate-curriculum</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- Blog Main Page -->
   <url>
     <loc>https://buildmacourse.com/blog</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -25,9 +33,24 @@
   <!-- Call Booked Page -->
   <url>
     <loc>https://buildmacourse.com/call-booked</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://buildmacourse.com/privacy-policy</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://buildmacourse.com/terms-of-service</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 
   <!-- Blog Posts -->

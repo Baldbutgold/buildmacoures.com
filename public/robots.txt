@@ -15,14 +15,15 @@ Allow: /
 User-agent: Slurp
 Allow: /
 
-# Block access to admin or sensitive areas (if any)
-# User-agent: *
-# Disallow: /admin/
-# Disallow: /private/
-
 # Allow crawling of important pages
 Allow: /blog/
 Allow: /call-booked
+Allow: /generate-curriculum
+Allow: /privacy-policy
+Allow: /terms-of-service
+
+# Disallow dynamic curriculum pages from indexing (private content)
+Disallow: /curriculum/
 
 # Crawl delay (optional - helps prevent server overload)
 Crawl-delay: 1

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
 import { Container } from './Container';
-import { Star, ArrowRight } from 'lucide-react';
+import { Star, ArrowRight, Play } from 'lucide-react';
 
 export const Hero = React.memo(() => {
   const scrollToSection = (href: string) => {
@@ -43,14 +43,15 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-          {/* Video positioned directly below the heading */}
+          {/* Video placeholder - DISABLED TEMPORARILY */}
           <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-brand-black/20 backdrop-blur-sm">
-              <wistia-player 
-                media-id="4mw8h1u2ey" 
-                aspect="1.7777777777777777"
-                className="w-full rounded-2xl"
-              ></wistia-player>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-brand-black/20 backdrop-blur-sm aspect-video flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <Play className="w-8 h-8 sm:w-10 sm:h-10 text-brand-purple ml-1" />
+                </div>
+                <p className="text-brand-gray text-sm sm:text-base">Video temporarily unavailable</p>
+              </div>
             </div>
           </div>
 

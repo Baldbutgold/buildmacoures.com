@@ -21,7 +21,7 @@ export const WhoIAmSection = () => {
             {/* Image Section - Left side, bigger image */}
             <div className="relative">
               <img 
-                src="/image copy.png" 
+                src="/1337_headshot_ael-hadj-removebg-preview.png" 
                 alt="Mohamed - Course Creation Expert"
                 className="w-full max-w-md mx-auto lg:mx-0 h-auto object-contain"
               />

@@ -67,14 +67,6 @@ export const CurriculumGeneratorPage = () => {
     setIsGenerating(true);
     setError('');
 
-    const skillLevelText = {
-      'absolute-beginner': 'absolute beginners with no experience',
-      'beginner': 'beginners with some basic knowledge but lacking structure',
-      'intermediate': 'intermediate learners with foundational skills who want to advance'
-    };
-
-    const courseIdea = `I want to teach ${courseTopic} to ${skillLevelText[skillLevel as keyof typeof skillLevelText]}. The primary goal is ${primaryGoal}.`;
-
     try {
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -83,7 +75,7 @@ export const CurriculumGeneratorPage = () => {
         throw new Error('Configuration error: Missing Supabase credentials. Please contact support.');
       }
 
-      // Generate the curriculum
+      // Generate the curriculum using the new format
       const generateResponse = await fetch(`${supabaseUrl}/functions/v1/generate-curriculum`, {
         method: 'POST',
         headers: {
@@ -91,7 +83,11 @@ export const CurriculumGeneratorPage = () => {
           'Content-Type': 'application/json',
           'apikey': supabaseAnonKey,
         },
-        body: JSON.stringify({ courseIdea }),
+        body: JSON.stringify({ 
+          courseTopic,
+          skillLevel,
+          primaryGoal
+        }),
       });
 
       if (!generateResponse.ok) {
@@ -120,7 +116,7 @@ export const CurriculumGeneratorPage = () => {
         body: JSON.stringify({
           userEmail,
           userName,
-          courseIdea,
+          courseIdea: `${courseTopic} course for ${skillLevel} level learners with goal: ${primaryGoal}`,
           modules: generationData.data.modules,
           fullCurriculum: generationData.data.fullCurriculum,
         }),
@@ -210,9 +206,9 @@ export const CurriculumGeneratorPage = () => {
                 </label>
                 <div className="space-y-3">
                   {[
-                    { value: 'absolute-beginner', label: 'Absolute Beginner', desc: 'Has no experience in the topic' },
-                    { value: 'beginner', label: 'Beginner', desc: 'Has some basic knowledge but lacks structure' },
-                    { value: 'intermediate', label: 'Intermediate', desc: 'Has foundational skills, wants to advance' }
+                    { value: 'beginner', label: 'Beginner' },
+                    { value: 'intermediate', label: 'Intermediate' },
+                    { value: 'advanced', label: 'Advanced' }
                   ].map((option) => (
                     <label 
                       key={option.value} 
@@ -242,8 +238,7 @@ export const CurriculumGeneratorPage = () => {
                         />
                       </div>
                       <div className="flex-1">
-                        <div className="text-brand-white font-medium mb-1">{option.label}</div>
-                        <div className="text-brand-gray/80 text-sm">{option.desc}</div>
+                        <div className="text-brand-white font-medium">{option.label}</div>
                       </div>
                     </label>
                   ))}

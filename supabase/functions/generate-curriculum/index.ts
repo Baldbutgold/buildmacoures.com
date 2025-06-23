@@ -13,7 +13,9 @@ if (!GEMINI_API_KEY) {
 }
 
 interface GenerateCurriculumRequest {
-  courseIdea: string;
+  courseTopic: string;
+  skillLevel: string;
+  primaryGoal: string;
 }
 
 // Helper function to implement retry with exponential backoff
@@ -75,46 +77,108 @@ Deno.serve(async (req: Request) => {
     const requestBody = await req.json();
     console.log('Request body:', requestBody);
     
-    const { courseIdea }: GenerateCurriculumRequest = requestBody;
+    const { courseTopic, skillLevel, primaryGoal }: GenerateCurriculumRequest = requestBody;
 
-    if (!courseIdea || courseIdea.trim().length === 0) {
-      throw new Error('Course idea is required');
+    if (!courseTopic || courseTopic.trim().length === 0) {
+      throw new Error('Course topic is required');
     }
 
-    if (courseIdea.trim().length > 500) {
-      throw new Error('Course idea is too long. Please keep it under 500 characters.');
+    if (!skillLevel || !primaryGoal) {
+      throw new Error('All fields are required');
     }
 
-    // Craft the prompt for Gemini - following the official docs pattern
-    const prompt = `You are an expert course creator. Based on the following course idea, generate a comprehensive curriculum structure.
+    if (courseTopic.trim().length > 200) {
+      throw new Error('Course topic is too long. Please keep it under 200 characters.');
+    }
 
-Course Idea: "${courseIdea}"
+    if (primaryGoal.trim().length > 300) {
+      throw new Error('Primary goal is too long. Please keep it under 300 characters.');
+    }
 
-Please provide:
-1. A compelling course title
-2. A brief course description (2-3 sentences)
-3. 6-8 main modules with descriptive titles
-4. For each module, provide 3-5 lesson titles
-5. Estimated total course duration
-6. Target audience description
+    // Map skill levels to descriptions
+    const skillLevelDescriptions = {
+      'beginner': 'beginners with little to no experience',
+      'intermediate': 'intermediate learners with some foundational knowledge',
+      'advanced': 'advanced learners looking to master the subject'
+    };
 
-Format your response as a structured curriculum that would be professional and engaging. Make it specific and actionable.
+    const skillDescription = skillLevelDescriptions[skillLevel as keyof typeof skillLevelDescriptions] || 'learners';
 
-Please format the response in a clear, organized way that would look professional in a PDF or webpage.`;
+    // Craft the comprehensive prompt for Gemini using the new format
+    const prompt = `# ROLE:
+You are an expert curriculum and instructional designer with deep knowledge of pedagogy, learning theory, and user-centered design. Your specialty is building logical, engaging, and goal-driven course plans tailored to a learner's background, time commitment, and specific objectives.
+
+# CONTEXT:
+Your task is to create a detailed, week-by-week course curriculum based on user-provided inputs. You should intelligently infer logical learning progressions, propose relevant topics, and design practical activities that lead the learner to their goal.
+
+# USER INPUT:
+
+* **Course Topic:** ${courseTopic}
+* **Learner's Starting Level:** ${skillLevel} (${skillDescription})
+* **Primary Learner Goal:** ${primaryGoal}
+* **Total Course Duration (in weeks):** 8
+* **Weekly Time Commitment (hours/week):** 3-5
+
+# TASK INSTRUCTIONS:
+
+1. ## Course Title & Description
+   - Generate a compelling Course Title that reflects both the topic and the end goal.
+   - Write a concise 2-3 sentence Course Description that includes the learner's starting point and what they'll achieve.
+
+2. ## Learning Objectives
+   - Analyze the learner's goal and derive 3–5 specific, measurable learning objectives.
+   - Use action verbs (e.g., "Implement", "Build", "Evaluate", "Design") to ensure clarity and assessment readiness.
+
+3. ## Week-by-Week Curriculum
+   - Split the course into 8 weeks.
+   - For each week:
+     - Provide a Module Title that represents a clear learning milestone.
+     - List 3–4 Key Topics for that module.
+     - Recommend 1–2 hands-on or reflective Weekly Activities or Assignments aligned with the objectives.
+
+4. ## Capstone Project
+   - Propose a Final Project that synthesizes the key skills learned and demonstrates achievement of the primary goal.
+   - Include a short paragraph explaining the expectations and deliverables.
+
+5. ## Assumptions & Constraints
+   - **Resources:** Use only free, reputable online resources (e.g., MDN, freeCodeCamp, Khan Academy, official docs, credible YouTube channels).
+   - **Learning Style:** Assume a blended approach: reading, watching, and doing.
+   - **Scaffolding:** Ensure that later modules build on earlier ones; reinforce knowledge through repetition and application.
+
+# OUTPUT FORMAT (MARKDOWN):
+
+Structure your response using the following Markdown sections:
+
+## Course Title  
+## Course Description  
+## Learning Objectives  
+## Week-by-Week Breakdown  
+### Week 1  
+**Module Title:** ...  
+- Key Topics:  
+  - ...  
+- Activities:  
+  - ...  
+(repeat for each week)
+
+## Capstone Project  
+(Description and expectations)
+
+Please ensure the curriculum is practical, achievable, and directly aligned with helping the learner reach their stated goal.`;
 
     console.log('Initializing Gemini AI...');
     
     // Initialize according to official docs
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-    // Get the generative model - using the correct model name from docs
+    // Get the generative model - using the recommended model from docs
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",  // Changed to the recommended model from docs
+      model: "gemini-1.5-flash",
       generationConfig: {
         temperature: 0.7,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 2048,
+        maxOutputTokens: 4096, // Increased for more detailed curriculum
       },
     });
 
@@ -135,37 +199,35 @@ Please format the response in a clear, organized way that would look professiona
 
     console.log('Curriculum generated successfully');
 
-    // Extract module titles for preview (simple regex approach)
-    const moduleMatches = fullCurriculum.match(/(?:Module|Chapter|Section)\s+\d+[:\-\s]+([^\n\r]+)/gi) || [];
-    const modules = moduleMatches.slice(0, 8).map((match, index) => ({
-      id: index + 1,
-      title: match.replace(/(?:Module|Chapter|Section)\s+\d+[:\-\s]+/i, '').trim()
-    }));
+    // Extract module titles for preview (improved regex approach)
+    const moduleMatches = fullCurriculum.match(/### Week \d+[\s\S]*?\*\*Module Title:\*\*\s*([^\n\r]+)/gi) || [];
+    const modules = moduleMatches.slice(0, 8).map((match, index) => {
+      const titleMatch = match.match(/\*\*Module Title:\*\*\s*([^\n\r]+)/i);
+      const title = titleMatch ? titleMatch[1].trim() : `Week ${index + 1} Module`;
+      return {
+        id: index + 1,
+        title: title
+      };
+    });
 
-    // If no modules found with regex, try to extract from the content differently
+    // If no modules found with the primary regex, try alternative patterns
     if (modules.length === 0) {
-      const lines = fullCurriculum.split('\n').filter(line => line.trim().length > 0);
-      const potentialModules = lines.filter(line => 
-        line.includes('Module') || 
-        line.includes('Chapter') || 
-        line.includes('Section') ||
-        (line.match(/^\d+\./) && line.length < 100)
-      ).slice(0, 8);
-      
-      potentialModules.forEach((module, index) => {
+      const weekMatches = fullCurriculum.match(/Week \d+[:\-\s]*([^\n\r]+)/gi) || [];
+      weekMatches.slice(0, 8).forEach((match, index) => {
+        const title = match.replace(/Week \d+[:\-\s]*/i, '').trim();
         modules.push({
           id: index + 1,
-          title: module.replace(/^\d+\.\s*/, '').replace(/^(Module|Chapter|Section)\s*\d+[:\-\s]*/i, '').trim()
+          title: title || `Week ${index + 1} Content`
         });
       });
     }
 
     // Fallback if still no modules found
     if (modules.length === 0) {
-      for (let i = 1; i <= 6; i++) {
+      for (let i = 1; i <= 8; i++) {
         modules.push({
           id: i,
-          title: `Module ${i}: Course Content`
+          title: `Week ${i}: ${courseTopic} Fundamentals`
         });
       }
     }

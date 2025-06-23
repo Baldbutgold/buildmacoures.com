@@ -17,6 +17,39 @@ interface GeminiResponse {
   }>;
 }
 
+// Helper function to implement retry with exponential backoff
+async function retryFetch(url: string, options: RequestInit, maxRetries: number = 3): Promise<Response> {
+  let lastError: Error;
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fetch(url, options);
+      
+      // If we get a 429 (rate limit) error, retry with exponential backoff
+      if (response.status === 429 && attempt < maxRetries) {
+        const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s delays
+        console.log(`Rate limited (429). Retrying in ${delay}ms... (attempt ${attempt + 1}/${maxRetries + 1})`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+      
+      return response;
+    } catch (error) {
+      lastError = error as Error;
+      
+      // Only retry on network errors, not on other types of errors
+      if (attempt < maxRetries) {
+        const delay = Math.pow(2, attempt) * 1000;
+        console.log(`Network error. Retrying in ${delay}ms... (attempt ${attempt + 1}/${maxRetries + 1})`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+    }
+  }
+  
+  throw lastError || new Error('Max retries exceeded');
+}
+
 Deno.serve(async (req: Request) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -58,8 +91,8 @@ Format your response as a structured curriculum that would be professional and e
 
 Please format the response in a clear, organized way that would look professional in a PDF or webpage.`;
 
-    // Call Gemini API
-    const geminiResponse = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    // Call Gemini API with retry mechanism
+    const geminiResponse = await retryFetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

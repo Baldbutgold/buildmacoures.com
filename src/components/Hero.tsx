@@ -12,7 +12,7 @@ export const Hero = React.memo(() => {
   };
 
   return (
-    <div className="relative pt-16 pb-12 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-screen flex flex-col justify-center contain-layout">
+    <div className="relative pt-16 pb-8 sm:pb-12 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-screen flex flex-col justify-center contain-layout">
       {/* Optimized background pattern */}
       <div className="absolute inset-0 opacity-40 will-change-transform">
         <div className="absolute inset-0" style={{ 
@@ -26,13 +26,13 @@ export const Hero = React.memo(() => {
       </div>
       
       <Container>
-        <div className="max-w-6xl mx-auto text-center px-2 sm:px-4 relative z-10">
+        <div className="max-w-6xl mx-auto text-center px-4 sm:px-6 relative z-10">
           {/* Enhanced heading with mobile optimization */}
-          <h1 className="font-bold text-brand-white leading-[0.85] mb-6 sm:mb-8 md:mb-10 animate-fade-in font-bricolage">
-            <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="font-bold text-brand-white leading-[0.9] sm:leading-[0.85] mb-6 sm:mb-8 md:mb-10 animate-fade-in font-bricolage">
+            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
               Stop Struggling With{' '}
             </span>
-            <span className="relative inline-block text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 sm:mt-4">
+            <span className="relative inline-block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mt-2 sm:mt-3 md:mt-4">
               <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-lg sm:rounded-xl md:rounded-2xl transform -rotate-1 sm:-rotate-2 inline-block shadow-purple-lg gpu-accelerated">
                 Course Creation
               </span>
@@ -43,10 +43,10 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-          {/* Wistia Video with proper spacing */}
-          <div className="mb-12 sm:mb-16 md:mb-20">
+          {/* Wistia Video with proper mobile spacing */}
+          <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20">
             <div className="max-w-4xl mx-auto">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 bg-brand-black/50 backdrop-blur-sm">
+              <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 bg-brand-black/50 backdrop-blur-sm">
                 <wistia-player 
                   media-id="4mw8h1u2ey" 
                   aspect="1.7777777777777777"
@@ -56,11 +56,11 @@ export const Hero = React.memo(() => {
             </div>
           </div>
 
-          {/* Optimized social proof with proper spacing */}
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
+          {/* Optimized social proof with proper mobile spacing */}
+          <div className="flex justify-center mb-6 sm:mb-8 md:mb-10">
             <button
               onClick={() => window.open('https://www.fiverr.com/mohamed_mrini', '_blank', 'noopener,noreferrer')}
-              className="group flex items-center space-x-2 sm:space-x-3 md:space-x-4 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1 gpu-accelerated"
+              className="group flex items-center space-x-2 sm:space-x-3 md:space-x-4 p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1 gpu-accelerated"
               aria-label="View our 4.9 star rating on Fiverr"
             >
               <div className="flex items-center space-x-1 sm:space-x-2">
@@ -77,7 +77,7 @@ export const Hero = React.memo(() => {
           </div>
 
           {/* Enhanced description with mobile optimization */}
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-brand-gray mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto px-2">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-brand-gray mb-6 sm:mb-8 md:mb-10 max-w-4xl mx-auto">
             You have the expertise. You know people need what you teach. But creating a professional course feels{' '}
             <strong className="text-brand-white">overwhelming, time-consuming, and technically complicated.</strong>{' '}
             What if I told you there's a way to get a{' '}
@@ -85,11 +85,11 @@ export const Hero = React.memo(() => {
           </p>
 
           {/* Enhanced CTA with mobile optimization */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 px-2">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
             <Button 
               variant="primary" 
               size="lg" 
-              className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group gpu-accelerated text-sm sm:text-base"
+              className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group gpu-accelerated text-sm sm:text-base min-h-[48px]"
               onClick={() => scrollToSection('#schedule-call')}
             >
               <span className="flex items-center gap-2">

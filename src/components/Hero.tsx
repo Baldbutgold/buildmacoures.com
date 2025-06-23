@@ -1,108 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from './Button';
 import { Container } from './Container';
-import { Star, ArrowRight, Play, AlertCircle } from 'lucide-react';
+import { Star, ArrowRight, Play } from 'lucide-react';
 
 export const Hero = React.memo(() => {
-  const [wistiaState, setWistiaState] = useState({
-    loaded: false,
-    failed: false,
-    showFallback: false
-  });
-
-  useEffect(() => {
-    // Listen for Wistia load events
-    const handleWistiaSuccess = () => {
-      setWistiaState(prev => ({ ...prev, loaded: true, failed: false }));
-    };
-
-    const handleWistiaError = () => {
-      setWistiaState(prev => ({ ...prev, failed: true, showFallback: true }));
-    };
-
-    const handleWistiaFailed = () => {
-      setWistiaState(prev => ({ ...prev, failed: true, showFallback: true }));
-    };
-
-    // Add event listeners
-    window.addEventListener('wistiaLoadSuccess', handleWistiaSuccess);
-    window.addEventListener('wistiaLoadError', handleWistiaError);
-    window.addEventListener('wistiaLoadFailed', handleWistiaFailed);
-    window.addEventListener('wistiaRuntimeError', handleWistiaError);
-    window.addEventListener('wistiaPromiseRejection', handleWistiaError);
-
-    // Check initial state
-    if (window.wistiaState) {
-      setWistiaState({
-        loaded: window.wistiaState.loaded,
-        failed: window.wistiaState.failed,
-        showFallback: window.wistiaState.failed
-      });
-    }
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('wistiaLoadSuccess', handleWistiaSuccess);
-      window.removeEventListener('wistiaLoadError', handleWistiaError);
-      window.removeEventListener('wistiaLoadFailed', handleWistiaFailed);
-      window.removeEventListener('wistiaRuntimeError', handleWistiaError);
-      window.removeEventListener('wistiaPromiseRejection', handleWistiaError);
-    };
-  }, []);
-
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleVideoFallbackClick = () => {
-    // Open video in new tab as fallback
-    window.open('https://buildmacourse.com/video', '_blank', 'noopener,noreferrer');
-  };
-
-  const VideoSection = () => {
-    if (wistiaState.showFallback) {
-      return (
-        <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-br from-gray-900 to-gray-800">
-            <div className="aspect-video flex flex-col items-center justify-center p-8 text-center">
-              <div className="mb-4">
-                <AlertCircle className="w-12 h-12 text-yellow-500 mx-auto mb-2" />
-                <h3 className="text-lg font-semibold text-white mb-2">Video Temporarily Unavailable</h3>
-                <p className="text-gray-300 text-sm mb-4">
-                  We're experiencing technical difficulties with our video player.
-                </p>
-              </div>
-              <button
-                onClick={handleVideoFallbackClick}
-                className="group flex items-center gap-3 px-6 py-3 bg-brand-purple hover:bg-brand-purple-dark text-white rounded-lg transition-all duration-300 transform hover:-translate-y-1"
-              >
-                <Play className="w-5 h-5" />
-                <span>Watch Video</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <p className="text-xs text-gray-400 mt-3">
-                Click to watch our introduction video
-              </p>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1">
-          <wistia-player 
-            media-id="4mw8h1u2ey" 
-            aspect="1.7777777777777777"
-            onError={() => setWistiaState(prev => ({ ...prev, showFallback: true }))}
-          ></wistia-player>
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -131,10 +37,11 @@ export const Hero = React.memo(() => {
                 a Sellable Video Course
               </span>
             </span>
+            <br />
+            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-brand-gray mt-3 sm:mt-4 md:mt-6 block font-normal">
+              (Without Lifting a Finger)
+            </span>
           </h1>
-
-          {/* Enhanced Video Player with Fallback */}
-          <VideoSection />
 
           {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8">
@@ -163,7 +70,7 @@ export const Hero = React.memo(() => {
           </p>
 
           {/* Enhanced CTA with mobile optimization */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 px-2">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-2">
             <Button 
               variant="primary" 
               size="lg" 
@@ -175,6 +82,47 @@ export const Hero = React.memo(() => {
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
+          </div>
+
+          {/* Video Section */}
+          <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <Play className="w-4 h-4" />
+                See Our Work in Action
+              </div>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-brand-white mb-2 font-bricolage">
+                Watch How We Transform Expertise Into Courses
+              </h2>
+              <p className="text-brand-gray text-sm sm:text-base">
+                See the quality and professionalism that goes into every course we create
+              </p>
+            </div>
+            
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-brand-black/20 backdrop-blur-sm">
+              <wistia-player 
+                media-id="4mw8h1u2ey" 
+                aspect="1.7777777777777777"
+                className="w-full rounded-2xl"
+              ></wistia-player>
+            </div>
+          </div>
+
+          {/* Trust indicators below video */}
+          <div className="text-center">
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-xs sm:text-sm">
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-brand-white">Professional Quality</span>
+              </div>
+              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block" />
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-brand-white">Complete Done-For-You Service</span>
+              </div>
+              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block" />
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-brand-white">Ready to Launch</span>
+              </div>
+            </div>
           </div>
         </div>
       </Container>

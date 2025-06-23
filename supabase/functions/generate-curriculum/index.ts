@@ -104,7 +104,7 @@ Deno.serve(async (req: Request) => {
 
     const skillDescription = skillLevelDescriptions[skillLevel as keyof typeof skillLevelDescriptions] || 'learners';
 
-    // Craft the comprehensive prompt for Gemini using the new format
+    // Updated prompt to match your specifications exactly
     const prompt = `# ROLE:
 You are an expert curriculum and instructional designer with a strong background in creating effective, learner-centered course structures. Your job is to design an engaging and goal-driven curriculum tailored to a learner's starting level and outcome.
 
@@ -120,21 +120,20 @@ Your task is to generate a modular course curriculum based on the user's input. 
 # TASK INSTRUCTIONS:
 
 1. ## Course Title & Description
-   - Create a clear and engaging Course Title based on the topic and learner's goal.
-   - Write a concise 2–3 sentence Course Description explaining what the course covers, who it's for, and what the learner will achieve.
+   - Create a clear and engaging \`Course Title\` based on the topic and learner's goal.
+   - Write a concise 2–3 sentence \`Course Description\` explaining what the course covers, who it's for, and what the learner will achieve.
 
 2. ## Learning Objectives
    - Develop **3–5 specific, measurable learning objectives** that directly support the learner's goal.
    - Use strong action verbs (e.g., Build, Analyze, Design, Implement) to express each outcome clearly.
 
 3. ## Modular Breakdown
-   - Create a step-by-step Modular Breakdown of the course, using **up to 8 modules** based on what's necessary to reach the goal.
+   - Create a step-by-step \`Modular Breakdown\` of the course, using **up to 8 modules** depending on the complexity of the goal.
    - For each module:
      - Provide a **Module Title** that reflects the key concept or milestone.
      - List **3–4 core topics or skills** covered in that module.
 
 4. ## Assumptions
-   - **Resources:** Use only **free, high-quality resources** (e.g., MDN, freeCodeCamp, official docs, YouTube channels).
    - **Learning Modalities:** Assume a blended approach: reading, watching, and building.
    - **Progression:** Ensure modules build logically upon one another toward the final goal.
 

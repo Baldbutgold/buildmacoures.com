@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { Sparkles, BookOpen, Mail, CheckCircle, ArrowRight, Loader2, AlertTriangle, User, X } from 'lucide-react';
+import { Sparkles, CheckCircle, AlertTriangle, User, Mail, X, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface Module {
@@ -29,7 +29,9 @@ interface SaveResponse {
 
 export const CurriculumGeneratorPage = () => {
   const navigate = useNavigate();
-  const [courseIdea, setCourseIdea] = useState('');
+  const [courseTopic, setCourseTopic] = useState('');
+  const [skillLevel, setSkillLevel] = useState('beginner');
+  const [primaryGoal, setPrimaryGoal] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -37,10 +39,16 @@ export const CurriculumGeneratorPage = () => {
   const [error, setError] = useState('');
 
   const handleGenerateClick = () => {
-    if (!courseIdea.trim()) {
-      setError('Please enter your course idea');
+    // Validate form
+    if (!courseTopic.trim()) {
+      setError('Please enter the main topic of your course');
       return;
     }
+    if (!primaryGoal.trim()) {
+      setError('Please enter the primary goal of your course');
+      return;
+    }
+    
     setError('');
     setShowEmailModal(true);
   };
@@ -59,6 +67,15 @@ export const CurriculumGeneratorPage = () => {
 
     setIsGenerating(true);
     setError('');
+
+    // Create the course idea from the form inputs
+    const skillLevelText = {
+      'absolute-beginner': 'absolute beginners with no experience',
+      'beginner': 'beginners with some basic knowledge but lacking structure',
+      'intermediate': 'intermediate learners with foundational skills who want to advance'
+    };
+
+    const courseIdea = `I want to teach ${courseTopic} to ${skillLevelText[skillLevel as keyof typeof skillLevelText]}. The primary goal is ${primaryGoal}.`;
 
     try {
       // Check if environment variables are available
@@ -162,7 +179,7 @@ export const CurriculumGeneratorPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-black via-gray-900 to-brand-black pt-20 sm:pt-24 lg:pt-32">
       <Container>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -170,37 +187,113 @@ export const CurriculumGeneratorPage = () => {
               Free AI Tool
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-              Instant Curriculum Generator
+              Create Your Course Curriculum
             </h1>
-            <p className="text-lg sm:text-xl text-brand-gray max-w-3xl mx-auto leading-relaxed">
-              Transform your course idea into a professional curriculum in seconds. 
-              Just describe your course concept and our AI will create a complete structure for you.
+            <p className="text-lg sm:text-xl text-brand-gray max-w-2xl mx-auto leading-relaxed">
+              Answer these three questions to generate a personalized learning plan.
             </p>
           </div>
 
           {/* Main Form */}
           <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-2xl">
-            {/* Course Idea Input */}
-            <div className="mb-8">
-              <label htmlFor="courseIdea" className="block text-lg font-semibold text-brand-white mb-4">
-                Describe your course idea in one sentence:
-              </label>
-              <textarea
-                id="courseIdea"
-                value={courseIdea}
-                onChange={(e) => setCourseIdea(e.target.value)}
-                placeholder="Example: I want to teach busy professionals how to cook healthy meals in under 30 minutes"
-                className="w-full h-32 px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200 resize-none"
-              />
+            <div className="space-y-8">
+              {/* Question 1: Course Topic */}
+              <div>
+                <label htmlFor="courseTopic" className="block text-lg font-semibold text-brand-white mb-4">
+                  1. What is the main topic of the course?
+                </label>
+                <input
+                  type="text"
+                  id="courseTopic"
+                  value={courseTopic}
+                  onChange={(e) => setCourseTopic(e.target.value)}
+                  placeholder="e.g., Python, Sewing, Digital Marketing, Video Editing"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                />
+                <small className="text-brand-gray text-sm mt-2 block">
+                  e.g., Python, Sewing, Digital Marketing, Video Editing
+                </small>
+              </div>
+
+              {/* Question 2: Skill Level */}
+              <div>
+                <label className="block text-lg font-semibold text-brand-white mb-4">
+                  2. What is the starting skill level of the learner?
+                </label>
+                <div className="space-y-3">
+                  <label className="flex items-start gap-3 p-4 bg-brand-black/30 rounded-xl cursor-pointer hover:bg-brand-black/50 transition-colors">
+                    <input
+                      type="radio"
+                      name="skillLevel"
+                      value="absolute-beginner"
+                      checked={skillLevel === 'absolute-beginner'}
+                      onChange={(e) => setSkillLevel(e.target.value)}
+                      className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
+                    />
+                    <div>
+                      <div className="text-brand-white font-medium">Absolute Beginner</div>
+                      <div className="text-brand-gray text-sm">Has no experience in the topic</div>
+                    </div>
+                  </label>
+                  
+                  <label className="flex items-start gap-3 p-4 bg-brand-black/30 rounded-xl cursor-pointer hover:bg-brand-black/50 transition-colors">
+                    <input
+                      type="radio"
+                      name="skillLevel"
+                      value="beginner"
+                      checked={skillLevel === 'beginner'}
+                      onChange={(e) => setSkillLevel(e.target.value)}
+                      className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
+                    />
+                    <div>
+                      <div className="text-brand-white font-medium">Beginner</div>
+                      <div className="text-brand-gray text-sm">Has some basic knowledge but lacks structure</div>
+                    </div>
+                  </label>
+                  
+                  <label className="flex items-start gap-3 p-4 bg-brand-black/30 rounded-xl cursor-pointer hover:bg-brand-black/50 transition-colors">
+                    <input
+                      type="radio"
+                      name="skillLevel"
+                      value="intermediate"
+                      checked={skillLevel === 'intermediate'}
+                      onChange={(e) => setSkillLevel(e.target.value)}
+                      className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
+                    />
+                    <div>
+                      <div className="text-brand-white font-medium">Intermediate</div>
+                      <div className="text-brand-gray text-sm">Has foundational skills, wants to advance</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* Question 3: Primary Goal */}
+              <div>
+                <label htmlFor="primaryGoal" className="block text-lg font-semibold text-brand-white mb-4">
+                  3. What is the primary goal of this course?
+                </label>
+                <input
+                  type="text"
+                  id="primaryGoal"
+                  value={primaryGoal}
+                  onChange={(e) => setPrimaryGoal(e.target.value)}
+                  placeholder="e.g., To build a personal website, to get a junior developer job, to learn how to knit a scarf"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                />
+                <small className="text-brand-gray text-sm mt-2 block">
+                  e.g., To build a personal website, to get a junior developer job, to learn how to knit a scarf
+                </small>
+              </div>
             </div>
 
             {/* Generate Button */}
-            <div className="text-center mb-8">
+            <div className="text-center mt-10">
               <Button
                 variant="primary"
                 size="lg"
                 onClick={handleGenerateClick}
-                disabled={!courseIdea.trim()}
+                disabled={!courseTopic.trim() || !primaryGoal.trim()}
                 className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
@@ -209,8 +302,8 @@ export const CurriculumGeneratorPage = () => {
             </div>
 
             {/* Error Display */}
-            {error && (
-              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6">
+            {error && !showEmailModal && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mt-6">
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
                   <div>
@@ -261,7 +354,7 @@ export const CurriculumGeneratorPage = () => {
             {/* Modal Header */}
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-brand-purple to-brand-purple-dark rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-white" />
+                <Sparkles className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-2 font-bricolage">
                 Get Your Free Curriculum
@@ -309,6 +402,13 @@ export const CurriculumGeneratorPage = () => {
                 </div>
               </div>
             </div>
+
+            {/* Error Display in Modal */}
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 mb-4">
+                <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
 
             {/* Generate Button */}
             <Button

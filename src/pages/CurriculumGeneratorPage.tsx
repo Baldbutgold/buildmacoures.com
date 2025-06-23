@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { Sparkles, BookOpen, Mail, CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { Sparkles, BookOpen, Mail, CheckCircle, ArrowRight, Loader2, AlertTriangle } from 'lucide-react';
 
 interface Module {
   id: number;
@@ -48,16 +48,37 @@ export const CurriculumGeneratorPage = () => {
     setError('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-curriculum`, {
+      // Check if environment variables are available
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Configuration error: Missing Supabase credentials. Please contact support.');
+      }
+
+      console.log('Making request to:', `${supabaseUrl}/functions/v1/generate-curriculum`);
+
+      const response = await fetch(`${supabaseUrl}/functions/v1/generate-curriculum`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
           'Content-Type': 'application/json',
+          'apikey': supabaseAnonKey,
         },
         body: JSON.stringify({ courseIdea }),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
+      }
+
       const data: GenerationResponse = await response.json();
+      console.log('Response data:', data);
 
       if (!data.success) {
         throw new Error(data.error || 'Failed to generate curriculum');
@@ -69,7 +90,20 @@ export const CurriculumGeneratorPage = () => {
         setShowEmailForm(true);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate curriculum');
+      console.error('Generation error:', err);
+      let errorMessage = 'Failed to generate curriculum';
+      
+      if (err instanceof Error) {
+        if (err.message.includes('fetch')) {
+          errorMessage = 'Network error: Unable to connect to our servers. Please check your internet connection and try again.';
+        } else if (err.message.includes('CORS')) {
+          errorMessage = 'Connection error: Please try refreshing the page and trying again.';
+        } else {
+          errorMessage = err.message;
+        }
+      }
+      
+      setError(errorMessage);
     } finally {
       setIsGenerating(false);
     }
@@ -91,11 +125,19 @@ export const CurriculumGeneratorPage = () => {
     setError('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-full-curriculum`, {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Configuration error: Missing Supabase credentials. Please contact support.');
+      }
+
+      const response = await fetch(`${supabaseUrl}/functions/v1/send-full-curriculum`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
           'Content-Type': 'application/json',
+          'apikey': supabaseAnonKey,
         },
         body: JSON.stringify({
           userEmail,
@@ -104,6 +146,11 @@ export const CurriculumGeneratorPage = () => {
           fullCurriculum,
         }),
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
+      }
 
       const data: EmailResponse = await response.json();
 
@@ -116,7 +163,18 @@ export const CurriculumGeneratorPage = () => {
         setIsComplete(true);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to send curriculum');
+      console.error('Send error:', err);
+      let errorMessage = 'Failed to send curriculum';
+      
+      if (err instanceof Error) {
+        if (err.message.includes('fetch')) {
+          errorMessage = 'Network error: Unable to connect to our servers. Please check your internet connection and try again.';
+        } else {
+          errorMessage = err.message;
+        }
+      }
+      
+      setError(errorMessage);
     } finally {
       setIsSending(false);
     }
@@ -263,7 +321,18 @@ export const CurriculumGeneratorPage = () => {
             {/* Error Display */}
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6">
-                <p className="text-red-400 text-center">{error}</p>
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-red-400 font-medium mb-1">Error</p>
+                    <p className="text-red-300 text-sm">{error}</p>
+                    {error.includes('Configuration error') && (
+                      <p className="text-red-300 text-xs mt-2">
+                        If this problem persists, please contact us at contact@buildmacourse.com
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
 
@@ -373,6 +442,15 @@ export const CurriculumGeneratorPage = () => {
               </div>
             </div>
           </div>
+
+          {/* Debug Info (only in development) */}
+          {import.meta.env.DEV && (
+            <div className="mt-8 p-4 bg-gray-800 rounded-lg text-xs text-gray-300">
+              <p><strong>Debug Info:</strong></p>
+              <p>Supabase URL: {import.meta.env.VITE_SUPABASE_URL ? '✅ Set' : '❌ Missing'}</p>
+              <p>Supabase Anon Key: {import.meta.env.VITE_SUPABASE_ANON_KEY ? '✅ Set' : '❌ Missing'}</p>
+            </div>
+          )}
         </div>
       </Container>
     </div>

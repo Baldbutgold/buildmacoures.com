@@ -1,13 +1,16 @@
 import { GoogleGenerativeAI } from 'npm:@google/generative-ai@0.21.0';
-import { corsHeaders } from '../_shared/cors.ts';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+};
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 
 if (!GEMINI_API_KEY) {
-  throw new Error("GEMINI_API_KEY environment variable not set.");
+  console.error("GEMINI_API_KEY environment variable not set.");
 }
-
-const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 interface GenerateCurriculumRequest {
   courseIdea: string;
@@ -58,14 +61,28 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
+    console.log(`${req.method} request received`);
+    
     if (req.method !== 'POST') {
       throw new Error('Method not allowed');
     }
 
-    const { courseIdea }: GenerateCurriculumRequest = await req.json();
+    // Check if Gemini API key is available
+    if (!GEMINI_API_KEY) {
+      throw new Error('AI service temporarily unavailable. Please try again later.');
+    }
+
+    const requestBody = await req.json();
+    console.log('Request body:', requestBody);
+    
+    const { courseIdea }: GenerateCurriculumRequest = requestBody;
 
     if (!courseIdea || courseIdea.trim().length === 0) {
       throw new Error('Course idea is required');
+    }
+
+    if (courseIdea.trim().length > 500) {
+      throw new Error('Course idea is too long. Please keep it under 500 characters.');
     }
 
     // Craft the prompt for Gemini
@@ -85,6 +102,9 @@ Format your response as a structured curriculum that would be professional and e
 
 Please format the response in a clear, organized way that would look professional in a PDF or webpage.`;
 
+    console.log('Initializing Gemini AI...');
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+
     // Get the generative model
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-pro-latest",
@@ -96,6 +116,8 @@ Please format the response in a clear, organized way that would look professiona
       },
     });
 
+    console.log('Generating content...');
+    
     // Generate content with retry mechanism
     const result = await retryWithBackoff(async () => {
       return await model.generateContent(prompt);
@@ -107,6 +129,8 @@ Please format the response in a clear, organized way that would look professiona
     if (!fullCurriculum) {
       throw new Error('No curriculum generated');
     }
+
+    console.log('Curriculum generated successfully');
 
     // Extract module titles for preview (simple regex approach)
     const moduleMatches = fullCurriculum.match(/(?:Module|Chapter|Section)\s+\d+[:\-\s]+([^\n\r]+)/gi) || [];
@@ -133,6 +157,18 @@ Please format the response in a clear, organized way that would look professiona
       });
     }
 
+    // Fallback if still no modules found
+    if (modules.length === 0) {
+      for (let i = 1; i <= 6; i++) {
+        modules.push({
+          id: i,
+          title: `Module ${i}: Course Content`
+        });
+      }
+    }
+
+    console.log(`Extracted ${modules.length} modules`);
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -152,10 +188,24 @@ Please format the response in a clear, organized way that would look professiona
   } catch (error) {
     console.error('Error generating curriculum:', error);
     
+    let errorMessage = 'Failed to generate curriculum';
+    
+    if (error instanceof Error) {
+      if (error.message.includes('API key')) {
+        errorMessage = 'AI service configuration error. Please contact support.';
+      } else if (error.message.includes('quota') || error.message.includes('limit')) {
+        errorMessage = 'Service temporarily at capacity. Please try again in a few minutes.';
+      } else if (error.message.includes('network') || error.message.includes('fetch')) {
+        errorMessage = 'Network error. Please check your connection and try again.';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || 'Failed to generate curriculum'
+        error: errorMessage
       }),
       {
         status: 500,

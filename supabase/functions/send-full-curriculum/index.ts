@@ -1,5 +1,10 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
-import { corsHeaders } from '../_shared/cors.ts';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+};
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -21,11 +26,22 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
+    console.log(`${req.method} request received`);
+    
     if (req.method !== 'POST') {
       throw new Error('Method not allowed');
     }
 
-    const { userEmail, courseIdea, modules, fullCurriculum }: SendCurriculumRequest = await req.json();
+    // Check environment variables
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.error('Missing Supabase environment variables');
+      throw new Error('Service configuration error. Please contact support.');
+    }
+
+    const requestBody = await req.json();
+    console.log('Request body received');
+    
+    const { userEmail, courseIdea, modules, fullCurriculum }: SendCurriculumRequest = requestBody;
 
     if (!userEmail || !courseIdea || !fullCurriculum) {
       throw new Error('Missing required fields');
@@ -37,9 +53,13 @@ Deno.serve(async (req: Request) => {
       throw new Error('Invalid email format');
     }
 
+    console.log('Initializing Supabase client...');
+    
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    console.log('Inserting curriculum into database...');
+    
     // Store the curriculum in the database
     const { data: curriculumData, error: insertError } = await supabase
       .from('generated_curricula')
@@ -54,11 +74,18 @@ Deno.serve(async (req: Request) => {
 
     if (insertError) {
       console.error('Database insert error:', insertError);
-      throw new Error('Failed to save curriculum');
+      throw new Error('Failed to save curriculum. Please try again.');
+    }
+
+    if (!curriculumData?.access_token) {
+      throw new Error('Failed to generate access token');
     }
 
     const accessToken = curriculumData.access_token;
-    const curriculumUrl = `${req.headers.get('origin') || 'https://buildmacourse.com'}/curriculum/${accessToken}`;
+    const origin = req.headers.get('origin') || 'https://buildmacourse.com';
+    const curriculumUrl = `${origin}/curriculum/${accessToken}`;
+
+    console.log('Curriculum saved successfully');
 
     // For now, we'll return the curriculum URL
     // In a production environment, you would integrate with an email service like:
@@ -98,7 +125,7 @@ Deno.serve(async (req: Request) => {
           <p>That's exactly what we help with at BuildMaCourse. We don't just create curricula - we help you validate, build, and launch profitable courses that actually sell.</p>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://buildmacourse.com/#schedule-call" style="background: #059669; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+            <a href="${origin}/#schedule-call" style="background: #059669; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
               Book a Free Strategy Call
             </a>
           </div>
@@ -138,10 +165,22 @@ Deno.serve(async (req: Request) => {
   } catch (error) {
     console.error('Error sending curriculum:', error);
     
+    let errorMessage = 'Failed to send curriculum';
+    
+    if (error instanceof Error) {
+      if (error.message.includes('configuration')) {
+        errorMessage = 'Service configuration error. Please contact support.';
+      } else if (error.message.includes('network') || error.message.includes('fetch')) {
+        errorMessage = 'Network error. Please check your connection and try again.';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || 'Failed to send curriculum'
+        error: errorMessage
       }),
       {
         status: 500,

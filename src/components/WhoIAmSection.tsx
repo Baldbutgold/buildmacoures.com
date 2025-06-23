@@ -18,25 +18,23 @@ export const WhoIAmSection = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Image Section - Bigger and more centered */}
-            <div className="flex justify-center">
-              <div className="relative">
-                <img 
-                  src="/image.png" 
-                  alt="Mohamed - Course Creation Expert"
-                  className="w-96 h-96 sm:w-[28rem] sm:h-[28rem] lg:w-[32rem] lg:h-[32rem] object-contain"
-                />
-                {/* Floating badge */}
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-4 py-2 rounded-full shadow-lg border border-brand-purple/20">
-                  <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 fill-current" />
-                    <span className="font-bold text-sm">80+ Courses Built</span>
-                  </div>
+            {/* Image Section - Left side, bigger image */}
+            <div className="relative">
+              <img 
+                src="/image copy.png" 
+                alt="Mohamed - Course Creation Expert"
+                className="w-full max-w-md mx-auto lg:mx-0 h-auto object-contain"
+              />
+              {/* Floating badge */}
+              <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-4 py-2 rounded-full shadow-lg border border-brand-purple/20">
+                <div className="flex items-center gap-2">
+                  <Star className="w-4 h-4 fill-current" />
+                  <span className="font-bold text-sm">80+ Courses Built</span>
                 </div>
               </div>
             </div>
 
-            {/* Content Section */}
+            {/* Content Section - Right side */}
             <div className="space-y-6">
               <div className="space-y-4">
                 <p className="text-lg sm:text-xl text-brand-gray leading-relaxed">

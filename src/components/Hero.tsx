@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
 import { Container } from './Container';
-import { Star, ArrowRight, Play } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
 
 export const Hero = React.memo(() => {
   const scrollToSection = (href: string) => {
@@ -43,6 +43,17 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
+          {/* Video positioned directly below the heading */}
+          <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-brand-black/20 backdrop-blur-sm">
+              <wistia-player 
+                media-id="4mw8h1u2ey" 
+                aspect="1.7777777777777777"
+                className="w-full rounded-2xl"
+              ></wistia-player>
+            </div>
+          </div>
+
           {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <button
@@ -70,7 +81,7 @@ export const Hero = React.memo(() => {
           </p>
 
           {/* Enhanced CTA with mobile optimization */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-2">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 px-2">
             <Button 
               variant="primary" 
               size="lg" 
@@ -82,47 +93,6 @@ export const Hero = React.memo(() => {
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
-          </div>
-
-          {/* Video Section */}
-          <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
-            <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
-                <Play className="w-4 h-4" />
-                See Our Work in Action
-              </div>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-brand-white mb-2 font-bricolage">
-                Watch How We Transform Expertise Into Courses
-              </h2>
-              <p className="text-brand-gray text-sm sm:text-base">
-                See the quality and professionalism that goes into every course we create
-              </p>
-            </div>
-            
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-brand-black/20 backdrop-blur-sm">
-              <wistia-player 
-                media-id="4mw8h1u2ey" 
-                aspect="1.7777777777777777"
-                className="w-full rounded-2xl"
-              ></wistia-player>
-            </div>
-          </div>
-
-          {/* Trust indicators below video */}
-          <div className="text-center">
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-xs sm:text-sm">
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-brand-white">Professional Quality</span>
-              </div>
-              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block" />
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-brand-white">Complete Done-For-You Service</span>
-              </div>
-              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block" />
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-brand-white">Ready to Launch</span>
-              </div>
-            </div>
           </div>
         </div>
       </Container>

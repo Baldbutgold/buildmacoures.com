@@ -1,46 +1,44 @@
+import { GoogleGenerativeAI } from 'npm:@google/generative-ai@0.21.0';
 import { corsHeaders } from '../_shared/cors.ts';
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent';
+
+if (!GEMINI_API_KEY) {
+  throw new Error("GEMINI_API_KEY environment variable not set.");
+}
+
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 interface GenerateCurriculumRequest {
   courseIdea: string;
 }
 
-interface GeminiResponse {
-  candidates: Array<{
-    content: {
-      parts: Array<{
-        text: string;
-      }>;
-    };
-  }>;
-}
-
 // Helper function to implement retry with exponential backoff
-async function retryFetch(url: string, options: RequestInit, maxRetries: number = 3): Promise<Response> {
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  baseDelay: number = 1000
+): Promise<T> {
   let lastError: Error;
   
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      const response = await fetch(url, options);
+      return await fn();
+    } catch (error) {
+      lastError = error as Error;
       
-      // If we get a 429 (rate limit) error, retry with exponential backoff
-      if (response.status === 429 && attempt < maxRetries) {
-        const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s delays
-        console.log(`Rate limited (429). Retrying in ${delay}ms... (attempt ${attempt + 1}/${maxRetries + 1})`);
+      // If it's a rate limit error and we have retries left
+      if (error.message?.includes('429') && attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt); // Exponential backoff
+        console.log(`Rate limited. Retrying in ${delay}ms... (attempt ${attempt + 1}/${maxRetries + 1})`);
         await new Promise(resolve => setTimeout(resolve, delay));
         continue;
       }
       
-      return response;
-    } catch (error) {
-      lastError = error as Error;
-      
-      // Only retry on network errors, not on other types of errors
+      // For other errors, only retry if we have attempts left
       if (attempt < maxRetries) {
-        const delay = Math.pow(2, attempt) * 1000;
-        console.log(`Network error. Retrying in ${delay}ms... (attempt ${attempt + 1}/${maxRetries + 1})`);
+        const delay = baseDelay * Math.pow(2, attempt);
+        console.log(`Error occurred. Retrying in ${delay}ms... (attempt ${attempt + 1}/${maxRetries + 1})`);
         await new Promise(resolve => setTimeout(resolve, delay));
         continue;
       }
@@ -62,10 +60,6 @@ Deno.serve(async (req: Request) => {
   try {
     if (req.method !== 'POST') {
       throw new Error('Method not allowed');
-    }
-
-    if (!GEMINI_API_KEY) {
-      throw new Error('Gemini API key not configured');
     }
 
     const { courseIdea }: GenerateCurriculumRequest = await req.json();
@@ -91,40 +85,28 @@ Format your response as a structured curriculum that would be professional and e
 
 Please format the response in a clear, organized way that would look professional in a PDF or webpage.`;
 
-    // Call Gemini API with retry mechanism
-    const geminiResponse = await retryFetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    // Get the generative model
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-1.5-pro-latest",
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 2048,
       },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: prompt
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.7,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 2048,
-        },
-      }),
     });
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      console.error('Gemini API error:', errorText);
-      throw new Error(`Gemini API error: ${geminiResponse.status}`);
-    }
+    // Generate content with retry mechanism
+    const result = await retryWithBackoff(async () => {
+      return await model.generateContent(prompt);
+    });
 
-    const geminiData: GeminiResponse = await geminiResponse.json();
-    
-    if (!geminiData.candidates || geminiData.candidates.length === 0) {
+    const response = await result.response;
+    const fullCurriculum = response.text();
+
+    if (!fullCurriculum) {
       throw new Error('No curriculum generated');
     }
-
-    const fullCurriculum = geminiData.candidates[0].content.parts[0].text;
 
     // Extract module titles for preview (simple regex approach)
     const moduleMatches = fullCurriculum.match(/(?:Module|Chapter|Section)\s+\d+[:\-\s]+([^\n\r]+)/gi) || [];

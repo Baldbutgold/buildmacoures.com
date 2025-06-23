@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { BookOpen, ArrowLeft, Calendar, Download, Loader2, Sparkles } from 'lucide-react';
+import { BookOpen, ArrowLeft, Calendar, Download, Loader2, Sparkles, CheckCircle } from 'lucide-react';
 
 interface CurriculumData {
   id: string;
@@ -12,6 +12,77 @@ interface CurriculumData {
   full_curriculum_content: string;
   created_at: string;
 }
+
+// Component to render markdown-like content cleanly
+const MarkdownRenderer = ({ content }: { content: string }) => {
+  const processContent = (text: string) => {
+    // Split content into sections
+    const sections = text.split(/(?=##\s)/);
+    
+    return sections.map((section, index) => {
+      if (!section.trim()) return null;
+      
+      const lines = section.trim().split('\n');
+      const elements: JSX.Element[] = [];
+      
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        
+        // Main headings (##)
+        if (line.startsWith('## ')) {
+          elements.push(
+            <h2 key={`h2-${index}-${i}`} className="text-2xl sm:text-3xl font-bold text-brand-white mb-6 mt-8 first:mt-0 font-bricolage">
+              {line.replace('## ', '')}
+            </h2>
+          );
+        }
+        // Sub headings (###)
+        else if (line.startsWith('### ')) {
+          elements.push(
+            <h3 key={`h3-${index}-${i}`} className="text-xl sm:text-2xl font-bold text-brand-purple mb-4 mt-6 font-bricolage">
+              {line.replace('### ', '')}
+            </h3>
+          );
+        }
+        // Bold text (**text**)
+        else if (line.startsWith('**') && line.endsWith('**')) {
+          elements.push(
+            <h4 key={`bold-${index}-${i}`} className="text-lg font-bold text-brand-white mb-3 mt-4">
+              {line.replace(/\*\*/g, '')}
+            </h4>
+          );
+        }
+        // List items (- or *)
+        else if (line.startsWith('- ') || line.startsWith('* ')) {
+          const listContent = line.replace(/^[-*]\s/, '');
+          elements.push(
+            <div key={`list-${index}-${i}`} className="flex items-start gap-3 mb-2 ml-4">
+              <div className="w-2 h-2 bg-brand-purple rounded-full mt-2 flex-shrink-0"></div>
+              <p className="text-brand-gray leading-relaxed">{listContent}</p>
+            </div>
+          );
+        }
+        // Regular paragraphs
+        else if (line.length > 0) {
+          elements.push(
+            <p key={`p-${index}-${i}`} className="text-brand-gray leading-relaxed mb-4">
+              {line}
+            </p>
+          );
+        }
+      }
+      
+      return (
+        <div key={`section-${index}`} className="mb-6">
+          {elements}
+        </div>
+      );
+    });
+  };
+
+  return <div className="space-y-4">{processContent(content)}</div>;
+};
 
 export const ViewCurriculumPage = () => {
   const { token } = useParams<{ token: string }>();
@@ -68,7 +139,6 @@ export const ViewCurriculumPage = () => {
 
   const downloadAsPDF = () => {
     // Create a simple text file download for now
-    // In production, you'd want to use a proper PDF generation library
     const content = `
 Course Curriculum
 Generated on: ${curriculum ? formatDate(curriculum.created_at) : ''}
@@ -155,7 +225,7 @@ https://buildmacourse.com
           {/* Success Message */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <BookOpen className="w-4 h-4" />
+              <CheckCircle className="w-4 h-4" />
               🎉 Your Curriculum is Ready!
             </div>
           </div>
@@ -193,17 +263,12 @@ https://buildmacourse.com
               </div>
             )}
 
-            {/* Full Curriculum Content */}
+            {/* Full Curriculum Content with Clean Markdown Rendering */}
             <div className="prose prose-lg prose-invert max-w-none">
               <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-6">
                 Complete Curriculum Details
               </h3>
-              <div 
-                className="text-brand-gray leading-relaxed whitespace-pre-wrap"
-                style={{ lineHeight: '1.7' }}
-              >
-                {curriculum.full_curriculum_content}
-              </div>
+              <MarkdownRenderer content={curriculum.full_curriculum_content} />
             </div>
           </div>
 

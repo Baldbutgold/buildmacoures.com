@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { Sparkles, CheckCircle, AlertTriangle, User, Mail, X, Loader2 } from 'lucide-react';
+import { Sparkles, CheckCircle, AlertTriangle, User, Mail, X, Loader2, Zap, Coffee, Rocket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface Module {
@@ -27,6 +27,19 @@ interface SaveResponse {
   error?: string;
 }
 
+const funLoadingMessages = [
+  "🤖 Our AI minions are crafting your curriculum...",
+  "⚡ Brewing some educational magic...",
+  "🎯 Teaching our robots about your topic...",
+  "🧠 Consulting the wisdom of the internet...",
+  "🔥 Cooking up something amazing...",
+  "🚀 Launching curriculum creation rockets...",
+  "☕ Our AI is having its coffee break... just kidding, still working!",
+  "🎨 Painting your learning journey...",
+  "🔮 Predicting your educational future...",
+  "⭐ Sprinkling some learning stardust..."
+];
+
 export const CurriculumGeneratorPage = () => {
   const navigate = useNavigate();
   const [courseTopic, setCourseTopic] = useState('');
@@ -36,6 +49,7 @@ export const CurriculumGeneratorPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('');
   const [error, setError] = useState('');
 
   const handleGenerateClick = () => {
@@ -66,6 +80,16 @@ export const CurriculumGeneratorPage = () => {
 
     setIsGenerating(true);
     setError('');
+
+    // Start with a random fun message
+    let messageIndex = Math.floor(Math.random() * funLoadingMessages.length);
+    setLoadingMessage(funLoadingMessages[messageIndex]);
+
+    // Change message every 3 seconds
+    const messageInterval = setInterval(() => {
+      messageIndex = (messageIndex + 1) % funLoadingMessages.length;
+      setLoadingMessage(funLoadingMessages[messageIndex]);
+    }, 3000);
 
     try {
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -154,7 +178,9 @@ export const CurriculumGeneratorPage = () => {
       
       setError(errorMessage);
     } finally {
+      clearInterval(messageInterval);
       setIsGenerating(false);
+      setLoadingMessage('');
     }
   };
 
@@ -195,7 +221,7 @@ export const CurriculumGeneratorPage = () => {
                   value={courseTopic}
                   onChange={(e) => setCourseTopic(e.target.value)}
                   placeholder="Python, Sewing, Digital Marketing, Video Editing"
-                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/30 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                 />
               </div>
 
@@ -256,7 +282,7 @@ export const CurriculumGeneratorPage = () => {
                   value={primaryGoal}
                   onChange={(e) => setPrimaryGoal(e.target.value)}
                   placeholder="To build a personal website, to get a junior developer job, to learn how to knit a scarf"
-                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/30 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                 />
               </div>
             </div>
@@ -311,98 +337,121 @@ export const CurriculumGeneratorPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="bg-gradient-to-br from-brand-black to-gray-900 border border-brand-purple/30 rounded-2xl shadow-2xl p-6 max-w-md w-full relative">
             {/* Close Button */}
-            <button 
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-brand-purple/20 hover:bg-brand-purple/30 text-brand-gray hover:text-brand-white transition-colors"
-              onClick={closeModal}
-              disabled={isGenerating}
-            >
-              <X className="w-4 h-4" />
-            </button>
+            {!isGenerating && (
+              <button 
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-brand-purple/20 hover:bg-brand-purple/30 text-brand-gray hover:text-brand-white transition-colors"
+                onClick={closeModal}
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
 
             {/* Modal Header */}
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-brand-purple to-brand-purple-dark rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-8 h-8 text-white" />
+                {isGenerating ? (
+                  <Loader2 className="w-8 h-8 text-white animate-spin" />
+                ) : (
+                  <Sparkles className="w-8 h-8 text-white" />
+                )}
               </div>
               <h3 className="text-xl font-bold text-brand-white mb-2 font-bricolage">
-                Get Your Free Curriculum
+                {isGenerating ? 'Creating Your Curriculum' : 'Get Your Free Curriculum'}
               </h3>
-              <p className="text-brand-gray text-sm">
-                Enter your details to receive your complete course curriculum
-              </p>
+              {isGenerating ? (
+                <div className="space-y-2">
+                  <p className="text-brand-purple text-sm font-medium">
+                    {loadingMessage}
+                  </p>
+                  <p className="text-brand-gray text-xs">
+                    This usually takes 10-30 seconds...
+                  </p>
+                </div>
+              ) : (
+                <p className="text-brand-gray text-sm">
+                  Enter your details to receive your complete course curriculum
+                </p>
+              )}
             </div>
 
             {/* Form Fields */}
-            <div className="space-y-4 mb-6">
-              <div>
-                <label htmlFor="userName" className="block text-sm font-medium text-brand-white mb-2">
-                  Your Name
-                </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-gray" />
-                  <input
-                    type="text"
-                    id="userName"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    placeholder="John Doe"
-                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
-                    disabled={isGenerating}
-                  />
-                </div>
-              </div>
+            {!isGenerating && (
+              <>
+                <div className="space-y-4 mb-6">
+                  <div>
+                    <label htmlFor="userName" className="block text-sm font-medium text-brand-white mb-2">
+                      Your Name
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-gray" />
+                      <input
+                        type="text"
+                        id="userName"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                      />
+                    </div>
+                  </div>
 
-              <div>
-                <label htmlFor="userEmailModal" className="block text-sm font-medium text-brand-white mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-gray" />
-                  <input
-                    type="email"
-                    id="userEmailModal"
-                    value={userEmail}
-                    onChange={(e) => setUserEmail(e.target.value)}
-                    placeholder="john@example.com"
-                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
-                    disabled={isGenerating}
-                  />
+                  <div>
+                    <label htmlFor="userEmailModal" className="block text-sm font-medium text-brand-white mb-2">
+                      Email Address
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-gray" />
+                      <input
+                        type="email"
+                        id="userEmailModal"
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)}
+                        placeholder="john@example.com"
+                        className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Error Display */}
-            {error && (
-              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 mb-4">
-                <p className="text-red-400 text-sm">{error}</p>
-              </div>
+                {/* Error Display */}
+                {error && (
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 mb-4">
+                    <p className="text-red-400 text-sm">{error}</p>
+                  </div>
+                )}
+
+                {/* Generate Button */}
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={generateAndSendCurriculum}
+                  disabled={!userName.trim() || !userEmail.trim()}
+                  className="w-full shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
+                >
+                  <Rocket className="w-5 h-5 mr-2" />
+                  Generate & View Curriculum
+                </Button>
+
+                {/* Privacy Note */}
+                <p className="text-xs text-brand-gray text-center mt-4">
+                  🔒 We respect your privacy. No spam, just your curriculum.
+                </p>
+              </>
             )}
 
-            {/* Generate Button */}
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={generateAndSendCurriculum}
-              disabled={isGenerating || !userName.trim() || !userEmail.trim()}
-              className="w-full shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
-            >
-              {isGenerating ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                  Generating...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-5 h-5 mr-2" />
-                  Generate & View Curriculum
-                </>
-              )}
-            </Button>
-
-            {/* Privacy Note */}
-            <p className="text-xs text-brand-gray text-center mt-4">
-              🔒 We respect your privacy. No spam, just your curriculum.
-            </p>
+            {/* Loading State */}
+            {isGenerating && (
+              <div className="text-center py-8">
+                <div className="flex justify-center space-x-2 mb-4">
+                  <div className="w-2 h-2 bg-brand-purple rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-brand-purple rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-brand-purple rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+                <p className="text-brand-gray text-sm">
+                  Please don't close this window...
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}

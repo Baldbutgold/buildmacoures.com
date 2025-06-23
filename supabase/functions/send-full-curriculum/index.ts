@@ -11,6 +11,7 @@ const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
 interface SendCurriculumRequest {
   userEmail: string;
+  userName: string;
   courseIdea: string;
   modules: Array<{ id: number; title: string }>;
   fullCurriculum: string;
@@ -41,9 +42,9 @@ Deno.serve(async (req: Request) => {
     const requestBody = await req.json();
     console.log('Request body received');
     
-    const { userEmail, courseIdea, modules, fullCurriculum }: SendCurriculumRequest = requestBody;
+    const { userEmail, userName, courseIdea, modules, fullCurriculum }: SendCurriculumRequest = requestBody;
 
-    if (!userEmail || !courseIdea || !fullCurriculum) {
+    if (!userEmail || !userName || !courseIdea || !fullCurriculum) {
       throw new Error('Missing required fields');
     }
 
@@ -65,6 +66,7 @@ Deno.serve(async (req: Request) => {
       .from('generated_curricula')
       .insert({
         user_email: userEmail,
+        user_name: userName,
         course_idea: courseIdea,
         generated_modules: modules,
         full_curriculum_content: fullCurriculum,
@@ -97,12 +99,10 @@ Deno.serve(async (req: Request) => {
     // Example email content that would be sent:
     const emailContent = {
       to: userEmail,
-      subject: "🎉 Your Custom Course Curriculum is Ready!",
+      subject: `🎉 ${userName}, Your Custom Course Curriculum is Ready!`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #a855f7;">Your Course Curriculum is Ready!</h1>
-          
-          <p>Hi there!</p>
+          <h1 style="color: #a855f7;">Hi ${userName}! Your Course Curriculum is Ready!</h1>
           
           <p>Thank you for using our Instant Curriculum Generator. Based on your course idea:</p>
           

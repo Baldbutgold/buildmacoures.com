@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { Sparkles, BookOpen, Mail, CheckCircle, ArrowRight, Loader2, AlertTriangle } from 'lucide-react';
+import { Sparkles, BookOpen, Mail, CheckCircle, ArrowRight, Loader2, AlertTriangle, User, X } from 'lucide-react';
 
 interface Module {
   id: number;
@@ -28,19 +28,32 @@ interface EmailResponse {
 
 export const CurriculumGeneratorPage = () => {
   const [courseIdea, setCourseIdea] = useState('');
+  const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [modules, setModules] = useState<Module[]>([]);
-  const [fullCurriculum, setFullCurriculum] = useState('');
+  const [showEmailModal, setShowEmailModal] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isSending, setIsSending] = useState(false);
-  const [showEmailForm, setShowEmailForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [curriculumUrl, setCurriculumUrl] = useState('');
   const [error, setError] = useState('');
 
-  const generatePreview = async () => {
+  const handleGenerateClick = () => {
     if (!courseIdea.trim()) {
       setError('Please enter your course idea');
+      return;
+    }
+    setError('');
+    setShowEmailModal(true);
+  };
+
+  const generateAndSendCurriculum = async () => {
+    if (!userName.trim() || !userEmail.trim()) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userEmail)) {
+      setError('Please enter a valid email address');
       return;
     }
 
@@ -56,9 +69,10 @@ export const CurriculumGeneratorPage = () => {
         throw new Error('Configuration error: Missing Supabase credentials. Please contact support.');
       }
 
-      console.log('Making request to:', `${supabaseUrl}/functions/v1/generate-curriculum`);
+      console.log('Generating curriculum...');
 
-      const response = await fetch(`${supabaseUrl}/functions/v1/generate-curriculum`, {
+      // First, generate the curriculum
+      const generateResponse = await fetch(`${supabaseUrl}/functions/v1/generate-curriculum`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${supabaseAnonKey}`,
@@ -68,26 +82,56 @@ export const CurriculumGeneratorPage = () => {
         body: JSON.stringify({ courseIdea }),
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Response error:', errorText);
-        throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
+      if (!generateResponse.ok) {
+        const errorText = await generateResponse.text();
+        console.error('Generation response error:', errorText);
+        throw new Error(`Server error (${generateResponse.status}): ${errorText || 'Unknown error'}`);
       }
 
-      const data: GenerationResponse = await response.json();
-      console.log('Response data:', data);
+      const generationData: GenerationResponse = await generateResponse.json();
 
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to generate curriculum');
+      if (!generationData.success) {
+        throw new Error(generationData.error || 'Failed to generate curriculum');
       }
 
-      if (data.data) {
-        setModules(data.data.modules);
-        setFullCurriculum(data.data.fullCurriculum);
-        setShowEmailForm(true);
+      if (!generationData.data) {
+        throw new Error('No curriculum data received');
+      }
+
+      console.log('Curriculum generated, now saving...');
+
+      // Then, save it to the database and get the access link
+      const saveResponse = await fetch(`${supabaseUrl}/functions/v1/send-full-curriculum`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+          'Content-Type': 'application/json',
+          'apikey': supabaseAnonKey,
+        },
+        body: JSON.stringify({
+          userEmail,
+          userName,
+          courseIdea,
+          modules: generationData.data.modules,
+          fullCurriculum: generationData.data.fullCurriculum,
+        }),
+      });
+
+      if (!saveResponse.ok) {
+        const errorText = await saveResponse.text();
+        throw new Error(`Server error (${saveResponse.status}): ${errorText || 'Unknown error'}`);
+      }
+
+      const saveData: EmailResponse = await saveResponse.json();
+
+      if (!saveData.success) {
+        throw new Error(saveData.error || 'Failed to save curriculum');
+      }
+
+      if (saveData.data) {
+        setCurriculumUrl(saveData.data.curriculumUrl);
+        setShowEmailModal(false);
+        setIsComplete(true);
       }
     } catch (err) {
       console.error('Generation error:', err);
@@ -109,85 +153,18 @@ export const CurriculumGeneratorPage = () => {
     }
   };
 
-  const sendFullCurriculum = async () => {
-    if (!userEmail.trim()) {
-      setError('Please enter your email address');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(userEmail)) {
-      setError('Please enter a valid email address');
-      return;
-    }
-
-    setIsSending(true);
-    setError('');
-
-    try {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-      if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error('Configuration error: Missing Supabase credentials. Please contact support.');
-      }
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/send-full-curriculum`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-          'apikey': supabaseAnonKey,
-        },
-        body: JSON.stringify({
-          userEmail,
-          courseIdea,
-          modules,
-          fullCurriculum,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Server error (${response.status}): ${errorText || 'Unknown error'}`);
-      }
-
-      const data: EmailResponse = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to send curriculum');
-      }
-
-      if (data.data) {
-        setCurriculumUrl(data.data.curriculumUrl);
-        setIsComplete(true);
-      }
-    } catch (err) {
-      console.error('Send error:', err);
-      let errorMessage = 'Failed to send curriculum';
-      
-      if (err instanceof Error) {
-        if (err.message.includes('fetch')) {
-          errorMessage = 'Network error: Unable to connect to our servers. Please check your internet connection and try again.';
-        } else {
-          errorMessage = err.message;
-        }
-      }
-      
-      setError(errorMessage);
-    } finally {
-      setIsSending(false);
-    }
-  };
-
   const resetForm = () => {
     setCourseIdea('');
+    setUserName('');
     setUserEmail('');
-    setModules([]);
-    setFullCurriculum('');
-    setShowEmailForm(false);
+    setShowEmailModal(false);
     setIsComplete(false);
     setCurriculumUrl('');
+    setError('');
+  };
+
+  const closeModal = () => {
+    setShowEmailModal(false);
     setError('');
   };
 
@@ -278,7 +255,7 @@ export const CurriculumGeneratorPage = () => {
 
           {/* Main Form */}
           <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-2xl">
-            {/* Step 1: Course Idea Input */}
+            {/* Course Idea Input */}
             <div className="mb-8">
               <label htmlFor="courseIdea" className="block text-lg font-semibold text-brand-white mb-4">
                 Describe your course idea in one sentence:
@@ -289,34 +266,22 @@ export const CurriculumGeneratorPage = () => {
                 onChange={(e) => setCourseIdea(e.target.value)}
                 placeholder="Example: I want to teach busy professionals how to cook healthy meals in under 30 minutes"
                 className="w-full h-32 px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200 resize-none"
-                disabled={isGenerating || showEmailForm}
               />
             </div>
 
             {/* Generate Button */}
-            {!showEmailForm && (
-              <div className="text-center mb-8">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onClick={generatePreview}
-                  disabled={isGenerating || !courseIdea.trim()}
-                  className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
-                >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                      Generating Your Curriculum...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-5 h-5 mr-2" />
-                      Generate My Curriculum Preview
-                    </>
-                  )}
-                </Button>
-              </div>
-            )}
+            <div className="text-center mb-8">
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={handleGenerateClick}
+                disabled={!courseIdea.trim()}
+                className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
+              >
+                <Sparkles className="w-5 h-5 mr-2" />
+                Generate My Curriculum
+              </Button>
+            </div>
 
             {/* Error Display */}
             {error && (
@@ -326,98 +291,7 @@ export const CurriculumGeneratorPage = () => {
                   <div>
                     <p className="text-red-400 font-medium mb-1">Error</p>
                     <p className="text-red-300 text-sm">{error}</p>
-                    {error.includes('Configuration error') && (
-                      <p className="text-red-300 text-xs mt-2">
-                        If this problem persists, please contact us at contact@buildmacourse.com
-                      </p>
-                    )}
                   </div>
-                </div>
-              </div>
-            )}
-
-            {/* Preview Results */}
-            {modules.length > 0 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-brand-white mb-6 text-center">
-                  🎯 Your Course Curriculum Preview
-                </h3>
-                
-                <div className="bg-brand-black/30 rounded-2xl p-6 mb-6">
-                  <h4 className="text-lg font-semibold text-brand-purple mb-4">Course Modules:</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {modules.map((module) => (
-                      <div key={module.id} className="flex items-center gap-3 p-3 bg-brand-purple/10 rounded-lg">
-                        <div className="w-8 h-8 rounded-full bg-brand-purple/20 text-brand-purple flex items-center justify-center font-bold text-sm">
-                          {module.id}
-                        </div>
-                        <span className="text-brand-white font-medium">{module.title}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <p className="text-brand-gray mb-6">
-                    This is just a preview! Get the complete curriculum with detailed lesson plans, 
-                    learning objectives, and implementation guide.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Email Form */}
-            {showEmailForm && (
-              <div className="bg-gradient-to-r from-brand-purple/10 to-brand-purple-dark/10 rounded-2xl p-6 sm:p-8">
-                <div className="text-center mb-6">
-                  <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-2">
-                    Get Your Complete Curriculum
-                  </h3>
-                  <p className="text-brand-gray">
-                    Enter your email to receive the full curriculum with detailed lesson plans and implementation guide.
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 items-end">
-                  <div className="flex-1">
-                    <label htmlFor="userEmail" className="block text-sm font-medium text-brand-white mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="userEmail"
-                      value={userEmail}
-                      onChange={(e) => setUserEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
-                      disabled={isSending}
-                    />
-                  </div>
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    onClick={sendFullCurriculum}
-                    disabled={isSending || !userEmail.trim()}
-                    className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 whitespace-nowrap"
-                  >
-                    {isSending ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Mail className="w-5 h-5 mr-2" />
-                        Get Full Curriculum
-                      </>
-                    )}
-                  </Button>
-                </div>
-
-                <div className="text-center mt-4">
-                  <p className="text-xs text-brand-gray">
-                    🔒 We respect your privacy. No spam, just your curriculum and helpful course creation tips.
-                  </p>
                 </div>
               </div>
             )}
@@ -442,17 +316,105 @@ export const CurriculumGeneratorPage = () => {
               </div>
             </div>
           </div>
-
-          {/* Debug Info (only in development) */}
-          {import.meta.env.DEV && (
-            <div className="mt-8 p-4 bg-gray-800 rounded-lg text-xs text-gray-300">
-              <p><strong>Debug Info:</strong></p>
-              <p>Supabase URL: {import.meta.env.VITE_SUPABASE_URL ? '✅ Set' : '❌ Missing'}</p>
-              <p>Supabase Anon Key: {import.meta.env.VITE_SUPABASE_ANON_KEY ? '✅ Set' : '❌ Missing'}</p>
-            </div>
-          )}
         </div>
       </Container>
+
+      {/* Email Collection Modal */}
+      {showEmailModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="bg-gradient-to-br from-brand-black to-gray-900 border border-brand-purple/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full relative transform transition-all duration-300 scale-100">
+            {/* Close Button */}
+            <button 
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-brand-purple/20 hover:bg-brand-purple/30 text-brand-gray hover:text-brand-white transition-colors"
+              onClick={closeModal}
+              disabled={isGenerating}
+              aria-label="Close"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-brand-purple to-brand-purple-dark rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-2 font-bricolage">
+                Get Your Free Curriculum
+              </h3>
+              <p className="text-brand-gray text-sm">
+                Enter your details to receive your complete course curriculum instantly
+              </p>
+            </div>
+
+            {/* Form Fields */}
+            <div className="space-y-4 mb-6">
+              <div>
+                <label htmlFor="userName" className="block text-sm font-medium text-brand-white mb-2">
+                  Your Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-gray" />
+                  <input
+                    type="text"
+                    id="userName"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="John Doe"
+                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                    disabled={isGenerating}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="userEmailModal" className="block text-sm font-medium text-brand-white mb-2">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-brand-gray" />
+                  <input
+                    type="email"
+                    id="userEmailModal"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    placeholder="john@example.com"
+                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                    disabled={isGenerating}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Generate Button */}
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={generateAndSendCurriculum}
+              disabled={isGenerating || !userName.trim() || !userEmail.trim()}
+              className="w-full shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
+            >
+              {isGenerating ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                  Generating Your Curriculum...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  Generate & Send My Curriculum
+                </>
+              )}
+            </Button>
+
+            {/* Privacy Note */}
+            <div className="text-center mt-4">
+              <p className="text-xs text-brand-gray">
+                🔒 We respect your privacy. No spam, just your curriculum and helpful course creation tips.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

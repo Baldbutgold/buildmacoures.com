@@ -160,17 +160,6 @@
           script.src = src;
           script.async = true;
           
-          script.onload = function() {
-            console.log(`Wistia ${scriptType} script loaded successfully`);
-            resolve(script);
-          };
-          
-          script.onerror = function(error) {
-            console.error(`Failed to load Wistia ${scriptType} script:`, error);
-            onError(error, scriptType);
-            reject(error);
-          };
-          
           // Set timeout for script loading
           const timeout = setTimeout(() => {
             script.onerror(new Error(`Timeout loading ${scriptType} script`));
@@ -180,6 +169,13 @@
             clearTimeout(timeout);
             console.log(`Wistia ${scriptType} script loaded successfully`);
             resolve(script);
+          };
+          
+          script.onerror = function(error) {
+            clearTimeout(timeout);
+            console.error(`Failed to load Wistia ${scriptType} script:`, error);
+            onError(error, scriptType);
+            reject(error);
           };
           
           document.head.appendChild(script);

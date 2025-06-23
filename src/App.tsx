@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { LazySection } from './components/LazySection';
 
 // Lazy load non-critical components
+const WhoIAmSection = lazy(() => import('./components/WhoIAmSection').then(module => ({ default: module.WhoIAmSection })));
 const OverwhelmingSection = lazy(() => import('./components/OverwhelmingSection').then(module => ({ default: module.OverwhelmingSection })));
 const CheckmarkSection = lazy(() => import('./components/CheckmarkSection').then(module => ({ default: module.CheckmarkSection })));
 const ReviewsCarousel = lazy(() => import('./components/ReviewsCarousel').then(module => ({ default: module.ReviewsCarousel })));
@@ -33,6 +34,11 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <LazySection>
+        <Suspense fallback={<SectionFallback />}>
+          <WhoIAmSection />
+        </Suspense>
+      </LazySection>
       <LazySection>
         <Suspense fallback={<SectionFallback />}>
           <OverwhelmingSection />

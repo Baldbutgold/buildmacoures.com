@@ -199,7 +199,7 @@ export const CurriculumGeneratorPage = () => {
                   value={courseTopic}
                   onChange={(e) => setCourseTopic(e.target.value)}
                   placeholder="Python, Sewing, Digital Marketing, Video Editing"
-                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/60 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                 />
               </div>
 
@@ -216,20 +216,31 @@ export const CurriculumGeneratorPage = () => {
                   ].map((option) => (
                     <label 
                       key={option.value} 
-                      className={`flex items-start gap-3 p-4 rounded-xl cursor-pointer transition-all duration-200 ${
+                      className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all duration-200 ${
                         skillLevel === option.value 
                           ? 'bg-brand-purple/20 border border-brand-purple/40' 
                           : 'bg-brand-black/30 border border-transparent hover:bg-brand-black/50'
                       }`}
                     >
-                      <input
-                        type="radio"
-                        name="skillLevel"
-                        value={option.value}
-                        checked={skillLevel === option.value}
-                        onChange={(e) => setSkillLevel(e.target.value)}
-                        className="mt-1 w-4 h-4 text-brand-purple bg-transparent border-2 border-brand-purple/50 focus:ring-brand-purple focus:ring-2"
-                      />
+                      <div className="flex-shrink-0">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                          skillLevel === option.value 
+                            ? 'border-brand-purple bg-brand-purple' 
+                            : 'border-brand-purple/50'
+                        }`}>
+                          {skillLevel === option.value && (
+                            <div className="w-2 h-2 rounded-full bg-white"></div>
+                          )}
+                        </div>
+                        <input
+                          type="radio"
+                          name="skillLevel"
+                          value={option.value}
+                          checked={skillLevel === option.value}
+                          onChange={(e) => setSkillLevel(e.target.value)}
+                          className="sr-only"
+                        />
+                      </div>
                       <div className="flex-1">
                         <div className="text-brand-white font-medium mb-1">{option.label}</div>
                         <div className="text-brand-gray/80 text-sm">{option.desc}</div>
@@ -250,13 +261,13 @@ export const CurriculumGeneratorPage = () => {
                   value={primaryGoal}
                   onChange={(e) => setPrimaryGoal(e.target.value)}
                   placeholder="To build a personal website, to get a junior developer job, to learn how to knit a scarf"
-                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/60 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Generate Button */}
-            <div className="text-center mt-8">
+            <div className="flex justify-center mt-8">
               <Button
                 variant="primary"
                 size="lg"
@@ -340,7 +351,7 @@ export const CurriculumGeneratorPage = () => {
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                     disabled={isGenerating}
                   />
                 </div>
@@ -358,7 +369,7 @@ export const CurriculumGeneratorPage = () => {
                     value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
                     placeholder="john@example.com"
-                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                    className="w-full pl-10 pr-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/40 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                     disabled={isGenerating}
                   />
                 </div>

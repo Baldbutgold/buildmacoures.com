@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
 import { Sparkles, BookOpen, Mail, CheckCircle, ArrowRight, Loader2, AlertTriangle, User, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface Module {
   id: number;
@@ -17,23 +18,22 @@ interface GenerationResponse {
   error?: string;
 }
 
-interface EmailResponse {
+interface SaveResponse {
   success: boolean;
   data?: {
-    curriculumUrl: string;
     accessToken: string;
+    redirectUrl: string;
   };
   error?: string;
 }
 
 export const CurriculumGeneratorPage = () => {
+  const navigate = useNavigate();
   const [courseIdea, setCourseIdea] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
-  const [curriculumUrl, setCurriculumUrl] = useState('');
   const [error, setError] = useState('');
 
   const handleGenerateClick = () => {
@@ -100,7 +100,7 @@ export const CurriculumGeneratorPage = () => {
 
       console.log('Curriculum generated, now saving...');
 
-      // Then, save it to the database and get the access link
+      // Then, save it to the database and get the access token
       const saveResponse = await fetch(`${supabaseUrl}/functions/v1/send-full-curriculum`, {
         method: 'POST',
         headers: {
@@ -122,16 +122,17 @@ export const CurriculumGeneratorPage = () => {
         throw new Error(`Server error (${saveResponse.status}): ${errorText || 'Unknown error'}`);
       }
 
-      const saveData: EmailResponse = await saveResponse.json();
+      const saveData: SaveResponse = await saveResponse.json();
 
       if (!saveData.success) {
         throw new Error(saveData.error || 'Failed to save curriculum');
       }
 
-      if (saveData.data) {
-        setCurriculumUrl(saveData.data.curriculumUrl);
-        setShowEmailModal(false);
-        setIsComplete(true);
+      if (saveData.data?.accessToken) {
+        // Immediately redirect to the curriculum view page
+        navigate(`/curriculum/${saveData.data.accessToken}`);
+      } else {
+        throw new Error('No access token received');
       }
     } catch (err) {
       console.error('Generation error:', err);
@@ -153,86 +154,10 @@ export const CurriculumGeneratorPage = () => {
     }
   };
 
-  const resetForm = () => {
-    setCourseIdea('');
-    setUserName('');
-    setUserEmail('');
-    setShowEmailModal(false);
-    setIsComplete(false);
-    setCurriculumUrl('');
-    setError('');
-  };
-
   const closeModal = () => {
     setShowEmailModal(false);
     setError('');
   };
-
-  if (isComplete) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-brand-black via-gray-900 to-brand-black pt-20 sm:pt-24 lg:pt-32">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl border border-brand-purple/20">
-              <div className="flex justify-center mb-8">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-                  <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
-                </div>
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-                🎉 Your Curriculum is Ready!
-              </h1>
-              
-              <p className="text-lg sm:text-xl text-brand-gray mb-8 max-w-2xl mx-auto leading-relaxed">
-                Check your email for the complete curriculum. We've also created a private link for you to access it anytime.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                <a
-                  href={curriculumUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-brand-purple hover:bg-brand-purple-dark text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <BookOpen className="w-5 h-5" />
-                  View Your Curriculum
-                </a>
-                
-                <button
-                  onClick={resetForm}
-                  className="inline-flex items-center gap-2 text-brand-purple hover:text-brand-purple-dark font-semibold transition-colors"
-                >
-                  Generate Another Curriculum
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="bg-brand-purple/10 border border-brand-purple/20 rounded-2xl p-6 mb-8">
-                <h3 className="text-xl font-bold text-brand-white mb-4">What's Next?</h3>
-                <p className="text-brand-gray mb-4">
-                  Now that you have a complete, professional curriculum, the next critical step is to validate it. 
-                  How can you be 100% sure people will pay for this before you spend months building it?
-                </p>
-                <p className="text-brand-purple font-semibold">
-                  That's exactly what we help with at BuildMaCourse.
-                </p>
-              </div>
-
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => window.location.href = '/#schedule-call'}
-                className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1"
-              >
-                Book Your Free Strategy Call
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-black via-gray-900 to-brand-black pt-20 sm:pt-24 lg:pt-32">
@@ -401,7 +326,7 @@ export const CurriculumGeneratorPage = () => {
               ) : (
                 <>
                   <Sparkles className="w-5 h-5 mr-2" />
-                  Generate & Send My Curriculum
+                  Generate & View My Curriculum
                 </>
               )}
             </Button>

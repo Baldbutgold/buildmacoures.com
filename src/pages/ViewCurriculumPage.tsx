@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container } from '../components/Container';
 import { Button } from '../components/Button';
-import { BookOpen, ArrowLeft, Calendar, Download, Loader2 } from 'lucide-react';
+import { BookOpen, ArrowLeft, Calendar, Download, Loader2, Sparkles } from 'lucide-react';
 
 interface CurriculumData {
   id: string;
@@ -118,6 +118,7 @@ https://buildmacourse.com
               </p>
               <Link to="/generate-curriculum">
                 <Button variant="primary">
+                  <Sparkles className="w-4 h-4 mr-2" />
                   Generate New Curriculum
                 </Button>
               </Link>
@@ -151,15 +152,19 @@ https://buildmacourse.com
             </button>
           </div>
 
+          {/* Success Message */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <BookOpen className="w-4 h-4" />
+              🎉 Your Curriculum is Ready!
+            </div>
+          </div>
+
           {/* Curriculum Content */}
-          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-2xl">
+          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-2xl mb-8">
             {/* Header Info */}
             <div className="text-center mb-8 sm:mb-12">
-              <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
-                <BookOpen className="w-4 h-4" />
-                Your Custom Curriculum
-              </div>
-              <p className="text-sm text-brand-gray mb-2">
+              <p className="text-sm text-brand-gray mb-4">
                 Generated on {formatDate(curriculum.created_at)}
               </p>
               <div className="bg-brand-purple/10 border border-brand-purple/20 rounded-xl p-4 mb-6">
@@ -190,6 +195,9 @@ https://buildmacourse.com
 
             {/* Full Curriculum Content */}
             <div className="prose prose-lg prose-invert max-w-none">
+              <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-6">
+                Complete Curriculum Details
+              </h3>
               <div 
                 className="text-brand-gray leading-relaxed whitespace-pre-wrap"
                 style={{ lineHeight: '1.7' }}
@@ -199,15 +207,20 @@ https://buildmacourse.com
             </div>
           </div>
 
-          {/* CTA Section */}
-          <div className="mt-12 sm:mt-16 text-center">
-            <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-purple-lg">
+          {/* What's Next Section */}
+          <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-purple-lg">
+            <div className="text-center">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4 font-bricolage">
-                Ready to Turn This Into a Real Course?
+                What's Next?
               </h2>
-              <p className="text-lg sm:text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-                You have the curriculum. Now let's validate it, build it, and launch it as a profitable course that actually sells.
+              <p className="text-lg sm:text-xl text-purple-100 mb-6 max-w-3xl mx-auto">
+                Now that you have a complete, professional curriculum, the next critical step is to validate it. 
+                How can you be 100% sure people will pay for this before you spend months building it?
               </p>
+              <p className="text-xl font-semibold text-white mb-8">
+                That's exactly what we help with at BuildMaCourse.
+              </p>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
                   variant="secondary"
@@ -220,6 +233,7 @@ https://buildmacourse.com
                 </Button>
                 <Link to="/generate-curriculum">
                   <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-brand-purple">
+                    <Sparkles className="w-4 h-4 mr-2" />
                     Generate Another Curriculum
                   </Button>
                 </Link>

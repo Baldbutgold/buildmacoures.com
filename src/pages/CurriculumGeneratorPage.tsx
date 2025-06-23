@@ -172,22 +172,22 @@ export const CurriculumGeneratorPage = () => {
       <Container>
         <div className="max-w-2xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4" />
               Free AI Tool
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-brand-white mb-4 font-bricolage">
+            <h1 className="text-3xl sm:text-4xl font-bold text-brand-white mb-3 font-bricolage">
               Create Your Course Curriculum
             </h1>
-            <p className="text-lg text-brand-gray">
+            <p className="text-brand-gray">
               Answer these three questions to generate a personalized learning plan.
             </p>
           </div>
 
           {/* Main Form */}
-          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-brand-purple/20 shadow-2xl">
-            <div className="space-y-8">
+          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-2xl">
+            <div className="space-y-6">
               {/* Question 1 */}
               <div>
                 <label htmlFor="courseTopic" className="block text-lg font-semibold text-brand-white mb-3">
@@ -198,12 +198,9 @@ export const CurriculumGeneratorPage = () => {
                   id="courseTopic"
                   value={courseTopic}
                   onChange={(e) => setCourseTopic(e.target.value)}
-                  placeholder="e.g., Python, Sewing, Digital Marketing, Video Editing"
-                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                  placeholder="Python, Sewing, Digital Marketing, Video Editing"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/60 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                 />
-                <small className="text-brand-gray text-sm mt-2 block">
-                  e.g., Python, Sewing, Digital Marketing, Video Editing
-                </small>
               </div>
 
               {/* Question 2 */}
@@ -211,24 +208,31 @@ export const CurriculumGeneratorPage = () => {
                 <label className="block text-lg font-semibold text-brand-white mb-3">
                   2. What is the starting skill level of the learner?
                 </label>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {[
                     { value: 'absolute-beginner', label: 'Absolute Beginner', desc: 'Has no experience in the topic' },
                     { value: 'beginner', label: 'Beginner', desc: 'Has some basic knowledge but lacks structure' },
                     { value: 'intermediate', label: 'Intermediate', desc: 'Has foundational skills, wants to advance' }
                   ].map((option) => (
-                    <label key={option.value} className="flex items-start gap-3 p-3 bg-brand-black/30 rounded-lg cursor-pointer hover:bg-brand-black/50 transition-colors">
+                    <label 
+                      key={option.value} 
+                      className={`flex items-start gap-3 p-4 rounded-xl cursor-pointer transition-all duration-200 ${
+                        skillLevel === option.value 
+                          ? 'bg-brand-purple/20 border border-brand-purple/40' 
+                          : 'bg-brand-black/30 border border-transparent hover:bg-brand-black/50'
+                      }`}
+                    >
                       <input
                         type="radio"
                         name="skillLevel"
                         value={option.value}
                         checked={skillLevel === option.value}
                         onChange={(e) => setSkillLevel(e.target.value)}
-                        className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
+                        className="mt-1 w-4 h-4 text-brand-purple bg-transparent border-2 border-brand-purple/50 focus:ring-brand-purple focus:ring-2"
                       />
-                      <div>
-                        <div className="text-brand-white font-medium">{option.label}</div>
-                        <div className="text-brand-gray text-sm">{option.desc}</div>
+                      <div className="flex-1">
+                        <div className="text-brand-white font-medium mb-1">{option.label}</div>
+                        <div className="text-brand-gray/80 text-sm">{option.desc}</div>
                       </div>
                     </label>
                   ))}
@@ -245,12 +249,9 @@ export const CurriculumGeneratorPage = () => {
                   id="primaryGoal"
                   value={primaryGoal}
                   onChange={(e) => setPrimaryGoal(e.target.value)}
-                  placeholder="e.g., To build a personal website, to get a junior developer job, to learn how to knit a scarf"
-                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
+                  placeholder="To build a personal website, to get a junior developer job, to learn how to knit a scarf"
+                  className="w-full px-4 py-3 bg-brand-black/50 border border-brand-purple/20 rounded-xl text-brand-white placeholder-brand-gray/60 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 transition-all duration-200"
                 />
-                <small className="text-brand-gray text-sm mt-2 block">
-                  e.g., To build a personal website, to get a junior developer job, to learn how to knit a scarf
-                </small>
               </div>
             </div>
 
@@ -280,8 +281,8 @@ export const CurriculumGeneratorPage = () => {
           </div>
 
           {/* Trust Indicators */}
-          <div className="text-center mt-8">
-            <div className="flex justify-center items-center gap-6 text-brand-gray text-sm">
+          <div className="text-center mt-6">
+            <div className="flex justify-center items-center gap-6 text-brand-gray/80 text-sm">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
                 <span>100% Free</span>

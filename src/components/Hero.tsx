@@ -43,37 +43,6 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-          {/* VSL Video Section */}
-          <div className="mb-8 sm:mb-12 md:mb-16">
-            <div className="max-w-4xl mx-auto">
-              <div className="relative bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 border border-brand-purple/20 shadow-2xl">
-                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
-                  {/* Wistia Video Player */}
-                  <div className="wistia-video-container">
-                    <wistia-player 
-                      media-id="4mw8h1u2ey" 
-                      aspect="1.7777777777777777"
-                      className="w-full"
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        borderRadius: '12px',
-                        overflow: 'hidden'
-                      }}
-                    ></wistia-player>
-                  </div>
-                </div>
-                
-                {/* Video Caption */}
-                <div className="text-center mt-4 sm:mt-6">
-                  <p className="text-sm sm:text-base text-brand-gray">
-                    Watch how we turn expertise into profitable courses
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <button

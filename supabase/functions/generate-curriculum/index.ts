@@ -164,9 +164,9 @@ Please ensure the curriculum is practical, achievable, and directly aligned with
     // Initialize according to official docs
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-    // Get the generative model - using Gemini 2.0 Flash Experimental (latest available)
+    // Get the generative model - using Gemini 2.5 Pro as requested
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash-exp",
+      model: "gemini-2.5-pro",
       generationConfig: {
         temperature: 0.7,
         topK: 40,
@@ -175,7 +175,7 @@ Please ensure the curriculum is practical, achievable, and directly aligned with
       },
     });
 
-    console.log('Generating content with Gemini 2.0 Flash Experimental...');
+    console.log('Generating content with Gemini 2.5 Pro...');
     
     // Generate content with retry mechanism - following the official pattern
     const result = await retryWithBackoff(async () => {
@@ -190,7 +190,7 @@ Please ensure the curriculum is practical, achievable, and directly aligned with
       throw new Error('No curriculum generated');
     }
 
-    console.log('Curriculum generated successfully with Gemini 2.0');
+    console.log('Curriculum generated successfully with Gemini 2.5 Pro');
 
     // Extract module titles for preview (improved regex approach)
     const moduleMatches = fullCurriculum.match(/### Module \d+[\s\S]*?\*\*Module Title:\*\*\s*([^\n\r]+)/gi) || [];

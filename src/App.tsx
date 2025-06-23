@@ -41,6 +41,7 @@ const WistiaVideo = () => {
     const embedScript = document.createElement('script');
     embedScript.src = 'https://fast.wistia.com/embed/4mw8h1u2ey.js';
     embedScript.async = true;
+    embedScript.type = 'module';
     document.head.appendChild(embedScript);
 
     // Add Wistia styles

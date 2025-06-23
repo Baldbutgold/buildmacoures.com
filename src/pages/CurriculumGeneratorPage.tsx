@@ -39,7 +39,6 @@ export const CurriculumGeneratorPage = () => {
   const [error, setError] = useState('');
 
   const handleGenerateClick = () => {
-    // Validate form
     if (!courseTopic.trim()) {
       setError('Please enter the main topic of your course');
       return;
@@ -68,7 +67,6 @@ export const CurriculumGeneratorPage = () => {
     setIsGenerating(true);
     setError('');
 
-    // Create the course idea from the form inputs
     const skillLevelText = {
       'absolute-beginner': 'absolute beginners with no experience',
       'beginner': 'beginners with some basic knowledge but lacking structure',
@@ -78,7 +76,6 @@ export const CurriculumGeneratorPage = () => {
     const courseIdea = `I want to teach ${courseTopic} to ${skillLevelText[skillLevel as keyof typeof skillLevelText]}. The primary goal is ${primaryGoal}.`;
 
     try {
-      // Check if environment variables are available
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -86,9 +83,7 @@ export const CurriculumGeneratorPage = () => {
         throw new Error('Configuration error: Missing Supabase credentials. Please contact support.');
       }
 
-      console.log('Generating curriculum...');
-
-      // First, generate the curriculum
+      // Generate the curriculum
       const generateResponse = await fetch(`${supabaseUrl}/functions/v1/generate-curriculum`, {
         method: 'POST',
         headers: {
@@ -101,7 +96,6 @@ export const CurriculumGeneratorPage = () => {
 
       if (!generateResponse.ok) {
         const errorText = await generateResponse.text();
-        console.error('Generation response error:', errorText);
         throw new Error(`Server error (${generateResponse.status}): ${errorText || 'Unknown error'}`);
       }
 
@@ -115,9 +109,7 @@ export const CurriculumGeneratorPage = () => {
         throw new Error('No curriculum data received');
       }
 
-      console.log('Curriculum generated, now saving...');
-
-      // Then, save it to the database and get the access token
+      // Save it to the database
       const saveResponse = await fetch(`${supabaseUrl}/functions/v1/send-full-curriculum`, {
         method: 'POST',
         headers: {
@@ -146,7 +138,6 @@ export const CurriculumGeneratorPage = () => {
       }
 
       if (saveData.data?.accessToken) {
-        // Immediately redirect to the curriculum view page
         navigate(`/curriculum/${saveData.data.accessToken}`);
       } else {
         throw new Error('No access token received');
@@ -179,27 +170,27 @@ export const CurriculumGeneratorPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-black via-gray-900 to-brand-black pt-20 sm:pt-24 lg:pt-32">
       <Container>
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Sparkles className="w-4 h-4" />
               Free AI Tool
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
+            <h1 className="text-3xl sm:text-4xl font-bold text-brand-white mb-4 font-bricolage">
               Create Your Course Curriculum
             </h1>
-            <p className="text-lg sm:text-xl text-brand-gray max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-brand-gray">
               Answer these three questions to generate a personalized learning plan.
             </p>
           </div>
 
           {/* Main Form */}
-          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-brand-purple/20 shadow-2xl">
+          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-brand-purple/20 shadow-2xl">
             <div className="space-y-8">
-              {/* Question 1: Course Topic */}
+              {/* Question 1 */}
               <div>
-                <label htmlFor="courseTopic" className="block text-lg font-semibold text-brand-white mb-4">
+                <label htmlFor="courseTopic" className="block text-lg font-semibold text-brand-white mb-3">
                   1. What is the main topic of the course?
                 </label>
                 <input
@@ -215,62 +206,38 @@ export const CurriculumGeneratorPage = () => {
                 </small>
               </div>
 
-              {/* Question 2: Skill Level */}
+              {/* Question 2 */}
               <div>
-                <label className="block text-lg font-semibold text-brand-white mb-4">
+                <label className="block text-lg font-semibold text-brand-white mb-3">
                   2. What is the starting skill level of the learner?
                 </label>
-                <div className="space-y-3">
-                  <label className="flex items-start gap-3 p-4 bg-brand-black/30 rounded-xl cursor-pointer hover:bg-brand-black/50 transition-colors">
-                    <input
-                      type="radio"
-                      name="skillLevel"
-                      value="absolute-beginner"
-                      checked={skillLevel === 'absolute-beginner'}
-                      onChange={(e) => setSkillLevel(e.target.value)}
-                      className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
-                    />
-                    <div>
-                      <div className="text-brand-white font-medium">Absolute Beginner</div>
-                      <div className="text-brand-gray text-sm">Has no experience in the topic</div>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-brand-black/30 rounded-xl cursor-pointer hover:bg-brand-black/50 transition-colors">
-                    <input
-                      type="radio"
-                      name="skillLevel"
-                      value="beginner"
-                      checked={skillLevel === 'beginner'}
-                      onChange={(e) => setSkillLevel(e.target.value)}
-                      className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
-                    />
-                    <div>
-                      <div className="text-brand-white font-medium">Beginner</div>
-                      <div className="text-brand-gray text-sm">Has some basic knowledge but lacks structure</div>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-brand-black/30 rounded-xl cursor-pointer hover:bg-brand-black/50 transition-colors">
-                    <input
-                      type="radio"
-                      name="skillLevel"
-                      value="intermediate"
-                      checked={skillLevel === 'intermediate'}
-                      onChange={(e) => setSkillLevel(e.target.value)}
-                      className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
-                    />
-                    <div>
-                      <div className="text-brand-white font-medium">Intermediate</div>
-                      <div className="text-brand-gray text-sm">Has foundational skills, wants to advance</div>
-                    </div>
-                  </label>
+                <div className="space-y-2">
+                  {[
+                    { value: 'absolute-beginner', label: 'Absolute Beginner', desc: 'Has no experience in the topic' },
+                    { value: 'beginner', label: 'Beginner', desc: 'Has some basic knowledge but lacks structure' },
+                    { value: 'intermediate', label: 'Intermediate', desc: 'Has foundational skills, wants to advance' }
+                  ].map((option) => (
+                    <label key={option.value} className="flex items-start gap-3 p-3 bg-brand-black/30 rounded-lg cursor-pointer hover:bg-brand-black/50 transition-colors">
+                      <input
+                        type="radio"
+                        name="skillLevel"
+                        value={option.value}
+                        checked={skillLevel === option.value}
+                        onChange={(e) => setSkillLevel(e.target.value)}
+                        className="mt-1 w-4 h-4 text-brand-purple bg-brand-black border-brand-purple/30 focus:ring-brand-purple focus:ring-2"
+                      />
+                      <div>
+                        <div className="text-brand-white font-medium">{option.label}</div>
+                        <div className="text-brand-gray text-sm">{option.desc}</div>
+                      </div>
+                    </label>
+                  ))}
                 </div>
               </div>
 
-              {/* Question 3: Primary Goal */}
+              {/* Question 3 */}
               <div>
-                <label htmlFor="primaryGoal" className="block text-lg font-semibold text-brand-white mb-4">
+                <label htmlFor="primaryGoal" className="block text-lg font-semibold text-brand-white mb-3">
                   3. What is the primary goal of this course?
                 </label>
                 <input
@@ -288,7 +255,7 @@ export const CurriculumGeneratorPage = () => {
             </div>
 
             {/* Generate Button */}
-            <div className="text-center mt-10">
+            <div className="text-center mt-8">
               <Button
                 variant="primary"
                 size="lg"
@@ -306,28 +273,23 @@ export const CurriculumGeneratorPage = () => {
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mt-6">
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-red-400 font-medium mb-1">Error</p>
-                    <p className="text-red-300 text-sm">{error}</p>
-                  </div>
+                  <p className="text-red-300 text-sm">{error}</p>
                 </div>
               </div>
             )}
           </div>
 
           {/* Trust Indicators */}
-          <div className="text-center mt-12">
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm">
+          <div className="text-center mt-8">
+            <div className="flex justify-center items-center gap-6 text-brand-gray text-sm">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
                 <span>100% Free</span>
               </div>
-              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block" />
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
-                <span>No Credit Card Required</span>
+                <span>No Credit Card</span>
               </div>
-              <div className="w-px h-4 bg-brand-gray/30 hidden sm:block" />
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
                 <span>Instant Results</span>
@@ -340,13 +302,12 @@ export const CurriculumGeneratorPage = () => {
       {/* Email Collection Modal */}
       {showEmailModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-gradient-to-br from-brand-black to-gray-900 border border-brand-purple/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full relative transform transition-all duration-300 scale-100">
+          <div className="bg-gradient-to-br from-brand-black to-gray-900 border border-brand-purple/30 rounded-2xl shadow-2xl p-6 max-w-md w-full relative">
             {/* Close Button */}
             <button 
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-brand-purple/20 hover:bg-brand-purple/30 text-brand-gray hover:text-brand-white transition-colors"
               onClick={closeModal}
               disabled={isGenerating}
-              aria-label="Close"
             >
               <X className="w-4 h-4" />
             </button>
@@ -356,11 +317,11 @@ export const CurriculumGeneratorPage = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-brand-purple to-brand-purple-dark rounded-full flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-brand-white mb-2 font-bricolage">
+              <h3 className="text-xl font-bold text-brand-white mb-2 font-bricolage">
                 Get Your Free Curriculum
               </h3>
               <p className="text-brand-gray text-sm">
-                Enter your details to receive your complete course curriculum instantly
+                Enter your details to receive your complete course curriculum
               </p>
             </div>
 
@@ -403,7 +364,7 @@ export const CurriculumGeneratorPage = () => {
               </div>
             </div>
 
-            {/* Error Display in Modal */}
+            {/* Error Display */}
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 mb-4">
                 <p className="text-red-400 text-sm">{error}</p>
@@ -421,22 +382,20 @@ export const CurriculumGeneratorPage = () => {
               {isGenerating ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                  Generating Your Curriculum...
+                  Generating...
                 </>
               ) : (
                 <>
                   <Sparkles className="w-5 h-5 mr-2" />
-                  Generate & View My Curriculum
+                  Generate & View Curriculum
                 </>
               )}
             </Button>
 
             {/* Privacy Note */}
-            <div className="text-center mt-4">
-              <p className="text-xs text-brand-gray">
-                🔒 We respect your privacy. No spam, just your curriculum and helpful course creation tips.
-              </p>
-            </div>
+            <p className="text-xs text-brand-gray text-center mt-4">
+              🔒 We respect your privacy. No spam, just your curriculum.
+            </p>
           </div>
         </div>
       )}

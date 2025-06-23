@@ -66,10 +66,6 @@
     }
     </script>
 
-    <!-- Wistia Player Scripts -->
-    <script src="https://fast.wistia.com/player.js" async></script>
-    <script src="https://fast.wistia.com/embed/4mw8h1u2ey.js" async type="module"></script>
-
     <!-- Critical CSS inlined -->
     <style>
       /* Critical above-the-fold styles */
@@ -135,6 +131,10 @@
     
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Wistia Player Scripts - moved to end of body for proper DOM timing -->
+    <script src="https://fast.wistia.com/player.js" async></script>
+    <script src="https://fast.wistia.com/embed/4mw8h1u2ey.js" async type="module"></script>
     
     <!-- Optimized Calendly loading -->
     <script>

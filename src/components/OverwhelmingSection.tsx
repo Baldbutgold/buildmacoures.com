@@ -5,37 +5,37 @@ import { AlertTriangle } from 'lucide-react';
 export const OverwhelmingSection = () => {
   const painPoints = [
     {
-      emoji: "💸",
-      title: "Course launch falls flat",
-      description: "Your first or next course launch fails, wasting time, energy & money on something that doesn't sell"
+      emoji: "😵‍💫",
+      title: "Drowning in technical details",
+      description: "Video editing, course platforms, file formats, audio quality... there are so many moving pieces that you spend more time learning tools than teaching your expertise"
     },
     {
       emoji: "⏰",
-      title: "Years pass struggling",
-      description: "Months—or even years—could pass as you struggle with the complexity of getting started while opportunities slip away"
+      title: "Months of work with no guarantee",
+      description: "You could spend 6+ months creating a course, only to launch to crickets because the structure, marketing, or presentation wasn't quite right"
     },
     {
-      emoji: "📈",
-      title: "Missing the knowledge economy",
-      description: "You might regret not acting now to tap into the multi-billion-dollar knowledge economy while it's booming"
+      emoji: "🎯",
+      title: "Perfectionism paralysis",
+      description: "You know your content inside and out, but you keep second-guessing the structure, worrying about video quality, and never actually launching anything"
     }
   ];
 
   const benefits = [
     {
       emoji: "💰",
-      title: "Scalable revenue stream",
-      description: "Unlock a revenue stream that generates income while you sleep, without trading time for money"
+      title: "Launch in weeks, not months",
+      description: "Get a complete, professional course ready to sell while your competitors are still figuring out their camera settings"
     },
     {
-      emoji: "🌍",
-      title: "Impact more lives",
-      description: "Share your expertise with a broader audience and make a bigger difference in people's lives"
+      emoji: "🎬",
+      title: "Hollywood-quality production",
+      description: "Your course looks and sounds like it was made by a professional studio, commanding premium prices and student respect"
     },
     {
-      emoji: "👑",
-      title: "Industry authority",
-      description: "Position yourself as an industry leader, attracting new clients and premium opportunities"
+      emoji: "🚀",
+      title: "Proven structure that converts",
+      description: "Every module, lesson, and transition is designed using frameworks that keep students engaged and completing your course"
     }
   ];
 
@@ -46,14 +46,14 @@ export const OverwhelmingSection = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 bg-orange-500/20 text-orange-400 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <AlertTriangle className="w-4 h-4" />
-            Without Expert Guidance
+            The Reality Check
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-6 font-bricolage">
-            Course creation is{' '}
-            <span className="italic text-brand-purple">overwhelming...</span>
+            Here's what happens when you try to{' '}
+            <span className="italic text-orange-400">do it all yourself...</span>
           </h2>
           <p className="text-lg sm:text-xl text-brand-gray mb-8 max-w-3xl mx-auto">
-            You will struggle with video production and course creation without proper guidance
+            Most experts who try to create their own course end up in one of these situations
           </p>
         </div>
 
@@ -79,16 +79,15 @@ export const OverwhelmingSection = () => {
         {/* Transition */}
         <div className="text-center mb-12 sm:mb-16">
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-white mb-6 font-bricolage">
-            It doesn't have to be this way.
+            But what if there was a better way?
           </h3>
           <p className="text-lg sm:text-xl text-brand-gray mb-8 max-w-4xl mx-auto leading-relaxed">
-            Instead of guessing your way through course creation, let{' '}
-            <strong className="text-brand-purple">BuildMaCourse</strong> provide professional{' '}
-            <strong className="text-brand-white">course creation services</strong> to{' '}
-            <strong className="text-brand-white">fast-track your success.</strong> With our proven strategies and expert support, you'll have everything you need to plan, build, and begin to promote a course that works.
+            What if you could skip all the technical headaches, avoid the months of trial and error, and get a{' '}
+            <strong className="text-brand-purple">professional course that's ready to sell</strong> in just a few weeks?{' '}
+            <strong className="text-brand-white">That's exactly what I do for my clients.</strong>
           </p>
           <p className="text-lg sm:text-xl text-brand-purple font-semibold mb-8">
-            Imagine results like being able to...
+            Here's what you get instead...
           </p>
         </div>
 

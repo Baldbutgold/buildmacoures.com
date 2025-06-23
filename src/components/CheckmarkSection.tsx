@@ -8,20 +8,20 @@ export const CheckmarkSection = () => {
     {
       number: "01",
       title: "STRATEGY & CURRICULUM DESIGN",
-      description: "We establish the foundation for a successful course. Our process begins with a deep dive into your market and subject matter. We work with you to analyze your target audience, refine your course topic, and define clear learning outcomes. Our instructional designers then structure this information into a logical and engaging curriculum, complete with detailed module and lesson outlines.",
-      deliverable: "A comprehensive course blueprint that includes a validated topic, ideal student profile, and a complete, structured curriculum ready for content development."
+      description: "We start by understanding your expertise and your ideal student. I'll interview you to extract your knowledge, then design a curriculum that takes students from where they are to where they want to be. No guesswork—just a proven framework that ensures your course actually delivers results.",
+      deliverable: "A complete course blueprint with validated topic positioning, detailed student avatar, and a module-by-module curriculum that guarantees student success."
     },
     {
       number: "02", 
       title: "CONTENT DEVELOPMENT & SCRIPTING",
-      description: "We translate your expertise into production-ready materials. In this phase, our team of content developers and writers collaborates with you to transform the curriculum into tangible teaching assets. We write clear, concise scripts for every video lesson, design branded presentations and slides, and create all necessary supplementary materials, such as worksheets, guides, and quizzes.",
-      deliverable: "A complete set of assets for your course, including polished video scripts, branded slide decks, and all student-facing downloadable resources."
+      description: "I transform your raw expertise into polished, engaging content. Every lesson gets a professional script that sounds like you but flows perfectly. I create all slides, worksheets, and bonus materials using proven templates that keep students engaged and moving forward.",
+      deliverable: "Production-ready scripts for every video, professionally designed slide decks, and all student resources—everything needed to start filming immediately."
     },
     {
       number: "03",
-      title: "VIDEO PRODUCTION & PLATFORM BUILD-OUT",
-      description: "We handle the complete technical production and setup of your course. Our production team manages the entire filming and post-production process. This includes professional video and audio editing, adding on-screen graphics, and ensuring a high-quality final product. Concurrently, we build out your course on your preferred hosting platform (like Kajabi or Teachable), upload all lessons and materials, and configure the technical settings for a seamless student experience.",
-      deliverable: "A full library of professionally produced, high-definition video lessons and a fully-built, tested, and student-ready online course on your chosen platform."
+      title: "VIDEO PRODUCTION & PLATFORM SETUP",
+      description: "I handle all the technical heavy lifting. Professional video editing with graphics, transitions, and perfect audio. Then I upload everything to your chosen platform, set up the sales pages, and make sure everything works flawlessly before you launch.",
+      deliverable: "A complete, live course on your platform with professional video lessons, perfect audio, and all technical setup complete—ready for students on day one."
     }
   ];
 
@@ -32,13 +32,13 @@ export const CheckmarkSection = () => {
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-6">
               <CheckCircle className="w-4 h-4" />
-              The Process
+              How It Works
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-white mb-4 font-bricolage">
-              Our Course Creation Process
+              From Your Expertise to Sellable Course
             </h2>
             <p className="text-lg sm:text-xl text-brand-gray font-normal max-w-3xl mx-auto">
-              We handle the entire video course production process from start to finish! Here's our simple 3-step course creation services process!
+              I take care of everything while you focus on what you do best—being the expert. Here's my proven 3-step process that's worked for 80+ successful course creators.
             </p>
           </div>
 
@@ -75,7 +75,7 @@ export const CheckmarkSection = () => {
                     {/* Deliverable Box */}
                     <div className="bg-brand-purple/10 border border-brand-purple/20 rounded-xl p-4 sm:p-6">
                       <p className="text-brand-white font-medium text-sm sm:text-base leading-relaxed">
-                        {step.deliverable}
+                        <strong className="text-brand-purple">What you get:</strong> {step.deliverable}
                       </p>
                     </div>
                   </div>
@@ -88,11 +88,11 @@ export const CheckmarkSection = () => {
           <div className="text-center mt-16 sm:mt-20">
             <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm sm:text-base">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-brand-white">20+ Courses Created</span>
+                <span className="font-semibold text-brand-white">80+ Courses Created</span>
               </div>
               <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-brand-white">98% Client Satisfaction</span>
+                <span className="font-semibold text-brand-white">4.9/5 Client Rating</span>
               </div>
               <div className="w-px h-4 sm:h-6 bg-brand-gray/30 hidden sm:block" />
               <div className="flex items-center gap-2">

@@ -30,16 +30,16 @@ export const Hero = React.memo(() => {
           {/* Enhanced heading with mobile optimization */}
           <h1 className="font-bold text-brand-white leading-[0.85] mb-6 sm:mb-8 md:mb-10 animate-fade-in font-bricolage">
             <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-              Turn Your Expertise Into{' '}
+              Stop Struggling With{' '}
             </span>
             <span className="relative inline-block text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 sm:mt-4">
               <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-lg sm:rounded-xl md:rounded-2xl transform -rotate-1 sm:-rotate-2 inline-block shadow-purple-lg gpu-accelerated">
-                a Sellable Video Course
+                Course Creation
               </span>
             </span>
             <br />
             <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-brand-gray mt-3 sm:mt-4 md:mt-6 block font-normal">
-              (Without Lifting a Finger)
+              I'll Build Your Entire Course For You
             </span>
           </h1>
 
@@ -67,8 +67,10 @@ export const Hero = React.memo(() => {
 
           {/* Enhanced description with mobile optimization */}
           <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-brand-gray mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto px-2">
-            I help <strong className="text-brand-white">experts, founders, and creators</strong> build full courses that includes{' '}
-            <strong className="text-brand-purple">strategy, scripting and video editing (all done for you).</strong>
+            You have the expertise. You know people need what you teach. But creating a professional course feels{' '}
+            <strong className="text-brand-white">overwhelming, time-consuming, and technically complicated.</strong>{' '}
+            What if I told you there's a way to get a{' '}
+            <strong className="text-brand-purple">complete, professional course without doing any of the work yourself?</strong>
           </p>
 
           {/* Enhanced CTA with mobile optimization */}
@@ -80,7 +82,7 @@ export const Hero = React.memo(() => {
               onClick={() => scrollToSection('#schedule-call')}
             >
               <span className="flex items-center gap-2">
-                🚀 Build Ma Course!
+                🚀 Yes, Build My Course!
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>

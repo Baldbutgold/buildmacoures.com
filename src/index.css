@@ -28,16 +28,6 @@
     display: none;
   }
 
-  /* Wistia Player Styles */
-  wistia-player[media-id='4mw8h1u2ey']:not(:defined) { 
-    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/4mw8h1u2ey/swatch'); 
-    display: block; 
-    filter: blur(5px); 
-    padding-top: 56.25%; 
-    border-radius: 1rem;
-    overflow: hidden;
-  }
-
   /* Mobile-first responsive text sizing */
   @media (max-width: 640px) {
     html {

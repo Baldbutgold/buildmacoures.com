@@ -43,10 +43,21 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-          <wistia-player media-id="4mw8h1u2ey" aspect="1.7777777777777777"></wistia-player>
+          {/* Wistia Video with proper spacing */}
+          <div className="mb-12 sm:mb-16 md:mb-20">
+            <div className="max-w-4xl mx-auto">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 bg-brand-black/50 backdrop-blur-sm">
+                <wistia-player 
+                  media-id="4mw8h1u2ey" 
+                  aspect="1.7777777777777777"
+                  style={{ width: '100%', height: 'auto' }}
+                ></wistia-player>
+              </div>
+            </div>
+          </div>
 
-          {/* Optimized social proof */}
-          <div className="flex justify-center mb-6 sm:mb-8">
+          {/* Optimized social proof with proper spacing */}
+          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
             <button
               onClick={() => window.open('https://www.fiverr.com/mohamed_mrini', '_blank', 'noopener,noreferrer')}
               className="group flex items-center space-x-2 sm:space-x-3 md:space-x-4 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1 gpu-accelerated"

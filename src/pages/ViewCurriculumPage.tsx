@@ -18,15 +18,15 @@ interface ParsedCurriculum {
   title: string;
   description: string;
   objectives: string[];
-  weeks: WeekData[];
+  modules: ModuleData[];
   capstoneProject: string;
   duration: string;
   timeCommitment: string;
   level: string;
 }
 
-interface WeekData {
-  weekNumber: number;
+interface ModuleData {
+  moduleNumber: number;
   moduleTitle: string;
   keyTopics: string[];
   activities: string[];
@@ -40,11 +40,11 @@ const parseCurriculumContent = (content: string): ParsedCurriculum => {
   let title = '';
   let description = '';
   const objectives: string[] = [];
-  const weeks: WeekData[] = [];
+  const modules: ModuleData[] = [];
   let capstoneProject = '';
   
   let currentSection = '';
-  let currentWeek: Partial<WeekData> = {};
+  let currentModule: Partial<ModuleData> = {};
   let collectingObjectives = false;
   let collectingCapstone = false;
   
@@ -83,44 +83,44 @@ const parseCurriculumContent = (content: string): ParsedCurriculum => {
       continue;
     }
     
-    // Week sections
-    if (trimmed.match(/^### Week \d+/)) {
-      if (currentWeek.weekNumber) {
-        weeks.push(currentWeek as WeekData);
+    // Module sections
+    if (trimmed.match(/^### Module \d+/)) {
+      if (currentModule.moduleNumber) {
+        modules.push(currentModule as ModuleData);
       }
-      const weekMatch = trimmed.match(/Week (\d+)/);
-      currentWeek = {
-        weekNumber: weekMatch ? parseInt(weekMatch[1]) : weeks.length + 1,
+      const moduleMatch = trimmed.match(/Module (\d+)/);
+      currentModule = {
+        moduleNumber: moduleMatch ? parseInt(moduleMatch[1]) : modules.length + 1,
         moduleTitle: '',
         keyTopics: [],
         activities: [],
         resources: []
       };
-      currentSection = 'week';
+      currentSection = 'module';
       continue;
     }
     
-    // Module Title within week
-    if (currentSection === 'week' && trimmed.match(/^\*\*Module Title:\*\*/)) {
-      currentWeek.moduleTitle = trimmed.replace(/^\*\*Module Title:\*\*\s*/, '').trim();
+    // Module Title within module
+    if (currentSection === 'module' && trimmed.match(/^\*\*Module Title:\*\*/)) {
+      currentModule.moduleTitle = trimmed.replace(/^\*\*Module Title:\*\*\s*/, '').trim();
       continue;
     }
     
     // Key Topics
-    if (currentSection === 'week' && trimmed.includes('Key Topics:')) {
+    if (currentSection === 'module' && trimmed.includes('Key Topics:')) {
       currentSection = 'topics';
       continue;
     } else if (currentSection === 'topics' && trimmed.match(/^[-*]\s+/)) {
-      currentWeek.keyTopics?.push(trimmed.replace(/^[-*]\s+/, '').trim());
+      currentModule.keyTopics?.push(trimmed.replace(/^[-*]\s+/, '').trim());
       continue;
     }
     
     // Activities
-    if (currentSection === 'week' && trimmed.includes('Activities:')) {
+    if (currentSection === 'module' && trimmed.includes('Activities:')) {
       currentSection = 'activities';
       continue;
     } else if (currentSection === 'activities' && trimmed.match(/^[-*]\s+/)) {
-      currentWeek.activities?.push(trimmed.replace(/^[-*]\s+/, '').trim());
+      currentModule.activities?.push(trimmed.replace(/^[-*]\s+/, '').trim());
       continue;
     }
     
@@ -142,18 +142,18 @@ const parseCurriculumContent = (content: string): ParsedCurriculum => {
     }
   }
   
-  // Add the last week if exists
-  if (currentWeek.weekNumber) {
-    weeks.push(currentWeek as WeekData);
+  // Add the last module if exists
+  if (currentModule.moduleNumber) {
+    modules.push(currentModule as ModuleData);
   }
   
   return {
     title: title || 'Course Curriculum',
     description: description || 'A comprehensive learning journey designed to help you achieve your goals.',
     objectives,
-    weeks,
+    modules,
     capstoneProject,
-    duration: '8 Weeks',
+    duration: `${modules.length} Modules`,
     timeCommitment: '3-5 hrs/week',
     level: 'Beginner'
   };
@@ -165,7 +165,7 @@ export const ViewCurriculumPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isDownloading, setIsDownloading] = useState(false);
-  const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set([1])); // First week expanded by default
+  const [expandedModules, setExpandedModules] = useState<Set<number>>(new Set([1])); // First module expanded by default
 
   useEffect(() => {
     const fetchCurriculum = async () => {
@@ -214,14 +214,14 @@ export const ViewCurriculumPage = () => {
     });
   };
 
-  const toggleWeek = (weekNumber: number) => {
-    const newExpanded = new Set(expandedWeeks);
-    if (newExpanded.has(weekNumber)) {
-      newExpanded.delete(weekNumber);
+  const toggleModule = (moduleNumber: number) => {
+    const newExpanded = new Set(expandedModules);
+    if (newExpanded.has(moduleNumber)) {
+      newExpanded.delete(moduleNumber);
     } else {
-      newExpanded.add(weekNumber);
+      newExpanded.add(moduleNumber);
     }
-    setExpandedWeeks(newExpanded);
+    setExpandedModules(newExpanded);
   };
 
   const downloadAsPDF = async () => {
@@ -300,11 +300,11 @@ export const ViewCurriculumPage = () => {
       
       yPosition += 10;
       
-      // Week-by-Week Breakdown
-      addText('Week-by-Week Breakdown', 16, true, brandPurple);
+      // Module-by-Module Breakdown
+      addText('Module-by-Module Breakdown', 16, true, brandPurple);
       
-      parsedCurriculum.weeks.forEach((week, index) => {
-        // Week header with background
+      parsedCurriculum.modules.forEach((module, index) => {
+        // Module header with background
         if (yPosition > pageHeight - 80) {
           pdf.addPage();
           yPosition = margin;
@@ -313,20 +313,20 @@ export const ViewCurriculumPage = () => {
         pdf.setFillColor(168, 85, 247, 0.1);
         pdf.rect(margin - 5, yPosition - 2, maxWidth + 10, 20, 'F');
         
-        addText(`Week ${week.weekNumber}: ${week.moduleTitle}`, 14, true, brandPurple);
+        addText(`Module ${module.moduleNumber}: ${module.moduleTitle}`, 14, true, brandPurple);
         
         // Key Topics
-        if (week.keyTopics.length > 0) {
+        if (module.keyTopics.length > 0) {
           addText('Key Topics:', 11, true, brandBlack);
-          week.keyTopics.forEach(topic => {
+          module.keyTopics.forEach(topic => {
             addText(`• ${topic}`, 10, false, brandBlack);
           });
         }
         
         // Activities
-        if (week.activities.length > 0) {
+        if (module.activities.length > 0) {
           addText('Activities:', 11, true, brandBlack);
-          week.activities.forEach(activity => {
+          module.activities.forEach(activity => {
             addText(`• ${activity}`, 10, false, brandBlack);
           });
         }
@@ -453,36 +453,36 @@ https://buildmacourse.com
             </button>
           </div>
 
-          {/* Course Header Card */}
-          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-lg mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-white mb-4 font-bricolage">
+          {/* Course Header Card - Implementing the exact UI design requested */}
+          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-brand-purple/20 shadow-lg mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-brand-white mb-4 font-bricolage">
               {parsedCurriculum.title}
             </h1>
             <p className="text-brand-gray text-lg mb-6 leading-relaxed">
               {parsedCurriculum.description}
             </p>
             
-            {/* Course Stats */}
-            <div className="flex flex-wrap items-center gap-6 text-sm">
-              <div className="flex items-center gap-2 text-brand-gray">
-                <Clock className="w-4 h-4 text-brand-purple" />
-                <span>{parsedCurriculum.duration}</span>
+            {/* Course Stats - Implementing the exact icon layout requested */}
+            <div className="flex flex-wrap items-center gap-8 text-brand-gray">
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-brand-purple" />
+                <span className="font-medium">{parsedCurriculum.duration}</span>
               </div>
-              <div className="flex items-center gap-2 text-brand-gray">
-                <BookOpen className="w-4 h-4 text-brand-purple" />
-                <span>{parsedCurriculum.timeCommitment}</span>
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-brand-purple" />
+                <span className="font-medium">{parsedCurriculum.timeCommitment}</span>
               </div>
-              <div className="flex items-center gap-2 text-brand-gray">
-                <Users className="w-4 h-4 text-brand-purple" />
-                <span>{parsedCurriculum.level}</span>
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-brand-purple" />
+                <span className="font-medium">{parsedCurriculum.level}</span>
               </div>
             </div>
           </div>
 
-          {/* Learning Objectives */}
+          {/* Learning Objectives - Implementing the exact checkmark format */}
           {parsedCurriculum.objectives.length > 0 && (
-            <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-lg mb-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-brand-white mb-6 font-bricolage">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-brand-white mb-6 font-bricolage">
                 Learning Objectives
               </h2>
               <div className="space-y-3">
@@ -496,22 +496,22 @@ https://buildmacourse.com
             </div>
           )}
 
-          {/* Week-by-Week Breakdown */}
-          <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-lg mb-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-brand-white mb-6 font-bricolage">
-              Week-by-Week Breakdown
+          {/* Module-by-Module Breakdown - Implementing the exact collapsible design */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-brand-white mb-6 font-bricolage">
+              Module-by-Module Breakdown
             </h2>
             
             <div className="space-y-4">
-              {parsedCurriculum.weeks.map((week) => {
-                const isExpanded = expandedWeeks.has(week.weekNumber);
+              {parsedCurriculum.modules.map((module) => {
+                const isExpanded = expandedModules.has(module.moduleNumber);
                 
                 return (
-                  <div key={week.weekNumber} className="border border-brand-purple/20 rounded-xl overflow-hidden">
-                    {/* Week Header */}
+                  <div key={module.moduleNumber} className="border border-brand-purple/30 rounded-lg overflow-hidden bg-brand-black/30">
+                    {/* Module Header - Implementing the exact collapsible header design */}
                     <button
-                      onClick={() => toggleWeek(week.weekNumber)}
-                      className="w-full flex items-center justify-between p-4 bg-brand-purple/10 hover:bg-brand-purple/20 transition-colors duration-200"
+                      onClick={() => toggleModule(module.moduleNumber)}
+                      className="w-full flex items-center justify-between p-4 bg-brand-purple/10 hover:bg-brand-purple/20 transition-colors duration-200 border-b border-brand-purple/20"
                     >
                       <div className="flex items-center gap-3">
                         {isExpanded ? (
@@ -519,24 +519,24 @@ https://buildmacourse.com
                         ) : (
                           <ChevronRight className="w-5 h-5 text-brand-purple" />
                         )}
-                        <span className="text-brand-white font-semibold">
-                          Week {week.weekNumber}: {week.moduleTitle}
+                        <span className="text-brand-white font-semibold text-left">
+                          Module {module.moduleNumber}: {module.moduleTitle}
                         </span>
                       </div>
                     </button>
                     
-                    {/* Week Content */}
+                    {/* Module Content - Implementing the exact content layout */}
                     {isExpanded && (
-                      <div className="p-4 bg-brand-black/30 space-y-4">
+                      <div className="p-6 space-y-4">
                         {/* Key Topics */}
-                        {week.keyTopics.length > 0 && (
+                        {module.keyTopics.length > 0 && (
                           <div>
-                            <h4 className="text-brand-purple font-semibold mb-2">Key Topics:</h4>
-                            <ul className="space-y-1">
-                              {week.keyTopics.map((topic, index) => (
-                                <li key={index} className="flex items-start gap-2 text-brand-gray">
+                            <h4 className="text-brand-purple font-semibold mb-3">Key Topics:</h4>
+                            <ul className="space-y-2">
+                              {module.keyTopics.map((topic, index) => (
+                                <li key={index} className="flex items-start gap-3 text-brand-gray">
                                   <span className="w-1.5 h-1.5 bg-brand-purple rounded-full mt-2 flex-shrink-0"></span>
-                                  {topic}
+                                  <span>{topic}</span>
                                 </li>
                               ))}
                             </ul>
@@ -544,14 +544,14 @@ https://buildmacourse.com
                         )}
                         
                         {/* Activities */}
-                        {week.activities.length > 0 && (
+                        {module.activities.length > 0 && (
                           <div>
-                            <h4 className="text-brand-purple font-semibold mb-2">Activities:</h4>
-                            <ul className="space-y-1">
-                              {week.activities.map((activity, index) => (
-                                <li key={index} className="flex items-start gap-2 text-brand-gray">
+                            <h4 className="text-brand-purple font-semibold mb-3">Activity:</h4>
+                            <ul className="space-y-2">
+                              {module.activities.map((activity, index) => (
+                                <li key={index} className="flex items-start gap-3 text-brand-gray">
                                   <span className="w-1.5 h-1.5 bg-brand-purple rounded-full mt-2 flex-shrink-0"></span>
-                                  {activity}
+                                  <span>{activity}</span>
                                 </li>
                               ))}
                             </ul>
@@ -559,14 +559,14 @@ https://buildmacourse.com
                         )}
                         
                         {/* Resources */}
-                        {week.resources.length > 0 && (
+                        {module.resources.length > 0 && (
                           <div>
-                            <h4 className="text-brand-purple font-semibold mb-2">Resources:</h4>
-                            <ul className="space-y-1">
-                              {week.resources.map((resource, index) => (
-                                <li key={index} className="flex items-start gap-2 text-brand-gray">
+                            <h4 className="text-brand-purple font-semibold mb-3">Resources:</h4>
+                            <ul className="space-y-2">
+                              {module.resources.map((resource, index) => (
+                                <li key={index} className="flex items-start gap-3 text-brand-gray">
                                   <span className="w-1.5 h-1.5 bg-brand-purple rounded-full mt-2 flex-shrink-0"></span>
-                                  {resource}
+                                  <span>{resource}</span>
                                 </li>
                               ))}
                             </ul>
@@ -580,7 +580,7 @@ https://buildmacourse.com
             </div>
           </div>
 
-          {/* Capstone Project */}
+          {/* Capstone Project - Implementing the exact trophy design */}
           {parsedCurriculum.capstoneProject && (
             <div className="bg-gradient-to-br from-brand-purple/10 to-brand-purple-dark/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-brand-purple/20 shadow-lg mb-8">
               <div className="flex items-center gap-3 mb-4">

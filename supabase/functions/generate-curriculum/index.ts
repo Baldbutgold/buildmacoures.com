@@ -104,12 +104,12 @@ Deno.serve(async (req: Request) => {
 
     const skillDescription = skillLevelDescriptions[skillLevel as keyof typeof skillLevelDescriptions] || 'learners';
 
-    // Updated prompt to match your specifications exactly
+    // Updated prompt to match your exact specifications
     const prompt = `# ROLE:
-You are an expert curriculum and instructional designer with a strong background in creating effective, learner-centered course structures. Your job is to design an engaging and goal-driven curriculum tailored to a learner's starting level and outcome.
+You are an expert curriculum and instructional designer. You specialize in building focused, learner-centered course structures that move users from their current skill level to their desired outcome through a clear, practical sequence.
 
 # CONTEXT:
-Your task is to generate a modular course curriculum based on the user's input. The curriculum should consist of a **logical sequence of modules**, each building on the last, to help the learner reach their stated goal. Use **no more than 8 modules**, but fewer if the goal can be achieved in fewer steps.
+Your task is to generate a **modular course curriculum** based on the user's input. The curriculum should consist of a **logical sequence of modules**, each building on the last, to help the learner reach their stated goal. You must include **no more than 8 modules**, but fewer if the goal can be achieved in fewer steps.
 
 # USER INPUT:
 
@@ -120,26 +120,29 @@ Your task is to generate a modular course curriculum based on the user's input. 
 # TASK INSTRUCTIONS:
 
 1. ## Course Title & Description
-   - Create a clear and engaging \`Course Title\` based on the topic and learner's goal.
-   - Write a concise 2–3 sentence \`Course Description\` explaining what the course covers, who it's for, and what the learner will achieve.
+   - Generate a **concise, focused course title** that reflects both the topic and learner's end goal.
+   - Write a **2–3 sentence course description** that clearly states who it's for, what it covers, and what the learner will achieve.
 
 2. ## Learning Objectives
-   - Develop **3–5 specific, measurable learning objectives** that directly support the learner's goal.
-   - Use strong action verbs (e.g., Build, Analyze, Design, Implement) to express each outcome clearly.
+   - Identify **3–5 specific, measurable learning objectives** that align directly with the learner's stated goal.
+   - Use precise action verbs (e.g., Build, Analyze, Design, Implement).
+   - Avoid generalities — define what success looks like in observable terms.
 
 3. ## Modular Breakdown
-   - Create a step-by-step \`Modular Breakdown\` of the course, using **up to 8 modules** depending on the complexity of the goal.
+   - Create a clear **Modular Breakdown** consisting of up to 8 modules (fewer if appropriate).
    - For each module:
-     - Provide a **Module Title** that reflects the key concept or milestone.
-     - List **3–4 core topics or skills** covered in that module.
+     - Provide a **confident, specific Module Title** that reflects the learning milestone.
+     - List **3–4 essential topics or skills** that the learner will master in that module.
+     - Do **not** offer options or alternatives — choose the **single most suitable path** toward the goal (e.g., if a web framework is needed, select one based on best fit and commit to it throughout).
 
 4. ## Assumptions
-   - **Learning Modalities:** Assume a blended approach: reading, watching, and building.
-   - **Progression:** Ensure modules build logically upon one another toward the final goal.
+   - **Learning Modalities:** Assume a blend of reading, watching, and building.
+   - **Progression:** Ensure modules build logically and sequentially — each module must directly advance the learner toward their end goal.
+   - **Decisiveness:** When multiple valid approaches exist (e.g., tools, frameworks, methods), choose **one** and design the course around it. **Do not ask the user or list alternatives.**
 
 # OUTPUT FORMAT (MARKDOWN):
 
-Use the following structure:
+Respond using this structure:
 
 ## Course Title  
 ## Course Description  
@@ -152,7 +155,7 @@ Use the following structure:
   - ...  
   - ...  
 
-(repeat for Module 2 through Module N — no more than 8 total)
+(repeat for Module 2 through Module N — max 8 total)
 
 Please ensure the curriculum is practical, achievable, and directly aligned with helping the learner reach their stated goal.`;
 

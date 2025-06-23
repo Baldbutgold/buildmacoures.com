@@ -27,19 +27,19 @@ export const Hero = React.memo(() => {
       
       <Container>
         <div className="max-w-6xl mx-auto text-center px-4 sm:px-6 relative z-10">
-          {/* Enhanced heading with mobile optimization */}
+          {/* Enhanced heading with increased h1 size and smaller subtitle */}
           <h1 className="font-bold text-brand-white leading-[0.9] sm:leading-[0.85] mb-6 sm:mb-8 md:mb-10 animate-fade-in font-bricolage">
-            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               Stop Struggling With{' '}
             </span>
-            <span className="relative inline-block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mt-2 sm:mt-3 md:mt-4">
+            <span className="relative inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 sm:mt-3 md:mt-4">
               <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-lg sm:rounded-xl md:rounded-2xl transform -rotate-1 sm:-rotate-2 inline-block shadow-purple-lg gpu-accelerated">
                 Course Creation
               </span>
             </span>
             <br />
-            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-brand-gray mt-3 sm:mt-4 md:mt-6 block font-normal">
-              I'll Build Your Entire Course For You
+            <span className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-brand-gray mt-3 sm:mt-4 md:mt-6 block font-normal">
+              (I'll Build Your Entire Course For You)
             </span>
           </h1>
 

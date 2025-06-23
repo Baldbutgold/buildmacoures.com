@@ -85,7 +85,7 @@ Deno.serve(async (req: Request) => {
       throw new Error('Course idea is too long. Please keep it under 500 characters.');
     }
 
-    // Craft the prompt for Gemini
+    // Craft the prompt for Gemini - following the official docs pattern
     const prompt = `You are an expert course creator. Based on the following course idea, generate a comprehensive curriculum structure.
 
 Course Idea: "${courseIdea}"
@@ -103,11 +103,13 @@ Format your response as a structured curriculum that would be professional and e
 Please format the response in a clear, organized way that would look professional in a PDF or webpage.`;
 
     console.log('Initializing Gemini AI...');
+    
+    // Initialize according to official docs
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-    // Get the generative model
+    // Get the generative model - using the correct model name from docs
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-pro-latest",
+      model: "gemini-1.5-flash",  // Changed to the recommended model from docs
       generationConfig: {
         temperature: 0.7,
         topK: 40,
@@ -118,12 +120,13 @@ Please format the response in a clear, organized way that would look professiona
 
     console.log('Generating content...');
     
-    // Generate content with retry mechanism
+    // Generate content with retry mechanism - following the official pattern
     const result = await retryWithBackoff(async () => {
       return await model.generateContent(prompt);
     });
 
-    const response = await result.response;
+    // Get the response text - following official docs pattern
+    const response = result.response;
     const fullCurriculum = response.text();
 
     if (!fullCurriculum) {
@@ -191,10 +194,14 @@ Please format the response in a clear, organized way that would look professiona
     let errorMessage = 'Failed to generate curriculum';
     
     if (error instanceof Error) {
-      if (error.message.includes('API key')) {
-        errorMessage = 'AI service configuration error. Please contact support.';
-      } else if (error.message.includes('quota') || error.message.includes('limit')) {
-        errorMessage = 'Service temporarily at capacity. Please try again in a few minutes.';
+      if (error.message.includes('API_KEY_INVALID') || error.message.includes('API key')) {
+        errorMessage = 'Invalid API key. Please check your Gemini API configuration.';
+      } else if (error.message.includes('PERMISSION_DENIED')) {
+        errorMessage = 'API access denied. Please check your Gemini API permissions.';
+      } else if (error.message.includes('quota') || error.message.includes('limit') || error.message.includes('429')) {
+        errorMessage = 'API quota exceeded. Please try again later.';
+      } else if (error.message.includes('SAFETY')) {
+        errorMessage = 'Content filtered by safety settings. Please try a different course idea.';
       } else if (error.message.includes('network') || error.message.includes('fetch')) {
         errorMessage = 'Network error. Please check your connection and try again.';
       } else {

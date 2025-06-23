@@ -43,7 +43,7 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-         <script src="https://fast.wistia.com/player.js" async></script><script src="https://fast.wistia.com/embed/4mw8h1u2ey.js" async type="module"></script><style>wistia-player[media-id='4mw8h1u2ey']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/4mw8h1u2ey/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style> <wistia-player media-id="4mw8h1u2ey" aspect="1.7777777777777777"></wistia-player>
+          <wistia-player media-id="4mw8h1u2ey" aspect="1.7777777777777777"></wistia-player>
 
           {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8">

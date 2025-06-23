@@ -43,6 +43,31 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
+          {/* Wistia Video */}
+          <div className="mb-8 sm:mb-10 md:mb-12">
+            <div className="max-w-4xl mx-auto">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 bg-brand-black/50 backdrop-blur-sm">
+                <script src="https://fast.wistia.com/player.js" async></script>
+                <script src="https://fast.wistia.com/embed/4mw8h1u2ey.js" async type="module"></script>
+                <style dangerouslySetInnerHTML={{
+                  __html: `
+                    wistia-player[media-id='4mw8h1u2ey']:not(:defined) { 
+                      background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/4mw8h1u2ey/swatch'); 
+                      display: block; 
+                      filter: blur(5px); 
+                      padding-top: 56.25%; 
+                    }
+                  `
+                }} />
+                <wistia-player 
+                  media-id="4mw8h1u2ey" 
+                  aspect="1.7777777777777777"
+                  style={{ width: '100%', height: 'auto' }}
+                ></wistia-player>
+              </div>
+            </div>
+          </div>
+
           {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <button

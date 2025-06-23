@@ -1,14 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Container } from './Container';
-import { Star, ArrowRight } from 'lucide-react';
+import { Star, ArrowRight, Play, AlertCircle } from 'lucide-react';
 
 export const Hero = React.memo(() => {
+  const [wistiaState, setWistiaState] = useState({
+    loaded: false,
+    failed: false,
+    showFallback: false
+  });
+
+  useEffect(() => {
+    // Listen for Wistia load events
+    const handleWistiaSuccess = () => {
+      setWistiaState(prev => ({ ...prev, loaded: true, failed: false }));
+    };
+
+    const handleWistiaError = () => {
+      setWistiaState(prev => ({ ...prev, failed: true, showFallback: true }));
+    };
+
+    const handleWistiaFailed = () => {
+      setWistiaState(prev => ({ ...prev, failed: true, showFallback: true }));
+    };
+
+    // Add event listeners
+    window.addEventListener('wistiaLoadSuccess', handleWistiaSuccess);
+    window.addEventListener('wistiaLoadError', handleWistiaError);
+    window.addEventListener('wistiaLoadFailed', handleWistiaFailed);
+    window.addEventListener('wistiaRuntimeError', handleWistiaError);
+    window.addEventListener('wistiaPromiseRejection', handleWistiaError);
+
+    // Check initial state
+    if (window.wistiaState) {
+      setWistiaState({
+        loaded: window.wistiaState.loaded,
+        failed: window.wistiaState.failed,
+        showFallback: window.wistiaState.failed
+      });
+    }
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('wistiaLoadSuccess', handleWistiaSuccess);
+      window.removeEventListener('wistiaLoadError', handleWistiaError);
+      window.removeEventListener('wistiaLoadFailed', handleWistiaFailed);
+      window.removeEventListener('wistiaRuntimeError', handleWistiaError);
+      window.removeEventListener('wistiaPromiseRejection', handleWistiaError);
+    };
+  }, []);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleVideoFallbackClick = () => {
+    // Open video in new tab as fallback
+    window.open('https://buildmacourse.com/video', '_blank', 'noopener,noreferrer');
+  };
+
+  const VideoSection = () => {
+    if (wistiaState.showFallback) {
+      return (
+        <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-br from-gray-900 to-gray-800">
+            <div className="aspect-video flex flex-col items-center justify-center p-8 text-center">
+              <div className="mb-4">
+                <AlertCircle className="w-12 h-12 text-yellow-500 mx-auto mb-2" />
+                <h3 className="text-lg font-semibold text-white mb-2">Video Temporarily Unavailable</h3>
+                <p className="text-gray-300 text-sm mb-4">
+                  We're experiencing technical difficulties with our video player.
+                </p>
+              </div>
+              <button
+                onClick={handleVideoFallbackClick}
+                className="group flex items-center gap-3 px-6 py-3 bg-brand-purple hover:bg-brand-purple-dark text-white rounded-lg transition-all duration-300 transform hover:-translate-y-1"
+              >
+                <Play className="w-5 h-5" />
+                <span>Watch Video</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <p className="text-xs text-gray-400 mt-3">
+                Click to watch our introduction video
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1">
+          <wistia-player 
+            media-id="4mw8h1u2ey" 
+            aspect="1.7777777777777777"
+            onError={() => setWistiaState(prev => ({ ...prev, showFallback: true }))}
+          ></wistia-player>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -39,12 +133,8 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-          {/* Wistia Video Player */}
-          <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 hover:border-brand-purple/40 transition-all duration-300 transform hover:-translate-y-1">
-              <wistia-player media-id="4mw8h1u2ey" aspect="1.7777777777777777"></wistia-player>
-            </div>
-          </div>
+          {/* Enhanced Video Player with Fallback */}
+          <VideoSection />
 
           {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8">

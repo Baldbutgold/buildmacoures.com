@@ -132,9 +132,120 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Wistia Player Scripts -->
-    <script src="https://fast.wistia.com/player.js" async></script>
-    <script src="https://fast.wistia.com/embed/4mw8h1u2ey.js" async type="module"></script>
+    <!-- Enhanced Wistia Player Scripts with comprehensive error handling -->
+    <script>
+      // Initialize Wistia state management
+      window.wistiaState = {
+        loaded: false,
+        failed: false,
+        retryCount: 0,
+        maxRetries: 2
+      };
+
+      // Global error handler for Wistia scripts
+      window.wistiaErrorHandler = function(error, scriptType) {
+        console.warn(`Wistia ${scriptType} script failed to load:`, error);
+        window.wistiaState.failed = true;
+        
+        // Dispatch custom event for React components to handle
+        window.dispatchEvent(new CustomEvent('wistiaLoadError', { 
+          detail: { error, scriptType, state: window.wistiaState }
+        }));
+      };
+
+      // Enhanced script loader with retry logic
+      function loadWistiaScript(src, scriptType, onError) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = true;
+          
+          script.onload = function() {
+            console.log(`Wistia ${scriptType} script loaded successfully`);
+            resolve(script);
+          };
+          
+          script.onerror = function(error) {
+            console.error(`Failed to load Wistia ${scriptType} script:`, error);
+            onError(error, scriptType);
+            reject(error);
+          };
+          
+          // Set timeout for script loading
+          const timeout = setTimeout(() => {
+            script.onerror(new Error(`Timeout loading ${scriptType} script`));
+          }, 10000); // 10 second timeout
+          
+          script.onload = function() {
+            clearTimeout(timeout);
+            console.log(`Wistia ${scriptType} script loaded successfully`);
+            resolve(script);
+          };
+          
+          document.head.appendChild(script);
+        });
+      }
+
+      // Load Wistia scripts with retry logic
+      async function initializeWistia() {
+        try {
+          // Load main player script first
+          await loadWistiaScript('https://fast.wistia.com/player.js', 'player', window.wistiaErrorHandler);
+          
+          // Small delay to ensure player script is ready
+          await new Promise(resolve => setTimeout(resolve, 100));
+          
+          // Load specific embed script
+          await loadWistiaScript('https://fast.wistia.com/embed/4mw8h1u2ey.js', 'embed', window.wistiaErrorHandler);
+          
+          window.wistiaState.loaded = true;
+          window.dispatchEvent(new CustomEvent('wistiaLoadSuccess', { 
+            detail: { state: window.wistiaState }
+          }));
+          
+        } catch (error) {
+          console.error('Failed to initialize Wistia:', error);
+          
+          if (window.wistiaState.retryCount < window.wistiaState.maxRetries) {
+            window.wistiaState.retryCount++;
+            console.log(`Retrying Wistia initialization (attempt ${window.wistiaState.retryCount})`);
+            
+            // Exponential backoff
+            const delay = Math.pow(2, window.wistiaState.retryCount) * 1000;
+            setTimeout(initializeWistia, delay);
+          } else {
+            window.wistiaState.failed = true;
+            window.dispatchEvent(new CustomEvent('wistiaLoadFailed', { 
+              detail: { error, state: window.wistiaState }
+            }));
+          }
+        }
+      }
+
+      // Start Wistia initialization
+      initializeWistia();
+
+      // Additional error handling for runtime Wistia errors
+      window.addEventListener('error', function(event) {
+        if (event.filename && event.filename.includes('wistia.com')) {
+          console.warn('Wistia runtime error detected:', event.error);
+          window.dispatchEvent(new CustomEvent('wistiaRuntimeError', { 
+            detail: { error: event.error, filename: event.filename }
+          }));
+        }
+      });
+
+      // Handle unhandled promise rejections from Wistia
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && event.reason.toString().includes('wistia')) {
+          console.warn('Wistia promise rejection:', event.reason);
+          event.preventDefault(); // Prevent console error
+          window.dispatchEvent(new CustomEvent('wistiaPromiseRejection', { 
+            detail: { reason: event.reason }
+          }));
+        }
+      });
+    </script>
     
     <!-- Optimized Calendly loading -->
     <script>

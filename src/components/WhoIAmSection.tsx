@@ -18,17 +18,29 @@ export const WhoIAmSection = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Image Section - Mobile optimized */}
+            {/* Image Section - Mobile optimized with background */}
             <div className="relative order-1 lg:order-1">
               <div className="flex justify-center lg:justify-start">
                 <div className="relative">
-                  <img 
-                    src="/1337_headshot_ael-hadj-removebg-preview.png" 
-                    alt="Mohamed - Course Creation Expert"
-                    className="w-64 sm:w-80 md:w-96 lg:w-full lg:max-w-md h-auto object-contain"
-                  />
+                  {/* Background with gradient and pattern */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/20 via-brand-purple-dark/10 to-brand-purple/5 rounded-3xl transform rotate-3 scale-105"></div>
+                  <div className="absolute inset-0 bg-gradient-to-tl from-brand-black/30 via-transparent to-brand-purple/10 rounded-3xl transform -rotate-2 scale-110"></div>
+                  
+                  {/* Main image container */}
+                  <div className="relative bg-gradient-to-br from-brand-purple/10 to-brand-purple-dark/20 rounded-3xl p-6 sm:p-8 backdrop-blur-sm border border-brand-purple/20 shadow-2xl">
+                    <img 
+                      src="/1337_headshot_ael-hadj-removebg-preview.png" 
+                      alt="Mohamed - Course Creation Expert"
+                      className="w-64 sm:w-80 md:w-96 lg:w-full lg:max-w-md h-auto object-contain relative z-10"
+                    />
+                    
+                    {/* Decorative elements */}
+                    <div className="absolute top-4 right-4 w-12 h-12 bg-brand-purple/20 rounded-full blur-xl"></div>
+                    <div className="absolute bottom-6 left-6 w-8 h-8 bg-brand-purple-dark/30 rounded-full blur-lg"></div>
+                  </div>
+                  
                   {/* Floating badge - Mobile responsive */}
-                  <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full shadow-lg border border-brand-purple/20">
+                  <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full shadow-lg border border-brand-purple/20 z-20">
                     <div className="flex items-center gap-1 sm:gap-2">
                       <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
                       <span className="font-bold text-xs sm:text-sm">80+ Courses Built</span>

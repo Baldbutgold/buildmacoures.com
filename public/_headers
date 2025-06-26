@@ -10,7 +10,7 @@
   
   # Font optimization
   Link: </fonts/inter.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-
+  
 /*.css
   Cache-Control: public, max-age=31536000, immutable
 
@@ -29,24 +29,6 @@
 /*.png
   Cache-Control: public, max-age=31536000, immutable
 
-/*.svg
-  Cache-Control: public, max-age=31536000, immutable
-
-# Service Worker
-/sw.js
-  Cache-Control: public, max-age=0, must-revalidate
-
-# API routes
-/api/*
-  Cache-Control: public, max-age=300
-
 /
   # Don't cache the main page
   Cache-Control: public, max-age=0, must-revalidate
-  
-# Compression
-/*.js
-  Content-Encoding: gzip
-  
-/*.css
-  Content-Encoding: gzip

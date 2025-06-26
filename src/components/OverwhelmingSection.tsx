@@ -1,8 +1,12 @@
 import React from 'react';
 import { Section } from './Section';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, ArrowRight } from 'lucide-react';
 
 export const OverwhelmingSection = () => {
+  const handleBookCallClick = () => {
+    window.location.href = '/book-call';
+  };
+
   const painPoints = [
     {
       emoji: "😵‍💫",
@@ -92,7 +96,7 @@ export const OverwhelmingSection = () => {
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 mb-16 sm:mb-20">
           {benefits.map((benefit, index) => (
             <div key={index} className="group text-center">
               <div className="flex justify-center mb-6">
@@ -108,6 +112,25 @@ export const OverwhelmingSection = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-purple-lg">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 font-bricolage">
+              Ready to skip the struggle?
+            </h3>
+            <p className="text-lg sm:text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+              Let's discuss how to turn your expertise into a professional course without the technical headaches.
+            </p>
+            <button 
+              onClick={handleBookCallClick}
+              className="inline-flex items-center gap-3 bg-white text-brand-purple px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
+            >
+              📞 Book Your Free Strategy Call
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
       </div>
     </Section>

@@ -16,6 +16,7 @@ const CTASection = lazy(() => import('./components/CTASection').then(module => (
 const BlogPage = lazy(() => import('./pages/BlogPage').then(module => ({ default: module.BlogPage })));
 const BlogPost = lazy(() => import('./pages/BlogPost').then(module => ({ default: module.BlogPost })));
 const CallBooked = lazy(() => import('./pages/CallBooked').then(module => ({ default: module.CallBooked })));
+const BookCallPage = lazy(() => import('./pages/BookCallPage').then(module => ({ default: module.BookCallPage })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(module => ({ default: module.TermsOfService })));
 const CurriculumGeneratorPage = lazy(() => import('./pages/CurriculumGeneratorPage').then(module => ({ default: module.CurriculumGeneratorPage })));
@@ -87,6 +88,7 @@ function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/call-booked" element={<CallBooked />} />
+              <Route path="/book-call" element={<BookCallPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/generate-curriculum" element={<CurriculumGeneratorPage />} />

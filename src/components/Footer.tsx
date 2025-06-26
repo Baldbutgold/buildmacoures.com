@@ -18,6 +18,10 @@ export const Footer = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const handleBookCallClick = () => {
+    window.location.href = '/book-call';
+  };
   
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 text-brand-gray py-12 sm:py-16">
@@ -58,7 +62,7 @@ export const Footer = () => {
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('#schedule-call')}
+                    onClick={handleBookCallClick}
                     className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group text-sm sm:text-base"
                   >
                     <Calendar className="w-4 h-4 group-hover:text-brand-purple transition-colors" />

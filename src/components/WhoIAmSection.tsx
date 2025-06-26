@@ -1,8 +1,12 @@
 import React from 'react';
 import { Container } from './Container';
-import { User, CheckCircle, Star } from 'lucide-react';
+import { User, CheckCircle, Star, ArrowRight } from 'lucide-react';
 
 export const WhoIAmSection = () => {
+  const handleBookCallClick = () => {
+    window.location.href = '/book-call';
+  };
+
   return (
     <div className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900">
       <Container>
@@ -98,6 +102,17 @@ export const WhoIAmSection = () => {
                   <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-brand-purple mb-1">4.9★</div>
                   <div className="text-xs sm:text-sm text-brand-gray">Client Rating</div>
                 </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="pt-6">
+                <button 
+                  onClick={handleBookCallClick}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-6 py-3 rounded-full font-semibold text-base hover:from-brand-purple-dark hover:to-brand-purple-deep transition-all duration-300 transform hover:-translate-y-1 shadow-purple hover:shadow-purple-lg group"
+                >
+                  🚀 Book Your Free Strategy Call
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
             </div>
           </div>

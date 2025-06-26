@@ -29,9 +29,9 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
+        drop_console: false, // Keep console for debugging
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
+        pure_funcs: ['console.debug']
       },
       mangle: {
         safari10: true
@@ -40,12 +40,18 @@ export default defineConfig({
     // Enable gzip compression
     reportCompressedSize: true,
     // Optimize chunk size
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    // Ensure proper source maps for debugging
+    sourcemap: true
   },
   // Enable compression and caching
   server: {
     headers: {
       'Cache-Control': 'public, max-age=31536000'
     }
-  }
+  },
+  // Add base path configuration
+  base: '/',
+  // Ensure proper asset handling
+  assetsInclude: ['**/*.woff2', '**/*.woff', '**/*.ttf']
 });

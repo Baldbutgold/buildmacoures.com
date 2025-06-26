@@ -88,9 +88,6 @@
     }
     </script>
 
-    <!-- Optimized Wistia Player Scripts - Lazy loaded -->
-    <link rel="preload" href="https://fast.wistia.com/player.js" as="script">
-    
     <!-- Critical CSS inlined -->
     <style>
       /* Critical above-the-fold styles */
@@ -132,6 +129,18 @@
           border-width: 2px;
         }
       }
+      
+      /* Error handling styles */
+      .error-boundary {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0a0a0a;
+        color: #ffffff;
+        text-align: center;
+        padding: 2rem;
+      }
     </style>
 
     <!-- Preconnect to external domains -->
@@ -161,8 +170,26 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Optimized script loading -->
+    <!-- Error handling script -->
     <script>
+      // Global error handler
+      window.addEventListener('error', function(e) {
+        console.error('Global error:', e.error);
+        // Don't show error boundary for minor errors
+        if (e.error && e.error.message && e.error.message.includes('Loading chunk')) {
+          window.location.reload();
+        }
+      });
+
+      // Unhandled promise rejection handler
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('Unhandled promise rejection:', e.reason);
+        // Handle chunk loading errors
+        if (e.reason && e.reason.message && e.reason.message.includes('Loading chunk')) {
+          window.location.reload();
+        }
+      });
+
       // Remove loading skeleton once React app loads
       window.addEventListener('DOMContentLoaded', function() {
         const skeleton = document.getElementById('loading-skeleton');
@@ -175,6 +202,12 @@
             clearInterval(checkReactLoaded);
           }
         }, 100);
+        
+        // Fallback timeout
+        setTimeout(() => {
+          if (skeleton) skeleton.style.display = 'none';
+          clearInterval(checkReactLoaded);
+        }, 5000);
       });
 
       // Lazy load Wistia only when needed
@@ -183,16 +216,22 @@
         if (wistiaLoaded) return;
         wistiaLoaded = true;
         
-        const script1 = document.createElement('script');
-        script1.src = 'https://fast.wistia.com/player.js';
-        script1.async = true;
-        document.head.appendChild(script1);
-        
-        const script2 = document.createElement('script');
-        script2.src = 'https://fast.wistia.com/embed/4mw8h1u2ey.js';
-        script2.async = true;
-        script2.type = 'module';
-        document.head.appendChild(script2);
+        try {
+          const script1 = document.createElement('script');
+          script1.src = 'https://fast.wistia.com/player.js';
+          script1.async = true;
+          script1.onerror = () => console.warn('Failed to load Wistia player');
+          document.head.appendChild(script1);
+          
+          const script2 = document.createElement('script');
+          script2.src = 'https://fast.wistia.com/embed/4mw8h1u2ey.js';
+          script2.async = true;
+          script2.type = 'module';
+          script2.onerror = () => console.warn('Failed to load Wistia embed');
+          document.head.appendChild(script2);
+        } catch (error) {
+          console.warn('Error loading Wistia:', error);
+        }
       }
 
       // Load Wistia when user scrolls to video or interacts
@@ -211,21 +250,26 @@
         if (calendlyLoaded) return;
         calendlyLoaded = true;
         
-        const script = document.createElement('script');
-        script.src = 'https://assets.calendly.com/assets/external/widget.js';
-        script.async = true;
-        document.head.appendChild(script);
-        
-        script.onload = function() {
-          // Global Calendly event listener
-          window.addEventListener('message', function(e) {
-            if (e.data.event && e.data.event === 'calendly.event_scheduled') {
-              setTimeout(function() {
-                window.location.href = '/call-booked';
-              }, 1500);
-            }
-          });
-        };
+        try {
+          const script = document.createElement('script');
+          script.src = 'https://assets.calendly.com/assets/external/widget.js';
+          script.async = true;
+          script.onerror = () => console.warn('Failed to load Calendly');
+          document.head.appendChild(script);
+          
+          script.onload = function() {
+            // Global Calendly event listener
+            window.addEventListener('message', function(e) {
+              if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+                setTimeout(function() {
+                  window.location.href = '/call-booked';
+                }, 1500);
+              }
+            });
+          };
+        } catch (error) {
+          console.warn('Error loading Calendly:', error);
+        }
       }
 
       // Load Calendly when user navigates to booking page

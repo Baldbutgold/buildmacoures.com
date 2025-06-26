@@ -5,50 +5,50 @@ import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import { LazySection } from './components/LazySection';
 
-// Lazy load non-critical components with better chunking
+// Lazy load non-critical components with better error handling
 const WhoIAmSection = lazy(() => 
-  import('./components/WhoIAmSection').then(module => ({ default: module.WhoIAmSection }))
+  import('./components/WhoIAmSection').then(module => ({ default: module.WhoIAmSection })).catch(() => ({ default: () => <div>Error loading section</div> }))
 );
 const OverwhelmingSection = lazy(() => 
-  import('./components/OverwhelmingSection').then(module => ({ default: module.OverwhelmingSection }))
+  import('./components/OverwhelmingSection').then(module => ({ default: module.OverwhelmingSection })).catch(() => ({ default: () => <div>Error loading section</div> }))
 );
 const CheckmarkSection = lazy(() => 
-  import('./components/CheckmarkSection').then(module => ({ default: module.CheckmarkSection }))
+  import('./components/CheckmarkSection').then(module => ({ default: module.CheckmarkSection })).catch(() => ({ default: () => <div>Error loading section</div> }))
 );
 const ReviewsCarousel = lazy(() => 
-  import('./components/ReviewsCarousel').then(module => ({ default: module.ReviewsCarousel }))
+  import('./components/ReviewsCarousel').then(module => ({ default: module.ReviewsCarousel })).catch(() => ({ default: () => <div>Error loading section</div> }))
 );
 const CTASection = lazy(() => 
-  import('./components/CTASection').then(module => ({ default: module.CTASection }))
+  import('./components/CTASection').then(module => ({ default: module.CTASection })).catch(() => ({ default: () => <div>Error loading section</div> }))
 );
 
-// Lazy load pages with preloading hints
+// Lazy load pages with error handling
 const BlogPage = lazy(() => 
-  import('./pages/BlogPage').then(module => ({ default: module.BlogPage }))
+  import('./pages/BlogPage').then(module => ({ default: module.BlogPage })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const BlogPost = lazy(() => 
-  import('./pages/BlogPost').then(module => ({ default: module.BlogPost }))
+  import('./pages/BlogPost').then(module => ({ default: module.BlogPost })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const CallBooked = lazy(() => 
-  import('./pages/CallBooked').then(module => ({ default: module.CallBooked }))
+  import('./pages/CallBooked').then(module => ({ default: module.CallBooked })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const BookCallPage = lazy(() => 
-  import('./pages/BookCallPage').then(module => ({ default: module.BookCallPage }))
+  import('./pages/BookCallPage').then(module => ({ default: module.BookCallPage })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const PrivacyPolicy = lazy(() => 
-  import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy }))
+  import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const TermsOfService = lazy(() => 
-  import('./pages/TermsOfService').then(module => ({ default: module.TermsOfService }))
+  import('./pages/TermsOfService').then(module => ({ default: module.TermsOfService })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const CurriculumGeneratorPage = lazy(() => 
-  import('./pages/CurriculumGeneratorPage').then(module => ({ default: module.CurriculumGeneratorPage }))
+  import('./pages/CurriculumGeneratorPage').then(module => ({ default: module.CurriculumGeneratorPage })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const ViewCurriculumPage = lazy(() => 
-  import('./pages/ViewCurriculumPage').then(module => ({ default: module.ViewCurriculumPage }))
+  import('./pages/ViewCurriculumPage').then(module => ({ default: module.ViewCurriculumPage })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 const SEOContentGeneratorPage = lazy(() => 
-  import('./pages/SEOContentGeneratorPage').then(module => ({ default: module.SEOContentGeneratorPage }))
+  import('./pages/SEOContentGeneratorPage').then(module => ({ default: module.SEOContentGeneratorPage })).catch(() => ({ default: () => <div>Error loading page</div> }))
 );
 
 // Optimized loading fallback component
@@ -114,9 +114,9 @@ function App() {
 
     // Preload critical routes on user interaction
     const preloadRoutes = () => {
-      import('./pages/BookCallPage');
-      import('./pages/CurriculumGeneratorPage');
-      import('./pages/SEOContentGeneratorPage');
+      import('./pages/BookCallPage').catch(() => {});
+      import('./pages/CurriculumGeneratorPage').catch(() => {});
+      import('./pages/SEOContentGeneratorPage').catch(() => {});
     };
 
     // Preload on first user interaction

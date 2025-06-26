@@ -17,15 +17,14 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://buildmacourse.com/" />
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17230784555"></script>
+    <!-- Google tag (gtag.js) - Optimized loading -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'AW-17230784555');
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17230784555"></script>
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -89,20 +88,9 @@
     }
     </script>
 
-    <!-- Wistia Player Scripts -->
-    <script src="https://fast.wistia.com/player.js" async></script>
-    <script src="https://fast.wistia.com/embed/4mw8h1u2ey.js" async type="module"></script>
+    <!-- Optimized Wistia Player Scripts - Lazy loaded -->
+    <link rel="preload" href="https://fast.wistia.com/player.js" as="script">
     
-    <!-- Wistia Player Styles -->
-    <style>
-      wistia-player[media-id='4mw8h1u2ey']:not(:defined) { 
-        background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/4mw8h1u2ey/swatch'); 
-        display: block; 
-        filter: blur(5px); 
-        padding-top: 56.25%; 
-      }
-    </style>
-
     <!-- Critical CSS inlined -->
     <style>
       /* Critical above-the-fold styles */
@@ -111,6 +99,7 @@
         background: #0a0a0a; 
         color: #ffffff; 
         font-family: system-ui, -apple-system, sans-serif;
+        font-display: swap;
       }
       .hero-skeleton {
         min-height: 100vh;
@@ -143,27 +132,6 @@
           border-width: 2px;
         }
       }
-
-      /* Calendly mobile optimizations */
-      @media (max-width: 480px) {
-        .calendly-inline-widget {
-          height: 600px !important;
-          min-width: 280px !important;
-        }
-      }
-      
-      @media (min-width: 481px) and (max-width: 768px) {
-        .calendly-inline-widget {
-          height: 650px !important;
-          min-width: 320px !important;
-        }
-      }
-      
-      @media (min-width: 769px) {
-        .calendly-inline-widget {
-          height: 700px !important;
-        }
-      }
     </style>
 
     <!-- Preconnect to external domains -->
@@ -173,13 +141,16 @@
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://fast.wistia.com">
     
-    <!-- Preload critical fonts with font-display: swap -->
+    <!-- Optimized font loading with font-display: swap -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap"></noscript>
     
     <!-- Resource hints for better performance -->
     <link rel="dns-prefetch" href="https://www.fiverr.com">
     <link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script">
+    
+    <!-- Preload critical images -->
+    <link rel="preload" href="/1337_headshot_ael-hadj-removebg-preview.png" as="image" type="image/png">
   </head>
   <body>
     <!-- Loading skeleton -->
@@ -190,7 +161,7 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Optimized Calendly loading -->
+    <!-- Optimized script loading -->
     <script>
       // Remove loading skeleton once React app loads
       window.addEventListener('DOMContentLoaded', function() {
@@ -206,13 +177,63 @@
         }, 100);
       });
 
-      // Preload Calendly script for faster loading on booking page
-      if (window.location.pathname === '/book-call' || window.location.hash.includes('book-call')) {
+      // Lazy load Wistia only when needed
+      let wistiaLoaded = false;
+      function loadWistia() {
+        if (wistiaLoaded) return;
+        wistiaLoaded = true;
+        
+        const script1 = document.createElement('script');
+        script1.src = 'https://fast.wistia.com/player.js';
+        script1.async = true;
+        document.head.appendChild(script1);
+        
+        const script2 = document.createElement('script');
+        script2.src = 'https://fast.wistia.com/embed/4mw8h1u2ey.js';
+        script2.async = true;
+        script2.type = 'module';
+        document.head.appendChild(script2);
+      }
+
+      // Load Wistia when user scrolls to video or interacts
+      let wistiaLoadTriggered = false;
+      window.addEventListener('scroll', function() {
+        if (wistiaLoadTriggered) return;
+        if (window.scrollY > 200) {
+          loadWistia();
+          wistiaLoadTriggered = true;
+        }
+      }, { passive: true });
+
+      // Lazy load Calendly only when needed
+      let calendlyLoaded = false;
+      function loadCalendly() {
+        if (calendlyLoaded) return;
+        calendlyLoaded = true;
+        
         const script = document.createElement('script');
         script.src = 'https://assets.calendly.com/assets/external/widget.js';
         script.async = true;
         document.head.appendChild(script);
+        
+        script.onload = function() {
+          // Global Calendly event listener
+          window.addEventListener('message', function(e) {
+            if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+              setTimeout(function() {
+                window.location.href = '/call-booked';
+              }, 1500);
+            }
+          });
+        };
       }
+
+      // Load Calendly when user navigates to booking page
+      window.addEventListener('popstate', function() {
+        if (window.location.pathname === '/book-call') {
+          loadCalendly();
+        }
+      });
 
       // Also load when CTA buttons are clicked
       document.addEventListener('click', function(e) {
@@ -220,23 +241,7 @@
             e.target.textContent?.includes('Build Ma Course') ||
             e.target.textContent?.includes('Strategy Call') ||
             e.target.textContent?.includes('Book')) {
-          
-          // Load Calendly script if not already loaded
-          if (!window.Calendly && !document.querySelector('script[src*="calendly"]')) {
-            const script = document.createElement('script');
-            script.src = 'https://assets.calendly.com/assets/external/widget.js';
-            script.async = true;
-            document.head.appendChild(script);
-          }
-        }
-      });
-
-      // Global Calendly event listener for redirects
-      window.addEventListener('message', function(e) {
-        if (e.data.event && e.data.event === 'calendly.event_scheduled') {
-          setTimeout(function() {
-            window.location.href = '/call-booked';
-          }, 1500);
+          loadCalendly();
         }
       });
     </script>

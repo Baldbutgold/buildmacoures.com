@@ -9,14 +9,14 @@ export const Hero = React.memo(() => {
   };
 
   return (
-    <div className="relative pt-16 pb-8 sm:pb-12 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-screen flex flex-col justify-center contain-layout">
+    <div className="relative pt-16 pb-8 sm:pb-12 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 xl:pt-40 xl:pb-28 bg-gradient-to-br from-brand-black via-gray-900 to-brand-black overflow-hidden min-h-screen flex flex-col justify-center">
       {/* Optimized background pattern */}
-      <div className="absolute inset-0 opacity-40 will-change-transform">
+      <div className="absolute inset-0 opacity-40">
         <div className="absolute inset-0" style={{ 
           backgroundImage: `radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
                            radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)` 
         }}></div>
-        <div className="grid-pattern pointer-events-none" style={{ 
+        <div className="grid-pattern" style={{ 
           backgroundImage: 'linear-gradient(to right, rgba(168, 85, 247, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(168, 85, 247, 0.1) 1px, transparent 1px)',
           backgroundSize: '60px 60px'
         }}></div>
@@ -30,7 +30,7 @@ export const Hero = React.memo(() => {
               Stop Struggling With{' '}
             </span>
             <span className="relative inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 sm:mt-3 md:mt-4">
-              <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-lg sm:rounded-xl md:rounded-2xl transform -rotate-1 sm:-rotate-2 inline-block shadow-purple-lg gpu-accelerated">
+              <span className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-2 sm:px-3 py-1 rounded-lg sm:rounded-xl md:rounded-2xl transform -rotate-1 sm:-rotate-2 inline-block shadow-purple-lg">
                 Course Creation
               </span>
             </span>
@@ -40,7 +40,7 @@ export const Hero = React.memo(() => {
             </span>
           </h1>
 
-          {/* Wistia Video with proper mobile spacing */}
+          {/* Wistia Video with lazy loading */}
           <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20">
             <div className="max-w-4xl mx-auto">
               <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/20 bg-brand-black/50 backdrop-blur-sm">
@@ -48,16 +48,17 @@ export const Hero = React.memo(() => {
                   media-id="4mw8h1u2ey" 
                   aspect="1.7777777777777777"
                   style={{ width: '100%', height: 'auto' }}
+                  loading="lazy"
                 ></wistia-player>
               </div>
             </div>
           </div>
 
-          {/* Optimized social proof with proper mobile spacing */}
+          {/* Optimized social proof */}
           <div className="flex justify-center mb-6 sm:mb-8 md:mb-10">
             <button
               onClick={() => window.open('https://www.fiverr.com/mohamed_mrini', '_blank', 'noopener,noreferrer')}
-              className="group flex items-center space-x-2 sm:space-x-3 md:space-x-4 p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1 gpu-accelerated"
+              className="group flex items-center space-x-2 sm:space-x-3 md:space-x-4 p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-lg border border-brand-purple/20 hover:shadow-purple-lg transition-all duration-300 bg-brand-black/50 backdrop-blur-sm hover:border-brand-purple/40 transform hover:-translate-y-1"
               aria-label="View our 4.9 star rating on Fiverr"
             >
               <div className="flex items-center space-x-1 sm:space-x-2">
@@ -73,7 +74,7 @@ export const Hero = React.memo(() => {
             </button>
           </div>
 
-          {/* Enhanced description with mobile optimization */}
+          {/* Enhanced description */}
           <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-brand-gray mb-6 sm:mb-8 md:mb-10 max-w-4xl mx-auto">
             You have the expertise. You know people need what you teach. But creating a professional course feels{' '}
             <strong className="text-brand-white">overwhelming, time-consuming, and technically complicated.</strong>{' '}
@@ -81,12 +82,12 @@ export const Hero = React.memo(() => {
             <strong className="text-brand-purple">complete, professional course without doing any of the work yourself?</strong>
           </p>
 
-          {/* Enhanced CTA with mobile optimization */}
+          {/* Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
             <Button 
               variant="primary" 
               size="lg" 
-              className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group gpu-accelerated text-sm sm:text-base min-h-[48px]"
+              className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group"
               onClick={handleBookCallClick}
             >
               <span className="flex items-center gap-2">

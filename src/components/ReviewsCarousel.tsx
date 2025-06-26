@@ -159,7 +159,7 @@ export const ReviewsCarousel = React.memo(() => {
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden contain-layout" id="testimonials">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 overflow-hidden" id="testimonials">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 bg-brand-purple/20 text-brand-purple px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -176,7 +176,7 @@ export const ReviewsCarousel = React.memo(() => {
 
         <div
           ref={carouselRef}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide gpu-accelerated mb-16 sm:mb-20"
+          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide mb-16 sm:mb-20"
           style={{ scrollBehavior: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onMouseEnter={() => { targetVelocity.current = 0.1; }}
           onMouseLeave={() => { targetVelocity.current = 0.3; }}
@@ -188,7 +188,7 @@ export const ReviewsCarousel = React.memo(() => {
             return (
               <div
                 key={idx}
-                className="group relative bg-brand-black/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-purple-lg transition-all duration-500 p-6 sm:p-8 w-[320px] sm:w-[380px] min-w-[320px] sm:min-w-[380px] border border-brand-purple/20 hover:border-brand-purple/40 transform hover:-translate-y-2 flex flex-col contain-layout"
+                className="group relative bg-brand-black/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-purple-lg transition-all duration-500 p-6 sm:p-8 w-[320px] sm:w-[380px] min-w-[320px] sm:min-w-[380px] border border-brand-purple/20 hover:border-brand-purple/40 transform hover:-translate-y-2 flex flex-col"
               >
                 {/* Quote icon */}
                 <div className="absolute top-4 sm:top-6 right-4 sm:right-6 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -267,7 +267,7 @@ export const ReviewsCarousel = React.memo(() => {
           onClick={() => setModalOpen(false)}
         >
           <div 
-            className="bg-brand-black border border-brand-purple/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto contain-layout"
+            className="bg-brand-black border border-brand-purple/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-2xl w-full relative transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
             <button 

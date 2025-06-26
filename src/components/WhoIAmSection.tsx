@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from './Container';
 import { User, CheckCircle, Star } from 'lucide-react';
-import { LazyImage } from './LazyImage';
 
 export const WhoIAmSection = () => {
   return (
@@ -25,12 +24,10 @@ export const WhoIAmSection = () => {
                 <div className="relative">
                   {/* Simple border that touches the image exactly */}
                   <div className="relative border-2 border-brand-purple/30 rounded-2xl overflow-hidden">
-                    <LazyImage 
+                    <img 
                       src="/1337_headshot_ael-hadj-removebg-preview.png" 
                       alt="Mohamed - Course Creation Expert"
                       className="w-64 sm:w-80 md:w-96 lg:w-full lg:max-w-md h-auto object-contain"
-                      fallback="M"
-                      priority={true}
                     />
                   </div>
                   

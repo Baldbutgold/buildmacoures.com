@@ -12,7 +12,6 @@ export const Header = () => {
 
   const navItems: NavItem[] = [
     { label: 'Free Curriculum Generator', href: '/generate-curriculum', isRoute: true },
-    { label: 'SEO Content Generator', href: '/seo-content-generator', isRoute: true },
     { label: 'Blog', href: '/blog', isRoute: true },
   ];
 

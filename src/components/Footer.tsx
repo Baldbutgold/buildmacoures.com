@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from './Container';
-import { Mail, Calendar, Star, Sparkles, Search } from 'lucide-react';
+import { Mail, Calendar, Star, Sparkles } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export const Footer = () => {
@@ -45,7 +45,7 @@ export const Footer = () => {
             
             {/* Contact */}
             <div>
-              <h4 className="text-base sm:text-lg font-bold text-brand-white mb-4 sm:mb-6">Free Tools & Resources</h4>
+              <h4 className="text-base sm:text-lg font-bold text-brand-white mb-4 sm:mb-6">Get Started</h4>
               <ul className="space-y-3">
                 <li>
                   <Link 
@@ -54,15 +54,6 @@ export const Footer = () => {
                   >
                     <Sparkles className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
                     Free Curriculum Generator
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/seo-content-generator"
-                    className="flex items-center gap-2 hover:text-brand-white transition-colors duration-200 group text-sm sm:text-base"
-                  >
-                    <Search className="w-4 h-4 group-hover:text-brand-purple transition-colors" />
-                    SEO Content Generator
                   </Link>
                 </li>
                 <li>

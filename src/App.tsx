@@ -47,6 +47,9 @@ const CurriculumGeneratorPage = lazy(() =>
 const ViewCurriculumPage = lazy(() => 
   import('./pages/ViewCurriculumPage').then(module => ({ default: module.ViewCurriculumPage }))
 );
+const SEOContentGeneratorPage = lazy(() => 
+  import('./pages/SEOContentGeneratorPage').then(module => ({ default: module.SEOContentGeneratorPage }))
+);
 
 // Optimized loading fallback component
 const SectionFallback = React.memo(() => (
@@ -113,6 +116,7 @@ function App() {
     const preloadRoutes = () => {
       import('./pages/BookCallPage');
       import('./pages/CurriculumGeneratorPage');
+      import('./pages/SEOContentGeneratorPage');
     };
 
     // Preload on first user interaction
@@ -147,6 +151,7 @@ function App() {
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/generate-curriculum" element={<CurriculumGeneratorPage />} />
               <Route path="/curriculum/:token" element={<ViewCurriculumPage />} />
+              <Route path="/seo-content-generator" element={<SEOContentGeneratorPage />} />
             </Routes>
           </Suspense>
         </main>

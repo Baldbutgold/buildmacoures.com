@@ -3,38 +3,9 @@ import { Section } from './Section';
 import { Calendar } from 'lucide-react';
 
 export const CTASection = () => {
-  useEffect(() => {
-    // Ensure Calendly script is loaded and configure redirect
-    if (window.Calendly) {
-      window.Calendly.initInlineWidget({
-        url: 'https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1',
-        parentElement: document.querySelector('.calendly-inline-widget'),
-        prefill: {},
-        utm: {},
-        // Add redirect configuration
-        onEventScheduled: function(e) {
-          // Redirect to call booked page when event is scheduled
-          window.location.href = '/call-booked';
-        }
-      });
-    }
-
-    // Also listen for Calendly events
-    const handleCalendlyEvent = (e) => {
-      if (e.data.event && e.data.event === 'calendly.event_scheduled') {
-        // Redirect when event is scheduled
-        setTimeout(() => {
-          window.location.href = '/call-booked';
-        }, 1000); // Small delay to ensure the booking is processed
-      }
-    };
-
-    window.addEventListener('message', handleCalendlyEvent);
-
-    return () => {
-      window.removeEventListener('message', handleCalendlyEvent);
-    };
-  }, []);
+  const handleBookCallClick = () => {
+    window.location.href = '/book-call';
+  };
 
   return (
     <Section className="bg-gradient-to-br from-gray-900 via-brand-black to-gray-900 text-white" id="schedule-call">
@@ -53,33 +24,24 @@ export const CTASection = () => {
         </div>
         
         <div className="bg-gradient-to-br from-brand-black/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-brand-purple/20">
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-brand-purple">
               Book Your Free "Course Blueprint" Call
             </h3>
-            <p className="text-brand-gray text-base sm:text-lg max-w-2xl mx-auto">
+            <p className="text-brand-gray text-base sm:text-lg max-w-2xl mx-auto mb-8">
               In 30 minutes, I'll create a custom roadmap for your course and show you exactly what it takes to get it built and launched professionally.
             </p>
-          </div>
 
-          {/* Large Calendly Widget with proper redirect configuration */}
-          <div className="flex justify-center calendly-container">
-            <div 
-              className="calendly-inline-widget w-full max-w-4xl" 
-              data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1" 
-              style={{
-                minWidth: '280px', 
-                height: '700px', 
-                borderRadius: '16px', 
-                overflow: 'hidden',
-                width: '100%',
-                pointerEvents: 'auto',
-                touchAction: 'pan-y'
-              }}
-            ></div>
+            {/* CTA Button */}
+            <button 
+              onClick={handleBookCallClick}
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-8 py-4 rounded-full font-bold text-lg hover:from-brand-purple-dark hover:to-brand-purple-deep transition-all duration-300 transform hover:-translate-y-1 shadow-purple hover:shadow-purple-lg group"
+            >
+              📞 Book Your Free Strategy Call
+            </button>
           </div>
           
-          <div className="text-center mt-8 pt-6 border-t border-brand-purple/20">
+          <div className="text-center pt-6 border-t border-brand-purple/20">
             <p className="text-brand-gray text-sm sm:text-base">
               <strong className="text-white">100% Free.</strong> No sales pitch. Just a clear plan for turning your expertise into a profitable course that actually sells.
             </p>

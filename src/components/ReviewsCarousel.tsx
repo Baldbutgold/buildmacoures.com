@@ -172,7 +172,7 @@ export const ReviewsCarousel = React.memo(() => {
 
         <div
           ref={carouselRef}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide gpu-accelerated"
+          className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide gpu-accelerated mb-16 sm:mb-20"
           style={{ scrollBehavior: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onMouseEnter={() => { targetVelocity.current = 0.1; }}
           onMouseLeave={() => { targetVelocity.current = 0.3; }}
@@ -234,6 +234,24 @@ export const ReviewsCarousel = React.memo(() => {
               </div>
             );
           })}
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-purple-lg">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 font-bricolage">
+              Ready to Join These Success Stories?
+            </h3>
+            <p className="text-lg sm:text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+              Let's discuss how to turn your expertise into a professional course that gets results like these.
+            </p>
+            <button 
+              onClick={() => window.location.href = '/book-call'}
+              className="inline-flex items-center gap-3 bg-white text-brand-purple px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
+            >
+              📞 Book Your Free Strategy Call
+            </button>
+          </div>
         </div>
       </div>
 

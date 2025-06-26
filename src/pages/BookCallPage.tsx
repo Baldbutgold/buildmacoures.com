@@ -5,28 +5,46 @@ import { Link } from 'react-router-dom';
 
 export const BookCallPage = () => {
   useEffect(() => {
-    // Ensure Calendly script is loaded and configure redirect
-    if (window.Calendly) {
-      window.Calendly.initInlineWidget({
-        url: 'https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1',
-        parentElement: document.querySelector('.calendly-inline-widget'),
-        prefill: {},
-        utm: {},
-        // Add redirect configuration
-        onEventScheduled: function(e) {
-          // Redirect to call booked page when event is scheduled
-          window.location.href = '/call-booked';
-        }
-      });
-    }
+    // Load Calendly script if not already loaded
+    const loadCalendly = () => {
+      if (window.Calendly) {
+        // Calendly is already loaded, initialize the widget
+        initializeCalendlyWidget();
+        return;
+      }
 
-    // Also listen for Calendly events
+      // Load Calendly script
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.onload = () => {
+        initializeCalendlyWidget();
+      };
+      document.head.appendChild(script);
+    };
+
+    const initializeCalendlyWidget = () => {
+      const calendlyContainer = document.querySelector('.calendly-inline-widget');
+      if (calendlyContainer && window.Calendly) {
+        window.Calendly.initInlineWidget({
+          url: 'https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1',
+          parentElement: calendlyContainer,
+          prefill: {},
+          utm: {}
+        });
+      }
+    };
+
+    // Load Calendly when component mounts
+    loadCalendly();
+
+    // Listen for Calendly events
     const handleCalendlyEvent = (e) => {
       if (e.data.event && e.data.event === 'calendly.event_scheduled') {
         // Redirect when event is scheduled
         setTimeout(() => {
           window.location.href = '/call-booked';
-        }, 1000); // Small delay to ensure the booking is processed
+        }, 1000);
       }
     };
 
@@ -74,19 +92,18 @@ export const BookCallPage = () => {
               </p>
             </div>
 
-            {/* Large Calendly Widget with proper redirect configuration */}
-            <div className="flex justify-center calendly-container">
+            {/* Calendly Widget Container */}
+            <div className="flex justify-center">
               <div 
-                className="calendly-inline-widget w-full max-w-4xl" 
+                className="calendly-inline-widget" 
                 data-url="https://calendly.com/baldbutgold/discovery-call?hide_event_type_details=1" 
                 style={{
                   minWidth: '280px', 
                   height: '700px', 
-                  borderRadius: '16px', 
-                  overflow: 'hidden',
                   width: '100%',
-                  pointerEvents: 'auto',
-                  touchAction: 'pan-y'
+                  maxWidth: '900px',
+                  borderRadius: '16px', 
+                  overflow: 'hidden'
                 }}
               ></div>
             </div>

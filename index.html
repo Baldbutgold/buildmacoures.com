@@ -143,6 +143,27 @@
           border-width: 2px;
         }
       }
+
+      /* Calendly mobile optimizations */
+      @media (max-width: 480px) {
+        .calendly-inline-widget {
+          height: 600px !important;
+          min-width: 280px !important;
+        }
+      }
+      
+      @media (min-width: 481px) and (max-width: 768px) {
+        .calendly-inline-widget {
+          height: 650px !important;
+          min-width: 320px !important;
+        }
+      }
+      
+      @media (min-width: 769px) {
+        .calendly-inline-widget {
+          height: 700px !important;
+        }
+      }
     </style>
 
     <!-- Preconnect to external domains -->
@@ -185,46 +206,37 @@
         }, 100);
       });
 
-      // Lazy load Calendly only when needed
-      let calendlyLoaded = false;
-      function loadCalendly() {
-        if (calendlyLoaded) return;
-        calendlyLoaded = true;
-        
+      // Preload Calendly script for faster loading on booking page
+      if (window.location.pathname === '/book-call' || window.location.hash.includes('book-call')) {
         const script = document.createElement('script');
         script.src = 'https://assets.calendly.com/assets/external/widget.js';
         script.async = true;
         document.head.appendChild(script);
-        
-        script.onload = function() {
-          // Global Calendly event listener
-          window.addEventListener('message', function(e) {
-            if (e.data.event && e.data.event === 'calendly.event_scheduled') {
-              setTimeout(function() {
-                window.location.href = '/call-booked';
-              }, 1500);
-            }
-          });
-        };
       }
-
-      // Load Calendly when user scrolls to CTA section or clicks CTA
-      window.addEventListener('scroll', function() {
-        const ctaSection = document.querySelector('#schedule-call');
-        if (ctaSection) {
-          const rect = ctaSection.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            loadCalendly();
-          }
-        }
-      }, { passive: true });
 
       // Also load when CTA buttons are clicked
       document.addEventListener('click', function(e) {
         if (e.target.closest('[data-calendly]') || 
             e.target.textContent?.includes('Build Ma Course') ||
-            e.target.textContent?.includes('Strategy Call')) {
-          loadCalendly();
+            e.target.textContent?.includes('Strategy Call') ||
+            e.target.textContent?.includes('Book')) {
+          
+          // Load Calendly script if not already loaded
+          if (!window.Calendly && !document.querySelector('script[src*="calendly"]')) {
+            const script = document.createElement('script');
+            script.src = 'https://assets.calendly.com/assets/external/widget.js';
+            script.async = true;
+            document.head.appendChild(script);
+          }
+        }
+      });
+
+      // Global Calendly event listener for redirects
+      window.addEventListener('message', function(e) {
+        if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+          setTimeout(function() {
+            window.location.href = '/call-booked';
+          }, 1500);
         }
       });
     </script>

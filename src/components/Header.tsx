@@ -45,10 +45,6 @@ export const Header = () => {
     }
   };
 
-  const handleBookCallClick = () => {
-    window.location.href = '/book-call';
-  };
-
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -94,7 +90,7 @@ export const Header = () => {
             <Button 
               variant="primary"
               size="sm"
-              onClick={handleBookCallClick}
+              onClick={() => scrollToSection('#schedule-call')}
               className="shadow-purple hover:shadow-purple-lg text-sm lg:text-base"
             >
               Book a Free Strategy Call
@@ -138,7 +134,7 @@ export const Header = () => {
             <Button 
               variant="primary" 
               className="w-full mt-4"
-              onClick={handleBookCallClick}
+              onClick={() => scrollToSection('#schedule-call')}
             >
               Book a Free Strategy Call
             </Button>

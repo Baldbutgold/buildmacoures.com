@@ -4,8 +4,11 @@ import { Container } from './Container';
 import { Star, ArrowRight } from 'lucide-react';
 
 export const Hero = React.memo(() => {
-  const handleBookCallClick = () => {
-    window.location.href = '/book-call';
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -87,7 +90,7 @@ export const Hero = React.memo(() => {
               variant="primary" 
               size="lg" 
               className="shadow-purple-lg hover:shadow-purple transform hover:-translate-y-1 animate-float w-full sm:w-auto group gpu-accelerated text-sm sm:text-base min-h-[48px]"
-              onClick={handleBookCallClick}
+              onClick={() => scrollToSection('#schedule-call')}
             >
               <span className="flex items-center gap-2">
                 🚀 Yes, Build My Course!

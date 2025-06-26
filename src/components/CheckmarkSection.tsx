@@ -84,9 +84,9 @@ export const CheckmarkSection = () => {
             ))}
           </div>
 
-          {/* Trust indicators and CTA */}
+          {/* Trust indicators */}
           <div className="text-center mt-16 sm:mt-20">
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm sm:text-base mb-8">
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-brand-gray text-sm sm:text-base">
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-brand-white">80+ Courses Created</span>
               </div>
@@ -99,14 +99,6 @@ export const CheckmarkSection = () => {
                 <span className="font-semibold text-brand-white">Since 2019</span>
               </div>
             </div>
-
-            {/* CTA Button */}
-            <button 
-              onClick={() => window.location.href = '/book-call'}
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-brand-purple to-brand-purple-dark text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:from-brand-purple-dark hover:to-brand-purple-deep transition-all duration-300 transform hover:-translate-y-1 shadow-purple hover:shadow-purple-lg group"
-            >
-              🚀 Let's Build Your Course!
-            </button>
           </div>
         </div>
       </Container>

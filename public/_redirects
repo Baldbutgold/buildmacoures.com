@@ -1,9 +1,1 @@
 /*    /index.html   200
-
-# Handle www subdomain redirects
-https://www.buildmacourse.com/* https://buildmacourse.com/:splat 301!
-http://www.buildmacourse.com/* https://buildmacourse.com/:splat 301!
-
-# Handle non-www to www if needed (comment out the above and use this instead)
-# https://buildmacourse.com/* https://www.buildmacourse.com/:splat 301!
-# http://buildmacourse.com/* https://www.buildmacourse.com/:splat 301!

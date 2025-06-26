@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
-    include: ['react', 'react-dom', 'react-router-dom']
+    include: ['react', 'react-dom', 'react-router-dom', '@supabase/supabase-js']
   },
   build: {
     rollupOptions: {
@@ -42,7 +42,9 @@ export default defineConfig({
     // Optimize chunk size
     chunkSizeWarningLimit: 1000,
     // Ensure proper source maps for debugging
-    sourcemap: true
+    sourcemap: false, // Disable in production for smaller files
+    // Better error handling for chunk loading
+    target: 'es2015'
   },
   // Enable compression and caching
   server: {
@@ -53,5 +55,9 @@ export default defineConfig({
   // Add base path configuration
   base: '/',
   // Ensure proper asset handling
-  assetsInclude: ['**/*.woff2', '**/*.woff', '**/*.ttf']
+  assetsInclude: ['**/*.woff2', '**/*.woff', '**/*.ttf'],
+  // Define environment variables for better error handling
+  define: {
+    __DEV__: JSON.stringify(process.env.NODE_ENV === 'development')
+  }
 });

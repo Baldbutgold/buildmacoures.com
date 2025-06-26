@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from '../components/Container';
 import { CheckCircle, Calendar, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const CallBooked = () => {
+  useEffect(() => {
+    // Fire Google Analytics conversion event
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', {'send_to': 'AW-17230784555/c0PzCKrN0OMaEKvQo5hA'});
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-black via-gray-900 to-brand-black pt-20 sm:pt-24 lg:pt-32 flex items-center">
       <Container>

@@ -1,0 +1,9 @@
+{
+  "name": "buildmacourse-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "buildmacourse.com static marketing site (no build step).",
+  "scripts": {
+    "build": "echo 'static site, no build needed'"
+  }
+}

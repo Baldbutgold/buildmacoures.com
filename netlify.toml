@@ -1,0 +1,19 @@
+# buildmacourse.com static site, no build step.
+# command is set to a no-op so it overrides the previous Vite build config in the Netlify UI.
+[build]
+  command = "echo 'static site, no build needed'"
+  publish = "."
+
+# Long-cache the fingerprint-safe asset images; they rarely change.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Sensible security headers for a static marketing site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"

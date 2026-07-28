@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free course blueprint and fixed quote | buildmacourse</title>
+<meta name="description" content="Send us what you teach. Get a free module-by-module course blueprint and a fixed quote within 2 business days. No sales call required." />
+<meta name="robots" content="noindex,follow" />
+<link rel="canonical" href="https://buildmacourse.com/quote" />
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+<!-- Google Ads base tag (same ID as index.html) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17230784555"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17230784555');
+  /* TODO: add GA4 property here when created: gtag('config', 'G-XXXXXXXXXX'); */
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* Design tokens copied from index.html so the brand reads identical. No shared stylesheet: the site has no build step. */
+:root {
+  --bg:        #0b0b0d;
+  --bg-elev:   #131316;
+  --bg-elev-2: #1a1a1e;
+  --line:      rgba(236, 234, 227, 0.09);
+  --line-2:    rgba(236, 234, 227, 0.16);
+  --ink:       #ece9e1;
+  --ink-soft:  #b4b0a6;
+  --ink-mute:  #807c72;
+  --accent:    #e9b949;
+  --accent-deep:#ca9a2f;
+  --accent-soft: rgba(233, 185, 73, 0.12);
+  --radius:    16px;
+  --radius-sm: 10px;
+  --maxw:      1160px;
+  --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+h1, h2, h3 {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; color: var(--ink);
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+.accent { color: var(--accent); }
+.mono { font-family: "Geist Mono", ui-monospace, monospace; font-weight: 500; }
+
+.eyebrow {
+  font-family: "Geist Mono", monospace; font-size: 12px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); opacity: 0.6; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: "Geist", sans-serif; font-weight: 600; font-size: 15px;
+  padding: 14px 24px; border-radius: 999px; border: 1px solid transparent;
+  cursor: pointer; transition: transform 0.18s var(--ease), background 0.2s var(--ease);
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px) scale(0.985); }
+.btn-primary { background: var(--accent); color: #1c1605; }
+.btn-primary:hover { background: #f2c462; }
+
+/* header: brand only, no nav. Every exit on this page is the form. */
+.bar { height: 66px; display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: inline-flex; align-items: center; gap: 9px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.03em; }
+.brand .dot { width: 9px; height: 9px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.bar .mail { font-size: 14px; color: var(--ink-soft); }
+.bar .mail:hover { color: var(--ink); }
+
+/* hero grid: copy left, form right */
+.hero { padding: 64px 0 80px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
+.hero h1 { font-size: clamp(32px, 4.2vw, 52px); margin-top: 22px; }
+.hero .sub { color: var(--ink-soft); font-size: clamp(16px, 1.4vw, 19px); margin-top: 22px; max-width: 50ch; }
+.gets { margin-top: 34px; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.get { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.get .n { font-family: "Bricolage Grotesque", sans-serif; font-size: 19px; color: var(--accent); font-weight: 600; padding-top: 1px; }
+.get h3 { font-size: 17.5px; }
+.get p { color: var(--ink-soft); font-size: 14.5px; margin-top: 5px; max-width: 52ch; }
+.hero-meta { margin-top: 28px; display: flex; gap: 26px; flex-wrap: wrap; }
+.hero-meta .n { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 600; }
+.hero-meta .l { font-size: 13px; color: var(--ink-mute); margin-top: 1px; }
+
+/* the form card */
+.form-card {
+  border: 1px solid var(--line-2); border-radius: 20px; padding: 32px 30px;
+  background:
+    radial-gradient(90% 120% at 100% 0%, rgba(233,185,73,0.10) 0%, transparent 45%),
+    var(--bg-elev);
+  position: sticky; top: 28px;
+}
+.form-card h2 { font-size: 22px; }
+.form-card .fc-sub { color: var(--ink-soft); font-size: 14px; margin-top: 8px; }
+.field { margin-top: 18px; }
+.field label { display: block; font-size: 13.5px; font-weight: 500; color: var(--ink-soft); margin-bottom: 7px; }
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--bg); color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: var(--radius-sm);
+  padding: 12px 14px; font-family: "Geist", sans-serif; font-size: 15px;
+  transition: border-color 0.2s var(--ease);
+}
+.field textarea { min-height: 96px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent-deep); }
+.field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b4b0a6' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.form-card .btn { width: 100%; margin-top: 24px; font-size: 16px; padding: 15px 24px; }
+.fine { font-size: 12.5px; color: var(--ink-mute); margin-top: 14px; text-align: center; }
+.fine a { color: var(--ink-soft); text-decoration: underline; }
+.hidden { display: none !important; }
+
+/* proof strip */
+.proof { border-top: 1px solid var(--line); padding: 70px 0; }
+.proof .sec-head h2 { font-size: clamp(26px, 3vw, 36px); margin-top: 16px; }
+.proof .sec-head p { color: var(--ink-soft); margin-top: 14px; max-width: 62ch; }
+.proof-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.case { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg-elev); }
+.case .ph { aspect-ratio: 16 / 9; overflow: hidden; }
+.case .ph img { width: 100%; height: 100%; object-fit: cover; }
+.case .body { padding: 16px 18px 20px; }
+.case .ind { font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.case h3 { font-size: 16.5px; margin-top: 7px; }
+
+/* FAQ */
+.faq { border-top: 1px solid var(--line); padding: 70px 0; }
+.faq h2 { font-size: clamp(26px, 3vw, 36px); }
+.faq-list { margin-top: 28px; border-top: 1px solid var(--line); max-width: 780px; }
+.faq-list details { border-bottom: 1px solid var(--line); }
+.faq-list summary {
+  cursor: pointer; list-style: none; padding: 20px 0; font-size: 16.5px; font-weight: 500;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: "+"; color: var(--accent); font-size: 20px; flex: none; }
+.faq-list details[open] summary::after { content: "\2013"; }
+.faq-list details p { color: var(--ink-soft); font-size: 15px; padding-bottom: 20px; max-width: 62ch; }
+
+/* bottom CTA */
+.bottom-cta { border-top: 1px solid var(--line); padding: 80px 0; text-align: center; }
+.bottom-cta h2 { font-size: clamp(28px, 3.6vw, 44px); max-width: 22ch; margin: 16px auto 0; }
+.bottom-cta p { color: var(--ink-soft); margin: 16px auto 0; max-width: 52ch; }
+.bottom-cta .btn { margin-top: 30px; }
+
+.foot { border-top: 1px solid var(--line); padding: 34px 0; color: var(--ink-mute); font-size: 13px; }
+.foot .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.foot a { color: var(--ink-soft); }
+.foot a:hover { color: var(--ink); }
+
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 44px; }
+  .form-card { position: static; }
+  .proof-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .wrap { padding: 0 20px; }
+  .hero { padding: 44px 0 60px; }
+  .proof-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="dot"></span>buildmacourse</a>
+    <a class="mail" href="mailto:hello@buildmacourse.com">hello@buildmacourse.com</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ====================== HERO + FORM ====================== -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Done-for-you course production</span>
+      <h1>Your training material, built into a finished, <span class="accent">LMS-ready course</span>.</h1>
+      <p class="sub">Tell us what you teach. Within 2 business days you get a free course blueprint and a fixed quote for the full build. No sales call required.</p>
+
+      <div class="gets">
+        <div class="get"><div class="n">01</div><div><h3>A module-by-module blueprint</h3><p>A curriculum map built from your material: modules, lessons, and the assessment plan. Yours to keep, whoever builds it.</p></div></div>
+        <div class="get"><div class="n">02</div><div><h3>A fixed quote</h3><p>One price for the complete build: scripting, slides, voiceover, video, assessments, and the LMS upload. No hourly billing.</p></div></div>
+        <div class="get"><div class="n">03</div><div><h3>A free sample lesson before you sign</h3><p>If the blueprint and quote work for you, we produce one finished lesson from your own content, free, so you judge the standard before committing to anything.</p></div></div>
+      </div>
+
+      <div class="hero-meta">
+        <div><div class="n">2-4 wk</div><div class="l">Typical course build</div></div>
+        <div><div class="n">You own it</div><div class="l">Full IP and source files</div></div>
+        <div><div class="n">SCORM</div><div class="l">Ready for any LMS</div></div>
+      </div>
+    </div>
+
+    <!-- ============ THE FORM ============ -->
+    <div class="form-card" id="form">
+      <h2>Get your free blueprint and quote</h2>
+      <p class="fc-sub">Takes about 60 seconds. We reply within one business day.</p>
+
+      <form name="course-quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks">
+        <input type="hidden" name="form-name" value="course-quote" />
+        <input type="hidden" name="gclid" id="gclid-field" />
+        <p class="hidden"><label>Skip this field: <input name="bot-field" /></label></p>
+
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input type="text" id="f-name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="f-email">Work email</label>
+          <input type="email" id="f-email" name="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="f-company">Company or organization</label>
+          <input type="text" id="f-company" name="company" required autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="f-training">What do you train, and who is it for?</label>
+          <textarea id="f-training" name="training" required placeholder="e.g. Food safety certification for kitchen staff, about 6 modules"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-material">Do you already have material written?</label>
+          <select id="f-material" name="material" required>
+            <option value="" disabled selected>Choose one</option>
+            <option>Yes, fully written</option>
+            <option>Partly written</option>
+            <option>Not yet, it is in our heads</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Get my free blueprint + quote <span aria-hidden="true">&rarr;</span></button>
+        <p class="fine">We reply within one business day. We never share your details. <a href="/privacy">Privacy policy</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PROOF ====================== -->
+<section class="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The work</span>
+      <h2>Courses shipped across regulated and frontline training.</h2>
+      <p>Compliance, certification, and onboarding programs are the whole focus. Curriculum, scripting, slides, voiceover, video, assessments, and LMS upload, handled by one team.</p>
+    </div>
+    <div class="proof-grid">
+      <article class="case">
+        <div class="ph"><img src="assets/accounting.jpg" alt="Accounting desk with reports and calculator" loading="lazy" width="640" height="360" /></div>
+        <div class="body"><div class="ind">Accounting</div><h3>Continuing education (CPE)</h3></div>
+      </article>
+      <article class="case">
+        <div class="ph"><img src="assets/food-safety.jpg" alt="Commercial kitchen food safety training" loading="lazy" width="640" height="360" /></div>
+        <div class="body"><div class="ind">Food service</div><h3>Kitchen and food safety</h3></div>
+      </article>
+      <article class="case">
+        <div class="ph"><img src="assets/healthcare.jpg" alt="Healthcare assistant training setting" loading="lazy" width="640" height="360" /></div>
+        <div class="body"><div class="ind">Care and health</div><h3>Healthcare assistant training</h3></div>
+      </article>
+      <article class="case">
+        <div class="ph"><img src="assets/hospitality.jpg" alt="Hotel housekeeping training program" loading="lazy" width="640" height="360" /></div>
+        <div class="body"><div class="ind">Hospitality</div><h3>Housekeeping certification</h3></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FAQ ====================== -->
+<section class="faq">
+  <div class="wrap">
+    <h2>Common questions.</h2>
+    <div class="faq-list">
+      <details>
+        <summary>Is the blueprint really free?</summary>
+        <p>Yes, no strings attached. It is how we prove the standard of our thinking before you spend anything. The blueprint is yours to keep even if you build the course with someone else.</p>
+      </details>
+      <details>
+        <summary>Will the course work in our LMS?</summary>
+        <p>Yes. We deliver SCORM-ready packages and can build directly inside Moodle, Google Classroom, or most hosted platforms. If you do not have an LMS yet, we set one up for you.</p>
+      </details>
+      <details>
+        <summary>Who owns the finished course?</summary>
+        <p>You do. You get full IP and the editable source files on delivery, so you can run, update, or resell the program without depending on us.</p>
+      </details>
+      <details>
+        <summary>How long does a course take?</summary>
+        <p>A single course is usually 2 to 4 weeks from approved scope to delivery. A multi-module certification program runs longer and is planned out in the blueprint.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== BOTTOM CTA ====================== -->
+<section class="bottom-cta">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center;">Start with the plan</span>
+    <h2>Know the plan and the price before you spend a dollar.</h2>
+    <p>Fill in the form and you will have a module-by-module blueprint and a fixed quote in your inbox within 2 business days.</p>
+    <a class="btn btn-primary" href="#form">Get my free blueprint + quote <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>MonetizeUrContent LLC. All rights reserved.</span>
+    <span><a href="/privacy">Privacy policy</a> &nbsp;&middot;&nbsp; <a href="mailto:hello@buildmacourse.com">hello@buildmacourse.com</a></span>
+  </div>
+</footer>
+
+<script>
+  // Capture the Google Ads click ID so each lead can be matched to its keyword later.
+  (function(){
+    try {
+      var p = new URLSearchParams(window.location.search);
+      var g = p.get('gclid');
+      if (g) {
+        document.getElementById('gclid-field').value = g;
+        sessionStorage.setItem('bmc_gclid', g);
+      } else {
+        var s = sessionStorage.getItem('bmc_gclid');
+        if (s) document.getElementById('gclid-field').value = s;
+      }
+    } catch(e) {}
+  })();
+</script>
+</body>
+</html>

@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 .netlify/
+
+# internal planning docs, never deploy
+google_ads_readiness_plan.md
+google_ads_keyword_forecast_data.md

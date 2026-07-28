@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request received | buildmacourse</title>
+<meta name="robots" content="noindex,nofollow" />
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+<!-- Google Ads base tag (same ID as index.html) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17230784555"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17230784555');
+
+  /* Lead form conversion. Fires once, on this page load only.
+     TODO: replace CONVERSION_LABEL with the label from
+     Google Ads > Goals > Conversions before launch. */
+  gtag('event', 'conversion', {
+    'send_to': 'AW-17230784555/CONVERSION_LABEL'
+  });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg: #0b0b0d; --bg-elev: #131316;
+  --line: rgba(236,234,227,0.09); --line-2: rgba(236,234,227,0.16);
+  --ink: #ece9e1; --ink-soft: #b4b0a6; --ink-mute: #807c72;
+  --accent: #e9b949; --accent-soft: rgba(233,185,73,0.12);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Geist", system-ui, sans-serif; font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh; display: flex; flex-direction: column;
+}
+h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; }
+a { color: inherit; text-decoration: none; }
+.wrap { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.bar { height: 66px; display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 9px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.03em; }
+.brand .dot { width: 9px; height: 9px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+main { flex: 1; display: flex; align-items: center; padding: 60px 0; }
+.check {
+  width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent); border: 1px solid var(--line-2);
+}
+h1 { font-size: clamp(30px, 5vw, 44px); margin-top: 26px; }
+.sub { color: var(--ink-soft); font-size: 17px; margin-top: 18px; max-width: 52ch; }
+.next {
+  margin-top: 34px; border: 1px solid var(--line-2); border-radius: 16px;
+  background: var(--bg-elev); padding: 26px 28px;
+}
+.next h2 { font-family: "Geist Mono", monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.next ol { margin: 14px 0 0 18px; color: var(--ink-soft); font-size: 15px; }
+.next li { margin-top: 8px; }
+.next li strong { color: var(--ink); font-weight: 600; }
+.speed { margin-top: 22px; font-size: 14.5px; color: var(--ink-mute); }
+.speed a { color: var(--ink-soft); text-decoration: underline; }
+.foot { border-top: 1px solid var(--line); padding: 28px 0; color: var(--ink-mute); font-size: 13px; }
+.foot .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.foot a { color: var(--ink-soft); }
+</style>
+</head>
+
+<body>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="dot"></span>buildmacourse</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="check" aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h1>Got it. Your blueprint is in the queue.</h1>
+    <p class="sub">Thanks for the details. Abdou will reply from hello@buildmacourse.com within one business day, and your course blueprint and fixed quote will follow within 2 business days.</p>
+
+    <div class="next">
+      <h2>What happens next</h2>
+      <ol>
+        <li><strong>Within 1 business day:</strong> a personal reply confirming we understood your training right.</li>
+        <li><strong>Within 2 business days:</strong> your module-by-module blueprint and a fixed quote for the full build.</li>
+        <li><strong>If you like both:</strong> we produce one free sample lesson from your material before you sign anything.</li>
+      </ol>
+    </div>
+
+    <p class="speed">Want to speed things up? Reply to our email with any curriculum, slides, SOPs, or notes you already have, in any state. Rough is fine.</p>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>MonetizeUrContent LLC. All rights reserved.</span>
+    <span><a href="/privacy">Privacy policy</a></span>
+  </div>
+</footer>
+</body>
+</html>

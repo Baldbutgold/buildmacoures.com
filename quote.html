@@ -144,6 +144,16 @@ form .cta { width: 100%; margin-top: 22px; }
 .err { color: #e98a49; font-size: 13px; text-align: center; margin-top: 10px; display: none; }
 .err.on { display: block; }
 
+/* ---------- what you get ---------- */
+.get-sec { border-top: 1px solid var(--line); padding: 54px 0 58px; text-align: center; }
+.get-sec h2 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: clamp(23px, 2.6vw, 29px); letter-spacing: -0.02em; }
+.get-sec .gh { color: var(--ink-soft); font-size: 15px; margin: 12px auto 0; max-width: 50ch; }
+.gets { margin-top: 30px; display: grid; gap: 0; text-align: left; max-width: 620px; margin-left: auto; margin-right: auto; border-top: 1px solid var(--line); }
+.gets .g { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 15px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.gets .g span { font-family: "Geist Mono", monospace; font-size: 12px; color: var(--accent); padding-top: 2px; }
+.gets .g div { color: var(--ink-soft); font-size: 14.5px; }
+.gets .g strong { color: var(--ink); font-weight: 600; }
+
 /* ---------- faq ---------- */
 .faq { border-top: 1px solid var(--line); padding: 52px 0 60px; }
 .faq .wrap { max-width: 640px; }
@@ -183,46 +193,12 @@ form .cta { width: 100%; margin-top: 22px; }
     <h1>Are you training every new hire from scratch?</h1>
     <p class="sub">Get a free course blueprint built from your own training material.</p>
 
-    <div class="visual">
-      <div class="v-top">
-        <span class="t">Your course blueprint &mdash; sample</span>
-        <span class="tag">$300 value</span>
-      </div>
-      <div class="v-body">
-        <div class="mod">
-          <div class="m"><span>01</span>Welcome and what the first week looks like</div>
-          <ul>
-            <li>Who we are, how the team is structured</li>
-            <li>Your first five days, hour by hour</li>
-          </ul>
-        </div>
-        <div class="mod">
-          <div class="m"><span>02</span>The systems you will use every day</div>
-          <ul>
-            <li>Walkthrough of each core tool, recorded on screen</li>
-            <li>The three tasks new hires get wrong most often</li>
-          </ul>
-        </div>
-        <div class="mod">
-          <div class="m"><span>03</span>Policies, safety, and sign-off</div>
-          <ul>
-            <li>What is mandatory, what is guidance, and the difference</li>
-          </ul>
-        </div>
-      </div>
-      <div class="v-fade" aria-hidden="true"></div>
-    </div>
-
     <p class="just">A module-by-module plan for your program, plus <strong>one fixed price</strong> for the full build, in 2 business days. Yours to keep either way. <strong>Builds start at $3,000.</strong></p>
-
-    <a class="cta" href="#form">Get my free blueprint <span aria-hidden="true">&rarr;</span></a>
-    <p class="micro">No sales call. Reply within one business day.</p>
   </div>
 </section>
 
 <section class="form-sec" id="form">
   <div class="wrap">
-    <h2>Build my blueprint</h2>
     <div class="steps" aria-hidden="true">
       <span class="s on" data-dot="1"></span><span class="s" data-dot="2"></span><span class="s" data-dot="3"></span>
     </div>
@@ -277,9 +253,53 @@ form .cta { width: 100%; margin-top: 22px; }
       </div>
 
       <p class="err" id="step-err">Please fill this in before continuing.</p>
-      <p class="fine">Every build is hands-on, so we take a limited number each month.</p>
+      <p class="fine">No sales call. Reply within one business day. Every build is hands-on, so we take a limited number each month.</p>
       <p class="fine">We never share your details. <a href="/privacy">Privacy policy</a></p>
     </form>
+  </div>
+</section>
+
+<!-- what you get -->
+<section class="get-sec">
+  <div class="wrap">
+    <h2>What lands in your inbox</h2>
+    <p class="gh">A structured plan for your program: modules, lessons, and how each one is assessed. Built from your material, not a template.</p>
+
+    <div class="visual">
+      <div class="v-top">
+        <span class="t">Your course blueprint &mdash; sample</span>
+        <span class="tag">$300 value</span>
+      </div>
+      <div class="v-body">
+        <div class="mod">
+          <div class="m"><span>01</span>Welcome and what the first week looks like</div>
+          <ul>
+            <li>Who we are, how the team is structured</li>
+            <li>Your first five days, hour by hour</li>
+          </ul>
+        </div>
+        <div class="mod">
+          <div class="m"><span>02</span>The systems you will use every day</div>
+          <ul>
+            <li>Walkthrough of each core tool, recorded on screen</li>
+            <li>The three tasks new hires get wrong most often</li>
+          </ul>
+        </div>
+        <div class="mod">
+          <div class="m"><span>03</span>Policies, safety, and sign-off</div>
+          <ul>
+            <li>What is mandatory, what is guidance, and the difference</li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-fade" aria-hidden="true"></div>
+    </div>
+
+    <div class="gets">
+      <div class="g"><span>01</span><div><strong>One fixed price, before we start.</strong> No hourly billing, no scope creep.</div></div>
+      <div class="g"><span>02</span><div><strong>Lesson one built free.</strong> If the plan and price work, you judge a finished lesson before signing anything.</div></div>
+      <div class="g"><span>03</span><div><strong>SCORM-ready, and you own it.</strong> Full IP and editable source files on delivery.</div></div>
+    </div>
   </div>
 </section>
 

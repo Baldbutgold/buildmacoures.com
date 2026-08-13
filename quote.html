@@ -19,6 +19,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-17230784555');
+  gtag('config', 'G-94JEGG5QFE');
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -243,6 +244,35 @@ form .cta { width: 100%; margin-top: 22px; }
       if (g) { document.getElementById('gclid-field').value = g; sessionStorage.setItem('bmc_gclid', g); }
       else { var s = sessionStorage.getItem('bmc_gclid'); if (s) document.getElementById('gclid-field').value = s; }
     } catch(e) {}
+  })();
+
+  /* Funnel instrumentation. Three checkpoints tell us where people are lost:
+     scrolled to the offer, clicked the CTA, started filling the form.
+     The submit itself is measured by the conversion on /thanks. */
+  (function(){
+    function ev(name, params){ try { gtag('event', name, params || {}); } catch(e) {} }
+
+    var ctaTop = document.querySelector('.hero .cta');
+    if (ctaTop) ctaTop.addEventListener('click', function(){ ev('cta_click', { location: 'hero' }); });
+
+    var started = false;
+    var form = document.querySelector('form[name="course-quote"]');
+    if (form) {
+      form.addEventListener('focusin', function(){
+        if (!started) { started = true; ev('form_start'); }
+      });
+      form.addEventListener('submit', function(){ ev('form_submit'); });
+    }
+
+    var sawForm = false;
+    if ('IntersectionObserver' in window && form) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting && !sawForm) { sawForm = true; ev('form_viewed'); io.disconnect(); }
+        });
+      }, { threshold: 0.35 });
+      io.observe(form);
+    }
   })();
 </script>
 </body>
